@@ -1,0 +1,24 @@
+<%doc>
+    Copyright 2014 Jonas Platte
+
+    This file is part of the Cyvasse Online Webapp.
+
+    The Cyvasse Online Webapp is free software: you can redistribute it and/or modify it under the
+    terms of the GNU Affero General Public License as published by the Free Software Foundation,
+    either version 3 of the License, or (at your option) any later version.
+
+    The Cyvasse Online Webapp is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+    PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License along with this program.
+    If not, see <http://www.gnu.org/licenses/>.
+</%doc>
+Hi there! <br />
+<br />
+This web app will allow to play Cyvasse, a game described in <strong>A Song of Ice and Fire</strong>, somewhen. <br />
+It was created only recently, and it might take quite a while for this page to get real content. <br />
+<br />
+Until then, you can check out the <a>GitHub repository</a> and our <a>Trello board</a> (where all the planning happens). <br />
+<br />
+If you want to contact us, write an email to <a href='mailto:contact@cyvasse-online.com'>contact@cyvasse-online.com</a>.

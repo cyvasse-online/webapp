@@ -1,0 +1,67 @@
+<%doc>
+    Copyright 2014 Jonas Platte
+
+    This file is part of the Cyvasse Online Webapp.
+
+    The Cyvasse Online Webapp is free software: you can redistribute it and/or modify it under the
+    terms of the GNU Affero General Public License as published by the Free Software Foundation,
+    either version 3 of the License, or (at your option) any later version.
+
+    The Cyvasse Online Webapp is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+    PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+
+    You should have received a copy of the GNU Affero General Public License along with this program.
+    If not, see <http://www.gnu.org/licenses/>.
+</%doc>
+<%pre>
+	#include <tnt/httperror.h>
+	#include <tnt/savepoint.h>
+</%pre>
+<!DOCTYPE html>
+<html>
+	<head>
+		<%include>head.ecpp</%include>
+	</head>
+	<body>
+		<%include>page_header.ecpp</%include>
+		<section id='content'>
+			<%cpp>
+				// create savepoint
+				tnt::Savepoint savepoint(reply);
+
+				std::string content = request.getArg("content");
+				unsigned ret = HTTP_OK;
+
+				if(!content.empty() && content != "page")
+				{
+					try
+					{
+						// call content component
+						ret = callComp(content, request, reply, qparam);
+					}
+					catch(tnt::NotFoundException&)
+					{
+						ret = callComp("404", request, reply);
+					}
+					catch(std::runtime_error& e)
+					{
+						// when getting a runtime_error the reply could have been written to
+						// by the called component => roll it back through the savepoint
+						savepoint.rollback();
+
+						tnt::QueryParams errorParam;
+						errorParam.add("errorMessage", e.what());
+						ret = callComp("500", request, reply, errorParam);
+					}
+				}
+
+				// deactivate savepoint
+				savepoint.commit();
+			</%cpp>
+		</section>
+		<%include>page_footer.ecpp</%include>
+	</body>
+</html>
+
+%	return ret;
