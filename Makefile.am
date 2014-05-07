@@ -1,5 +1,8 @@
 AUTOMAKE_OPTIONS = subdir-objects
 
+AM_CXXFLAGS = \
+	-std=c++11
+
 bin_PROGRAMS = cyvasse-online
 
 cyvasse_online_ecpp_sources = \
@@ -15,9 +18,6 @@ cyvasse_online_SOURCES = \
 	$(cyvasse_online_ecpp_sources)
 
 nodist_cyvasse_online_SOURCES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp)
-
-cyvasse_online_CXXFLAGS = \
-	-std=c++11
 
 cyvasse_online_LDADD = \
 	-lcxxtools \
