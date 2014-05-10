@@ -15,4 +15,8 @@
     If not, see <http://www.gnu.org/licenses/>.
 </%doc>
 <footer id='page-footer'>
+	<div id='page-footer-left'>
+	</div>
+	<div id='page-footer-right'>
+	</div>
 </footer>

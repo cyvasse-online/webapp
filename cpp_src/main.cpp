@@ -14,19 +14,34 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <fstream>
+#include <iostream>
+#include <tnt/tntconfig.h>
 #include <tnt/tntnet.h>
-
-#include <cxxtools/log.h>
-log_define("cyvasse-online.main")
+#include <cxxtools/jsondeserializer.h>
 
 int main()
 {
 	try
 	{
 		tnt::Tntnet app;
-		//tnt::TntConfig& config = tnt::TntConfig::it();
+		tnt::TntConfig& config = tnt::TntConfig::it();
 
-		// TODO: read webapp-conf.json
+		std::ifstream in("webapp-conf.json");
+		if(!in)
+		{
+			std::cerr << "webapp-conf.json not found – did you run the "
+			             "webapp from the root of the build directory?"
+			          << std::endl;
+			exit(1);
+		}
+
+		cxxtools::JsonDeserializer deserializer(in);
+		deserializer.deserialize();
+		deserializer.si()->getMember("documentRoot")
+			.getValue(config.documentRoot);
+
+		in.close();
 
 		app.listen(2517);
 		app.setAppName("cyvasse-online");
@@ -42,7 +57,7 @@ int main()
 	}
 	catch(std::exception& e)
 	{
-		log_fatal(e.what());
+		std::cerr << e.what() << std::endl;
 		return 1;
 	}
 

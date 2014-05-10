@@ -1,0 +1,27 @@
+/* page layout */
+#page-header
+{
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 50px;
+}
+
+#page-content
+{
+	position: fixed;
+	top: 50px;
+	bottom: 20px;
+	left: 0;
+	right: 0;
+}
+
+#page-footer
+{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 20px;
+}
