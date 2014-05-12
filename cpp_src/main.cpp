@@ -20,10 +20,14 @@
 #include <tnt/tntnet.h>
 #include <cxxtools/jsondeserializer.h>
 
+#include <cxxtools/log.h>
+
 int main()
 {
 	try
 	{
+		log_init();
+
 		tnt::Tntnet app;
 		tnt::TntConfig& config = tnt::TntConfig::it();
 
@@ -37,21 +41,31 @@ int main()
 		}
 
 		cxxtools::JsonDeserializer deserializer(in);
+		std::string documentRoot, gameBuildDir;
 		deserializer.deserialize();
-		deserializer.si()->getMember("documentRoot")
-			.getValue(config.documentRoot);
+
+		deserializer.si()->getMember("documentRoot").getValue(documentRoot);
+		deserializer.si()->getMember("gameBuildDir").getValue(gameBuildDir);
 
 		in.close();
+
+		config.documentRoot = documentRoot;
 
 		app.listen(2517);
 		app.setAppName("cyvasse-online");
 
+		// setArg() and setting the documentRoot per
+		// mapping require the git version of tntnet
+
 		// static files
-		app.mapUrl("^/(.+)$", "static@tntnet").setPathInfo("$1");
+		app.mapUrl("^/cyvasse.js", "static@tntnet")
+			.setPathInfo("cyvasse.js")
+			.setArg("documentRoot", gameBuildDir);
+		app.mapUrl("^/(.+)$",      "static@tntnet").setPathInfo("$1");
 
 		// dynamic content
-		app.mapUrl("^/$",           "page").setArgs({{"content", "index"}});
-		app.mapUrl("^/match/(.*)$", "page").setArgs({{"content", "game"}});
+		app.mapUrl("^/$",           "page").setArg("content", "index");
+		app.mapUrl("^/match/(.*)$", "page").setArg("content", "game");
 
 		app.run();
 	}

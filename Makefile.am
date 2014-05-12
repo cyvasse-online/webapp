@@ -9,6 +9,7 @@ cyvasse_online_ecpp_sources = \
 	404.ecpp \
 	500.ecpp \
 	index.ecpp \
+	game.ecpp \
 	page.ecpp
 
 BUILT_SOURCES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp)
