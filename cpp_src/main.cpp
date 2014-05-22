@@ -20,36 +20,15 @@
 #include <tnt/tntnet.h>
 #include <cxxtools/jsondeserializer.h>
 
-#include <cxxtools/log.h>
-
 int main()
 {
 	try
 	{
-		log_init();
-
 		tnt::Tntnet app;
 		tnt::TntConfig& config = tnt::TntConfig::it();
 
-		std::ifstream in("webapp-conf.json");
-		if(!in)
-		{
-			std::cerr << "webapp-conf.json not found – did you run the "
-			             "webapp from the root of the build directory?"
-			          << std::endl;
-			exit(1);
-		}
-
-		cxxtools::JsonDeserializer deserializer(in);
-		std::string documentRoot, gameBuildDir;
-		deserializer.deserialize();
-
-		deserializer.si()->getMember("documentRoot").getValue(documentRoot);
-		deserializer.si()->getMember("gameBuildDir").getValue(gameBuildDir);
-
-		in.close();
-
-		config.documentRoot = documentRoot;
+		// still relying on the webapp being executed from top_builddir
+		config.documentRoot = "static";
 
 		app.listen(2517);
 		app.setAppName("cyvasse-online");
@@ -60,7 +39,7 @@ int main()
 		// static files
 		app.mapUrl("^/cyvasse.js", "static@tntnet")
 			.setPathInfo("cyvasse.js")
-			.setArg("documentRoot", gameBuildDir);
+			.setArg("documentRoot", "game"); // relying on working directory here too
 		app.mapUrl("^/(.+)$",      "static@tntnet").setPathInfo("$1");
 
 		// dynamic content
