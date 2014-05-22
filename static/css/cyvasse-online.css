@@ -1,15 +1,15 @@
 /* page layout */
-#page-header
-{
+#page-header {
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
 	height: 50px;
+
+	border-bottom: 1px solid #333;
 }
 
-#page-content
-{
+#page-wrap {
 	position: fixed;
 	top: 50px;
 	bottom: 20px;
@@ -19,11 +19,28 @@
 	overflow-x: auto;
 }
 
-#page-footer
-{
+#page-footer {
 	position: fixed;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	height: 20px;
+
+	border-top: 1px solid #333;
+}
+
+/** inside #page-header **/
+#logo {
+	padding-left: 15px;
+	line-height: 50px; /* can be removed if the text is replaced with a graphic */
+}
+
+/** inside #page-wrap **/
+#page-content {
+	padding: 10px;
+}
+
+/* general styling */
+a {
+	text-decoration: none;
 }

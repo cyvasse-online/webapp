@@ -15,4 +15,5 @@
     If not, see <http://www.gnu.org/licenses/>.
 </%doc>
 <header id='page-header'>
+	<a href='/' id='logo'>Cyvasse Online</a>
 </header>
