@@ -21,6 +21,9 @@ Makefile.in
 # Compiled files
 
 cyvasse-online
+## not compiled in this package, but
+## normally copied / linked from cyvasse-game
+cyvasse.js
 
 **/src/ecpp/*.cpp
 
