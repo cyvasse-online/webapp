@@ -11,8 +11,9 @@
 
 #page-wrap {
 	position: fixed;
-	top: 50px;
-	bottom: 20px;
+	/* one additional pixel because of the 1px border */
+	top: 51px;
+	bottom: 21px;
 	left: 0;
 	right: 0;
 
