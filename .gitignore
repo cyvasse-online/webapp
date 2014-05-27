@@ -9,8 +9,11 @@ missing
 
 **/m4/*.m4
 
+## symlinks
 static
 !/src/static
+news.yml
+!/src/news/news.yml
 
 .deps
 config.log
@@ -28,6 +31,7 @@ cyvasse.js
 **/src/ecpp/*.cpp
 
 *.deps
+*.html
 *.o
 
 # Other

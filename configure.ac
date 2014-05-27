@@ -11,7 +11,18 @@ AC_CHECK_HEADER([tnt/tntnet.h], [], AC_MSG_ERROR([tntnet headers not found]))
 AC_CHECK_HEADER([tntdb/connection.h], [], AC_MSG_ERROR([tntdb headers not found]))
 AC_PROG_SED
 
-AC_CONFIG_FILES([Makefile])
-AC_CONFIG_LINKS([static:$srcdir/src/static])
+# simply a markdown implementation available in the
+# arch linux community repo which I had installed
+AC_CHECK_PROGS(MARKDOWN, [markdown_py])
+
+AC_CONFIG_FILES([
+	Makefile
+	src/Makefile
+	src/news/Makefile
+])
+AC_CONFIG_LINKS([
+	static:$srcdir/src/static
+	news.yml:$srcdir/src/news/news.yml
+])
 
 AC_OUTPUT

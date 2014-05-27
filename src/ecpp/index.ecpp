@@ -14,6 +14,11 @@
     You should have received a copy of the GNU Affero General Public License along with this program.
     If not, see <http://www.gnu.org/licenses/>.
 </%doc>
+<%pre>
+	#include <fstream>
+	#include <iostream>
+	#include <yaml-cpp/yaml.h>
+</%pre>
 <div id='page-content'>
 	Hi there! <br />
 	<br />
@@ -23,4 +28,27 @@
 	Until then, you can check out the <a href='https://github.com/cyvasse-online'>GitHub repositories</a> and our <a href='https://trello.com/cyvasseonline'>Trello board</a> (where all the planning happens). <br />
 	<br />
 	If you want to contact us, write an email to <a href='mailto:contact@cyvasse-online.com'>contact@cyvasse-online.com</a>.
+	<br />
+
+	<h1>News</h1>
+	<%cpp>
+		// TODO: Check for Node types
+		YAML::Node posts = YAML::LoadFile("news.yml");
+
+		// for now, simply show all news
+		for(const YAML::Node& node : posts)
+		{
+			std::string filename = "src/news/" + node["filename"].as<std::string>();
+			std::ifstream ifs(filename, std::ifstream::in);
+
+			if(ifs)
+			{
+				reply.out() << "<h2>" << node["title"].as<std::string>() << "</h2>\n";
+				reply.out() << ifs.rdbuf();
+
+				ifs.close();
+			}
+			//else?
+		}
+	</%cpp>
 </div>
