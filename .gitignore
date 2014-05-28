@@ -7,8 +7,6 @@ depcomp
 install-sh
 missing
 
-**/m4/*.m4
-
 ## symlinks
 static
 !/src/static
