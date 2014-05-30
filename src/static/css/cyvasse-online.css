@@ -28,6 +28,9 @@
 	height: 20px;
 
 	border-top: 1px solid #333;
+
+	font-size: 0.8em;
+	line-height: 20px;
 }
 
 /** inside #page-header **/
@@ -39,6 +42,15 @@
 /** inside #page-wrap **/
 #page-content {
 	padding: 10px;
+}
+
+/** inside #page-footer **/
+#page-footer-left {
+	margin-left: 2px;
+}
+
+#page-footer-right {
+	margin-right: 2px;
 }
 
 /* general styling */

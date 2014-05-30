@@ -16,6 +16,7 @@
 </%doc>
 <footer id='page-footer'>
 	<div id='page-footer-left'>
+		<a href='https://github.com/cyvasse-online'>GitHub</a>
 	</div>
 	<div id='page-footer-right'>
 	</div>
