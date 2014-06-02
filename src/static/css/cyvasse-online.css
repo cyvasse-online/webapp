@@ -1,30 +1,25 @@
 /* page layout */
-#page-header {
+#page-header, #page-wrap, #page-footer {
 	position: fixed;
-	top: 0;
 	left: 0;
 	right: 0;
+}
+
+#page-header {
+	top: 0;
 	height: 50px;
 
 	border-bottom: 1px solid #333;
 }
 
 #page-wrap {
-	position: fixed;
 	/* one additional pixel because of the 1px border */
 	top: 51px;
 	bottom: 21px;
-	left: 0;
-	right: 0;
-
-	overflow-x: auto;
 }
 
 #page-footer {
-	position: fixed;
 	bottom: 0;
-	left: 0;
-	right: 0;
 	height: 20px;
 
 	border-top: 1px solid #333;
@@ -40,8 +35,20 @@
 }
 
 /** inside #page-wrap **/
-#page-content {
+#page-content, #side-pane {
+	height: 100%;
 	padding: 10px;
+	float: left;
+}
+
+#page-content {
+	width: 70%;
+
+	overflow-x: auto;
+}
+
+#side-pane {
+	width: 30%;
 }
 
 /** inside #page-footer **/
@@ -54,6 +61,12 @@
 }
 
 /* general styling */
+*, *:before, *:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
 a {
 	text-decoration: none;
 }

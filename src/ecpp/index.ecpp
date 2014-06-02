@@ -52,3 +52,4 @@
 		}
 	</%cpp>
 </div>
+<%include>side_pane.ecpp</%include>

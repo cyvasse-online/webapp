@@ -18,6 +18,7 @@
 #include <iostream>
 #include <tnt/tntconfig.h>
 #include <tnt/tntnet.h>
+#include <cxxtools/log.h>
 #include <cxxtools/jsondeserializer.h>
 
 int main()
@@ -43,8 +44,9 @@ int main()
 		app.mapUrl("^/(.+)$",      "static@tntnet").setPathInfo("$1");
 
 		// dynamic content
-		app.mapUrl("^/$",           "page").setArg("content", "index");
-		app.mapUrl("^/match/(.*)$", "page").setArg("content", "game");
+		app.mapUrl("^/$",              "page").setArg("content", "index");
+		app.mapUrl("^/match/create",   "page").setArg("content", "create");
+		app.mapUrl("^/match/(.{10})$", "page").setArg("content", "game");
 
 		app.run();
 	}
