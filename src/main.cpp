@@ -38,10 +38,7 @@ int main()
 		// mapping require the git version of tntnet
 
 		// static files
-		app.mapUrl("^/cyvasse.js", "static@tntnet")
-			.setPathInfo("cyvasse.js")
-			.setArg("documentRoot", "game"); // relying on working directory here too
-		app.mapUrl("^/(.+)$",      "static@tntnet").setPathInfo("$1");
+		app.mapUrl("^/(.+)$", "static@tntnet").setPathInfo("$1");
 
 		// dynamic content
 		app.mapUrl("^/$",              "page").setArg("content", "index");

@@ -91,17 +91,6 @@
 		height: 20px;
 		width: 30px;
 	}
-
-	#output {
-		width: 80%;
-		height: 200px;
-		margin: 0 auto;
-		display: block;
-		background-color: black;
-		color: white;
-		font-family: 'Lucida Console', Monaco, monospace;
-		outline: none;
-	}
 </style>
 
 <div id='game-wrap'>
@@ -115,7 +104,6 @@
 	</div>
 
 	<canvas class='emscripten' id='canvas' oncontextmenu='event.preventDefault()'></canvas>
-	<textarea id='output' rows='8'></textarea>
 </div>
 
 <script src='/load-game.js'></script>

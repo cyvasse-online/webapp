@@ -5,25 +5,10 @@ var spinnerElement = document.getElementById('spinner');
 var Module = {
 	preRun: [],
 	postRun: [],
-	print: (function() {
-		var element = document.getElementById('output');
-		if (element) element.value = ''; // clear browser cache
-		return function(text) {
-			text = Array.prototype.slice.call(arguments).join(' ');
-			// These replacements are necessary if you render to raw HTML
-			//text = text.replace(/&/g, "&amp;");
-			//text = text.replace(/</g, "&lt;");
-			//text = text.replace(/>/g, "&gt;");
-			//text = text.replace('\n', '<br>', 'g');
-			console.log(text);
-			if (element) {
-				element.value += text + "\n";
-				element.scrollTop = element.scrollHeight; // focus on bottom
-			}
-		};
-	})(),
+	print: function(text) {
+		console.log(text);
+	},
 	printErr: function(text) {
-		text = Array.prototype.slice.call(arguments).join(' ');
 		console.error(text);
 	},
 	canvas: document.getElementById('canvas'),
@@ -52,7 +37,8 @@ var Module = {
 		this.totalDependencies = Math.max(this.totalDependencies, left);
 		Module.setStatus(left ? 'Preparing... (' + (this.totalDependencies-left) + '/' + this.totalDependencies + ')'
 			: 'All downloads complete.');
-	}
+	},
+	filePackagePrefixURL: '/'
 };
 Module.setStatus('Downloading...');
 window.onerror = function() {
