@@ -26,6 +26,7 @@ cyvasse-online
 ## normally copied / linked from cyvasse-game
 cyvasse.data
 cyvasse.js
+cyvasse.js.mem
 
 **/src/ecpp/*.cpp
 
