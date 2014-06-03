@@ -106,5 +106,5 @@
 	<canvas class='emscripten' id='canvas' oncontextmenu='event.preventDefault()'></canvas>
 </div>
 
-<script src='/load-game.js'></script>
+<script src='/js/load-game.js'></script>
 <script src='/cyvasse.js' async></script>

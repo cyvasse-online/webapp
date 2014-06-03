@@ -14,6 +14,11 @@
     You should have received a copy of the GNU Affero General Public License along with this program.
     If not, see <http://www.gnu.org/licenses/>.
 </%doc>
+<style scoped>
+	#side-pane {
+		border-right: 1px solid #333;
+	}
+</style>
 <%include>side_pane.ecpp</%include>
 <div id='page-content'>
 	Here, you'll see some explanation of the rule set soon :)

@@ -18,7 +18,13 @@
 	<h2>Create a match</h2>
 
 	Rule set
-	<select>
-		<option value="mikelepage">Mike Le Page's rule set</option>
+	<select id='create-match-rule-set'>
+		<option value='mikelepage' size='2'>Mike Le Page's rule set</option>
 	</select>
+
+	<br /><br />
+
+	<button id='create-match-submit-public' disabled>Create public match</button>
+	<button id='create-match-submit-private'>Create private match</button>
 </aside>
+<script>setupCreateMatchHandlers()</script>

@@ -16,40 +16,66 @@
 </%doc>
 <%pre>
 	#include <fstream>
-	#include <iostream>
+	#include <tnt/savepoint.h>
 	#include <yaml-cpp/yaml.h>
 </%pre>
 <div id='page-content'>
 	Hi there! <br />
 	<br />
 	This web app will allow to play Cyvasse, a game described in <strong>A Song of Ice and Fire</strong>, somewhen. <br />
-	It was created only recently, and it might take quite a while for this page to get real content. <br />
+	The side pane to the right will already let you go to the game in its current state, but this is work in progess so don't expect anything to be completed. <br />
 	<br />
-	Until then, you can check out the <a href='https://github.com/cyvasse-online'>GitHub repositories</a> and our <a href='https://trello.com/cyvasseonline'>Trello board</a> (where all the planning happens). <br />
+	If you are curious about the development, you can check out our <a href='https://github.com/cyvasse-online'>GitHub repositories</a> and our <a href='https://trello.com/cyvasseonline'>Trello board</a>. <br />
 	<br />
-	If you want to contact us, write an email to <a href='mailto:contact@cyvasse-online.com'>contact@cyvasse-online.com</a>.
-	<br />
+	If you want to contact us, write an email to <a href='mailto:contact@cyvasse-online.com'>contact@cyvasse-online.com</a>.<br />
+
+%	tnt::Savepoint save1(reply);
 
 	<h1>News</h1>
 	<%cpp>
-		// TODO: Check for Node types
-		YAML::Node posts = YAML::LoadFile("news.yml");
-
-		// for now, simply show all news
-		for(const YAML::Node& node : posts)
+		try
 		{
-			std::string filename = "src/news/" + node["filename"].as<std::string>();
-			std::ifstream ifs(filename, std::ifstream::in);
+			YAML::Node posts = YAML::LoadFile("news.yml");
 
-			if(ifs)
+			// for now, simply show all news
+			for(const YAML::Node& node : posts)
 			{
-				reply.out() << "<h2>" << node["title"].as<std::string>() << "</h2>\n";
-				reply.out() << ifs.rdbuf();
+				tnt::Savepoint save2(reply);
 
-				ifs.close();
+				try
+				{
+					std::string filename = "src/news/" + node["filename"].as<std::string>();
+					std::ifstream ifs(filename, std::ifstream::in);
+
+					if(ifs)
+					{
+						reply.out() << "<h2>" << node["title"].as<std::string>() << "</h2>\n";
+						reply.out() << ifs.rdbuf();
+
+						ifs.close();
+					}
+				}
+				catch(YAML::Exception& e)
+				{
+					// TODO: log error
+					save2.rollback();
+				}
+
+				save2.commit();
 			}
-			//else?
 		}
+		catch(YAML::Exception& e)
+		{
+			// TODO: log error
+			save1.rollback();
+		}
+
+		save1.commit();
 	</%cpp>
 </div>
+<style scoped>
+	#side-pane {
+		border-left: 1px solid #333;
+	}
+</style>
 <%include>side_pane.ecpp</%include>
