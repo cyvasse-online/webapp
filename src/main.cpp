@@ -41,9 +41,9 @@ int main()
 		app.mapUrl("^/(.+)$", "static@tntnet").setPathInfo("$1");
 
 		// dynamic content
-		app.mapUrl("^/$",              "page").setArg("content", "index");
-		app.mapUrl("^/match/create",   "page").setArg("content", "create");
-		app.mapUrl("^/match/(.{10})$", "page").setArg("content", "game");
+		app.mapUrl("^/$",             "page").setArg("content", "index");
+		app.mapUrl("^/match/create",  "page").setArg("content", "create");
+		app.mapUrl("^/match/(.{4})$", "page").setArg("content", "game");
 
 		app.run();
 	}
