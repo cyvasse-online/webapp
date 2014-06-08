@@ -17,12 +17,17 @@
 <aside id='side-pane'>
 	<h2>Create a match</h2>
 
-	Rule set
-	<select id='create-match-rule-set'>
-		<option value='mikelepage' size='2'>Mike Le Page's rule set</option>
+	Rule set<br />
+	<select id='create-match-rule-set' size='2'>
+		<option value='mikelepage'>Mike Le Page's rule set</option>
 	</select>
 
 	<br /><br />
+
+	<input type='radio' id='color-white' name='color' value='white'> <label for='color-white'>White</label><br />
+	<input type='radio' id='color-black' name='color' value='black'> <label for='color-black'>Black</label><br />
+
+	<br />
 
 	<button id='create-match-submit-public' disabled>Create public match</button>
 	<button id='create-match-submit-private'>Create private match</button>
