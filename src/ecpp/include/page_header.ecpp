@@ -86,5 +86,10 @@
 		<progress value='0' max='100' id='progress' hidden></progress>
 	</div>
 %	}
-
 </header>
+
+<noscript>
+	<div id='noscript-warning'>
+		To be able to play, you have to enable JavaScript.
+	</div>
+</noscript>
