@@ -1,7 +1,7 @@
-function setupCreateMatchHandlers()
+function setupCreateGameHandlers()
 {
-	$("#create-match-submit-private").click(function() {
-		ruleSet = $("#create-match-rule-set").val();
+	$("#create-game-submit-private").click(function() {
+		ruleSet = $("#create-game-rule-set").val();
 		color   = $("input:radio[name=color]:checked").val();
 		if(ruleSet == null || color == null)
 			return;
@@ -28,4 +28,4 @@ function setupCreateMatchHandlers()
 			// else
 		};
 	});
-} // setupCreateMatchHandlers
+} // setupCreateGameHandlers

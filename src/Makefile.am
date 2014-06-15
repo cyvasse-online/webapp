@@ -13,12 +13,15 @@ cyvasse_online_ecpp_sources = \
 	ecpp/create.ecpp \
 	ecpp/index.ecpp \
 	ecpp/game.ecpp \
-	ecpp/page.ecpp
+	ecpp/page.ecpp \
+	ecpp/page.json.ecpp
 
 BUILT_SOURCES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp)
 
 cyvasse_online_SOURCES = \
 	main.cpp \
+	pagemeta_reader.cpp \
+	pagemeta_reader.hpp \
 	$(cyvasse_online_ecpp_sources)
 
 nodist_cyvasse_online_SOURCES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp)
@@ -26,6 +29,7 @@ nodist_cyvasse_online_SOURCES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp)
 cyvasse_online_LDADD = \
 	-lcxxtools \
 	-ltntnet \
+	-ljsoncpp \
 	-lyaml-cpp
 
 CLEANFILES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp) $(cyvasse_online_ecpp_sources:.ecpp=.deps)

@@ -15,6 +15,7 @@
     If not, see <http://www.gnu.org/licenses/>.
 </%doc>
 <%pre>
+	#include <cassert>
 	#include <tnt/httperror.h>
 	#include <tnt/savepoint.h>
 </%pre>
@@ -31,18 +32,29 @@
 				tnt::Savepoint savepoint(reply);
 
 				std::string content = request.getArg("content");
-				unsigned ret = HTTP_OK;
+				unsigned ret = HTTP_INTERNAL_SERVER_ERROR;
 
-				if(!content.empty() && content != "page")
+				// handle all pages that mustn't be called by url here
+				if(content == "page" ||
+				   content == "page.json" ||
+				   content == "404" ||
+				   content == "500")
+				{
+					ret = callComp("404", request, reply);
+					assert(ret == HTTP_NOT_FOUND);
+				}
+				else
 				{
 					try
 					{
 						// call content component
 						ret = callComp(content, request, reply, qparam);
+						assert(ret == HTTP_OK);
 					}
 					catch(tnt::NotFoundException&)
 					{
 						ret = callComp("404", request, reply);
+						assert(ret == HTTP_NOT_FOUND);
 					}
 					catch(std::runtime_error& e)
 					{
@@ -53,6 +65,7 @@
 						tnt::QueryParams errorParam;
 						errorParam.add("errorMessage", e.what());
 						ret = callComp("500", request, reply, errorParam);
+						assert(ret == HTTP_INTERNAL_SERVER_ERROR);
 					}
 				}
 

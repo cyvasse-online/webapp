@@ -15,10 +15,10 @@
     If not, see <http://www.gnu.org/licenses/>.
 </%doc>
 <aside id='side-pane'>
-	<h2>Create a match</h2>
+	<h2>Create a new game</h2>
 
 	Rule set<br />
-	<select id='create-match-rule-set' size='2'>
+	<select id='create-game-rule-set' size='2'>
 		<option value='mikelepage'>Mike Le Page's rule set</option>
 	</select>
 
@@ -29,7 +29,7 @@
 
 	<br />
 
-	<button id='create-match-submit-public' disabled>Create public match</button>
-	<button id='create-match-submit-private'>Create private match</button>
+	<button id='create-game-submit-public' disabled>Create public game</button>
+	<button id='create-game-submit-private'>Create private game</button>
 </aside>
-<script>setupCreateMatchHandlers()</script>
+<script>setupCreateGameHandlers()</script>

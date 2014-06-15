@@ -8,6 +8,8 @@ AC_LANG(C++)
 AC_CHECK_PROGS(ECPPC, [ecppc])
 AC_CHECK_HEADER([tnt/tntnet.h], [], AC_MSG_ERROR([tntnet headers not found]))
 AC_CHECK_HEADER([tntdb/connection.h], [], AC_MSG_ERROR([tntdb headers not found]))
+AC_CHECK_HEADER([jsoncpp/json/json.h], [], AC_MSG_ERROR([jsoncpp headers not found]))
+AC_CHECK_HEADER([yaml-cpp/yaml.h], [], AC_MSG_ERROR([yaml-cpp headers not found]))
 AC_PROG_SED
 
 # simply a markdown implementation available in the
@@ -22,6 +24,7 @@ AC_CONFIG_FILES([
 AC_CONFIG_LINKS([
 	static:$srcdir/src/static
 	news.yml:$srcdir/src/news/news.yml
+	pagemeta.yml:$srcdir/src/pagemeta.yml
 ])
 
 AC_OUTPUT
