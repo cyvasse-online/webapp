@@ -17,7 +17,6 @@
 <header id='page-header'>
 	<a href='/' id='logo'>Cyvasse Online</a>
 
-%	if(request.getArg("content") == "game") {
 	<style scoped>
 		#emscripten-header {
 			position: absolute;
@@ -79,13 +78,12 @@
 			width: 30px;
 		}
 	</style>
-	<div id='emscripten-header'>
+	<div id='emscripten-header' style='display: none'>
 		<div id='spinner'></div>
 		<div id='status'>Downloading...</div>
 
 		<progress value='0' max='100' id='progress' hidden></progress>
 	</div>
-%	}
 </header>
 
 <noscript>

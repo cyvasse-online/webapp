@@ -44,8 +44,8 @@ int main()
 		app.mapUrl("^/$",                       "page"  ).setArg("content", "index");
 		app.mapUrl("^/index(\\.json)?",         "page$1").setArg("content", "index");
 		app.mapUrl("^/index\\.htm(l)?",         "page"  ).setArg("content", "index");
-		app.mapUrl("^/match/create(\\.json)?",  "page$1").setArg("content", "create");
-		app.mapUrl("^/match/(.{4})(\\.json)?$", "page$1").setArg("content", "game");
+		app.mapUrl("^/match/create(\\.json)?$", "page$1").setArg("content", "create");
+		app.mapUrl("^/match/.{4}(\\.json)?$",   "page$1").setArg("content", "game");
 
 		app.run();
 	}
