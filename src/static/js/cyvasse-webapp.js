@@ -28,7 +28,7 @@ var Module = {
 			progressElement.value = null;
 			progressElement.max = null;
 			progressElement.hidden = true;
-			if(!text) spinnerElement.style.display = "none";
+			if(!text) spinnerElement.hide();
 		}
 		statusElement.innerHTML = text;
 	},
