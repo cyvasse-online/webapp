@@ -13,12 +13,12 @@ var Module = {
 	},
 	canvas: document.getElementById("canvas"),
 	setStatus: function(text) {
-		if (!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: "" };
-		if (text === Module.setStatus.text) return;
+		if(!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: "" };
+		if(text === Module.setStatus.text) return;
 		var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
 		var now = Date.now();
-		if (m && now - Date.now() < 30) return; // if this is a progress update, skip it if too soon
-		if (m) {
+		if(m && now - Date.now() < 30) return; // if this is a progress update, skip it if too soon
+		if(m) {
 			text = m[1];
 			progressElement.value = parseInt(m[2])*100;
 			progressElement.max = parseInt(m[4])*100;
@@ -28,7 +28,7 @@ var Module = {
 			progressElement.value = null;
 			progressElement.max = null;
 			progressElement.hidden = true;
-			if (!text) spinnerElement.style.display = "none";
+			if(!text) spinnerElement.style.display = "none";
 		}
 		statusElement.innerHTML = text;
 	},

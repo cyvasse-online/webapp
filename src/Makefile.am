@@ -13,13 +13,13 @@ cyvasse_online_ecpp_sources = \
 	ecpp/create.ecpp \
 	ecpp/index.ecpp \
 	ecpp/game.ecpp \
-	ecpp/page.ecpp \
-	ecpp/page.json.ecpp
+	ecpp/page.ecpp
 
 BUILT_SOURCES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp)
 
 cyvasse_online_SOURCES = \
 	main.cpp \
+	page-json.cpp \
 	pagemeta_reader.cpp \
 	pagemeta_reader.hpp \
 	$(cyvasse_online_ecpp_sources)

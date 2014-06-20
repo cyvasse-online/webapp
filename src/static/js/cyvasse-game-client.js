@@ -47,14 +47,14 @@ CyvasseGameClient.prototype.handlemessage = function(msgObj) {
         }
 
         switch(answeredRequest.action) {
-        case "create game":
-            this.loadNewPage("/match/" + msgObj.data.matchID);
-            this.playerID = msgObj.data.playerID;
-            // TODO: move this to cyvasse-webapp.js
-            $("#emscripten-header").show();
-            $.getScript("/cyvasse.js", function() {
-                Module.canvas = document.getElementById("canvas");
-            });
+            case "create game":
+                this.loadNewPage("/match/" + msgObj.data.matchID);
+                this.playerID = msgObj.data.playerID;
+                // TODO: move this to cyvasse-webapp.js
+                $("#emscripten-header").show();
+                $.getScript("/cyvasse.js", function() {
+                    Module.canvas = document.getElementById("canvas");
+                });
         }
     }
     else {
