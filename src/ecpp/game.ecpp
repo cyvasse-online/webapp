@@ -31,3 +31,10 @@
 <div id='game-wrap'>
 	<canvas class='emscripten' id='canvas' oncontextmenu='event.preventDefault()'></canvas>
 </div>
+
+<script>
+    initializeGameClient();
+    gameClient.conn.onopen = function() {
+        gameClient.joinGame(getMatchID(document.location.href));
+    };
+</script>

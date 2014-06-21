@@ -1,3 +1,9 @@
+function loadGameJS() {
+    $.getScript("/cyvasse.js", function() {
+        Module.canvas = document.getElementById("canvas");
+    });
+}
+
 function CyvasseGameClient(websockConn, loadNewPage) {
     if(websockConn instanceof WebSocket === false) {
         throw new TypeError("websockConn has to be a WebSocket instance");
@@ -10,6 +16,7 @@ function CyvasseGameClient(websockConn, loadNewPage) {
     this.loadNewPage = loadNewPage;
     this.nextMessageID = 1;
     this.awaitingReply = [];
+    this.gameData = {};
 
     var self = this;
 
@@ -49,12 +56,15 @@ CyvasseGameClient.prototype.handlemessage = function(msgObj) {
         switch(answeredRequest.action) {
             case "create game":
                 this.loadNewPage("/match/" + msgObj.data.matchID);
-                this.playerID = msgObj.data.playerID;
+                this.gameData.playerID = msgObj.data.playerID;
                 // TODO: move this to cyvasse-webapp.js
                 $("#emscripten-header").show();
-                $.getScript("/cyvasse.js", function() {
-                    Module.canvas = document.getElementById("canvas");
-                });
+                loadGameJS();
+                break;
+            case "join game":
+                this.gameData.playerID = msgObj.data.playerID;
+                this.gameData.color = msgObj.data.color;
+                loadGameJS();
         }
     }
     else {
@@ -63,9 +73,32 @@ CyvasseGameClient.prototype.handlemessage = function(msgObj) {
 };
 
 CyvasseGameClient.prototype.send = function(msgObj) {
+    this.conn.send(JSON.stringify(msgObj));
+    this.awaitingReply.push(msgObj);
+};
+
+CyvasseGameClient.prototype.sendRequest = function(msgObj) {
     msgObj.messageType = "request";
     msgObj.messageID = this.nextMessageID++;
 
-    this.conn.send(JSON.stringify(msgObj));
-    this.awaitingReply.push(msgObj);
+    this.send(msgObj);
+};
+
+CyvasseGameClient.prototype.createGame = function(ruleSet, color) {
+    this.sendRequest({
+        "action": "create game",
+        "param": {
+            "ruleSet": ruleSet,
+            "color": color
+        }
+    });
+};
+
+CyvasseGameClient.prototype.joinGame = function(matchID) {
+    this.sendRequest({
+        "action": "join game",
+        "param": {
+            "matchID": matchID
+        }
+    });
 };
