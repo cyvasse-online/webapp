@@ -41,7 +41,7 @@ var Module = {
 	filePackagePrefixURL: "/"
 };
 
-function loadPage(url) {
+function loadPage(url, success) {
 	if(typeof(url) !== "string" && url instanceof String === false) {
 		throw new TypeError("url has to be a string");
 	}
@@ -49,6 +49,9 @@ function loadPage(url) {
 	$.getJSON(url + ".json", function(reply) {
 		History.pushState(null, reply.title, url);
 		$("#page-wrap").html(reply.content);
+		if(typeof(success) === "function") {
+			success();
+		}
 	});
 }
 

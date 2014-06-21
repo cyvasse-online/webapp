@@ -1,9 +1,3 @@
-function loadGameJS() {
-    $.getScript("/cyvasse.js", function() {
-        Module.canvas = document.getElementById("canvas");
-    });
-}
-
 function CyvasseGameClient(websockConn, loadNewPage) {
     if(websockConn instanceof WebSocket === false) {
         throw new TypeError("websockConn has to be a WebSocket instance");
@@ -55,16 +49,19 @@ CyvasseGameClient.prototype.handlemessage = function(msgObj) {
 
         switch(answeredRequest.action) {
             case "create game":
-                this.loadNewPage("/match/" + msgObj.data.matchID);
                 this.gameData.playerID = msgObj.data.playerID;
-                // TODO: move this to cyvasse-webapp.js
-                $("#emscripten-header").show();
-                loadGameJS();
+                this.loadNewPage("/match/" + msgObj.data.matchID, function() {
+                    Module.canvas = document.getElementById("canvas");
+                    $.getScript("/cyvasse.js");
+                    // TODO: move this to cyvasse-webapp.js
+                    $("#emscripten-header").show();
+                });
                 break;
             case "join game":
                 this.gameData.playerID = msgObj.data.playerID;
                 this.gameData.color = msgObj.data.color;
-                loadGameJS();
+                Module.canvas = document.getElementById("canvas");
+                $.getScript("/cyvasse.js");
         }
     }
     else {
