@@ -1,4 +1,14 @@
-function CyvasseGameClient(websockConn, loadNewPage) {
+function loadCyvasseJs() {
+    Module.canvas = document.getElementById("canvas");
+    emscriptenHeader.show();
+    $.ajax({
+        url: "/cyvasse.js",
+        dataType: "script",
+        cache: true
+    });
+}
+
+function CyvasseWSClient(websockConn, loadNewPage) {
     if(websockConn instanceof WebSocket === false) {
         throw new TypeError("websockConn has to be a WebSocket instance");
     }
@@ -24,10 +34,11 @@ function CyvasseGameClient(websockConn, loadNewPage) {
 	};
 }
 
-CyvasseGameClient.prototype.handleMessage = function(msgData) {
+CyvasseWSClient.prototype.handleMessage = function(msgData) {
     var msgObj = JSON.parse(msgData);
 
     if(msgObj.messageType === "request") {
+        console.log("Got a request from the server; can't handle that yet.");
     }
     else if(msgObj.messageType === "reply") {
         var answeredRequest;
@@ -52,22 +63,18 @@ CyvasseGameClient.prototype.handleMessage = function(msgData) {
             case "create game":
                 this.gameData.playerID = msgObj.data.playerID;
                 this.loadNewPage("/match/" + msgObj.data.matchID, function() {
-                    Module.canvas = document.getElementById("canvas");
-                    $.getScript("/cyvasse.js");
-                    // TODO: move this to cyvasse-webapp.js
-                    $("#emscripten-header").show();
+                    loadCyvasseJs();
                 });
                 break;
             case "join game":
                 this.gameData.playerID = msgObj.data.playerID;
                 this.gameData.color = msgObj.data.color;
-                Module.canvas = document.getElementById("canvas");
-                $.getScript("/cyvasse.js");
+                loadCyvasseJs();
                 break;
             default:
                 if(this.handleMessageIngame === undefined) {
                     console.log("Got a message for the game before it was loaded, caching.");
-                    cachedIngameRequests.push(msgData);
+                    this.cachedIngameRequests.push(msgData);
                 }
                 else {
                     if(typeof(this.handleMessageIngame) !== "function") {
@@ -83,19 +90,26 @@ CyvasseGameClient.prototype.handleMessage = function(msgData) {
     }
 };
 
-CyvasseGameClient.prototype.send = function(msgObj) {
+CyvasseWSClient.prototype.send = function(msgObj) {
     this.conn.send(JSON.stringify(msgObj));
     this.awaitingReply.push(msgObj);
 };
 
-CyvasseGameClient.prototype.sendRequest = function(msgObj) {
+CyvasseWSClient.prototype.sendRequest = function(msgObj) {
     msgObj.messageType = "request";
     msgObj.messageID = this.nextMessageID++;
 
     this.send(msgObj);
 };
 
-CyvasseGameClient.prototype.createGame = function(ruleSet, color) {
+CyvasseWSClient.prototype.sendReply = function(request, msgObj) {
+    msgObj.messageType = "reply";
+    msgObj.messageID = request.messageID;
+
+    this.send(msgObj);
+};
+
+CyvasseWSClient.prototype.createGame = function(ruleSet, color) {
     this.sendRequest({
         "action": "create game",
         "param": {
@@ -105,7 +119,7 @@ CyvasseGameClient.prototype.createGame = function(ruleSet, color) {
     });
 };
 
-CyvasseGameClient.prototype.joinGame = function(matchID) {
+CyvasseWSClient.prototype.joinGame = function(matchID) {
     this.sendRequest({
         "action": "join game",
         "param": {

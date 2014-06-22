@@ -36,9 +36,11 @@
 % if(pathname.substr(pathname.length() - 5) != ".json")
 % {
 <script>
-    initializeGameClient();
-    gameClient.conn.onopen = function() {
-        gameClient.joinGame(getMatchID(document.location.href));
-    };
+    $(document).ready(function() {
+        initializeWSClient();
+        wsClient.conn.onopen = function() {
+            wsClient.joinGame(getMatchID(document.location.href));
+        };
+    })
 </script>
 % }

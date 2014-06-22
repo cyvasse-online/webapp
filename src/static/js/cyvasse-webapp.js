@@ -1,6 +1,9 @@
-var statusElement = $("#status");
-var progressElement = $("#progress");
-var spinnerElement = $("#spinner");
+var emscriptenHeader;
+var statusElement;
+var progressElement;
+var spinnerElement;
+
+var wsClient;
 
 var Module = {
 	preRun: [],
@@ -28,7 +31,7 @@ var Module = {
 			//progressElement.value = null;
 			//progressElement.max = null;
 			//progressElement.hidden = true;
-			if(!text) $("#emscripten-header").hide();
+			if(!text) emscriptenHeader.hide();
 		}
 		statusElement.html(text);
 	},
@@ -40,6 +43,13 @@ var Module = {
 	},
 	filePackagePrefixURL: "/"
 };
+
+$(document).ready(function() {
+	emscriptenHeader = $("#emscripten-header");
+	statusElement = $("#status");
+	progressElement = $("#progress");
+	spinnerElement = $("#spinner");
+});
 
 function loadPage(url, success) {
 	if(typeof(url) !== "string" && url instanceof String === false) {
@@ -55,19 +65,21 @@ function loadPage(url, success) {
 	});
 }
 
-var gameClient;
-
-function initializeGameClient()
+function initializeWSClient()
 {
-	gameClient = new CyvasseGameClient(new WebSocket("ws://" + window.location.hostname + ":2516/"), loadPage);
-	Module.gameClient = gameClient;
+	if(wsClient !== undefined) {
+		// already initialized
+		throw new Error("WebSocket client already initialized!");
+	}
+	wsClient = new CyvasseWSClient(new WebSocket("ws://" + window.location.hostname + ":2516/"), loadPage);
+	Module.wsClient = wsClient;
 
-	Module.setStatus('Downloading...');
+	Module.setStatus("Downloading...");
 	window.onerror = function() {
-		Module.setStatus('Exception thrown, see JavaScript console');
+		Module.setStatus("Exception thrown, see JavaScript console");
 		spinnerElement.hide();
 		Module.setStatus = function(text) {
-			if(text) Module.printErr('[post-exception status] ' + text);
+			if(text) Module.printErr("[post-exception status] " + text);
 		};
 	};
 }
@@ -90,11 +102,11 @@ function setupCreateGameHandlers()
 		// * disable inputs
 		// * show loading animation
 
-		initializeGameClient();
+		initializeWSClient();
 
 		// TODO: might not be the best to overwrite conn.onopen
-		gameClient.conn.onopen = function() {
-			gameClient.createGame(ruleSet, color);
+		wsClient.conn.onopen = function() {
+			wsClient.createGame(ruleSet, color);
 		};
 	});
 } // setupCreateGameHandlers
