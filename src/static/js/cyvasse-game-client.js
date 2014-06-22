@@ -10,20 +10,23 @@ function CyvasseGameClient(websockConn, loadNewPage) {
     this.loadNewPage = loadNewPage;
     this.nextMessageID = 1;
     this.awaitingReply = [];
+    this.cachedIngameRequests = [];
     this.gameData = {};
 
     var self = this;
 
 	this.conn.onmessage = function(msg) {
-		self.handlemessage(JSON.parse(msg.data));
+		self.handleMessage(msg.data);
 	};
 
     this.conn.onclose = function() {
-		console.log("The connection to the server was closed!");
+		console.log("The connection to the server was closed.");
 	};
 }
 
-CyvasseGameClient.prototype.handlemessage = function(msgObj) {
+CyvasseGameClient.prototype.handleMessage = function(msgData) {
+    var msgObj = JSON.parse(msgData);
+
     if(msgObj.messageType === "request") {
     }
     else if(msgObj.messageType === "reply") {
@@ -37,14 +40,12 @@ CyvasseGameClient.prototype.handlemessage = function(msgObj) {
             }
         }
         if(answeredRequest === undefined) {
-            console.log("Got a reply to an unknown server request!");
-            return;
+            throw new Error("Got a reply to an unknown server request!");
         }
 
         if(answeredRequest.success === false) {
-            console.log("Got an error message from the server: " + msgObj.error + "\n" +
+            throw new Error("Got an error message from the server: " + msgObj.error + "\n" +
                 "as response to:\n\n" + JSON.stringify(answeredRequest));
-            return;
         }
 
         switch(answeredRequest.action) {
@@ -62,6 +63,19 @@ CyvasseGameClient.prototype.handlemessage = function(msgObj) {
                 this.gameData.color = msgObj.data.color;
                 Module.canvas = document.getElementById("canvas");
                 $.getScript("/cyvasse.js");
+                break;
+            default:
+                if(this.handleMessageIngame === undefined) {
+                    console.log("Got a message for the game before it was loaded, caching.");
+                    cachedIngameRequests.push(msgData);
+                }
+                else {
+                    if(typeof(this.handleMessageIngame) !== "function") {
+                        throw new TypeError("handleMessageIngame has to be a function");
+                    }
+
+                    handleMessageIngame(msgData);
+                }
         }
     }
     else {
