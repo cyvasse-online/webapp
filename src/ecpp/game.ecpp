@@ -32,9 +32,13 @@
 	<canvas class='emscripten' id='canvas' oncontextmenu='event.preventDefault()'></canvas>
 </div>
 
+% const std::string& pathname = request.getPathInfo();
+% if(pathname.substr(pathname.length() - 5) != ".json")
+% {
 <script>
     initializeGameClient();
     gameClient.conn.onopen = function() {
         gameClient.joinGame(getMatchID(document.location.href));
     };
 </script>
+% }
