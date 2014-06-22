@@ -1,11 +1,7 @@
 function loadCyvasseJs() {
     Module.canvas = document.getElementById("canvas");
     emscriptenHeader.show();
-    $.ajax({
-        url: "/cyvasse.js",
-        dataType: "script",
-        cache: true
-    });
+    $.getScript("/cyvasse.js");
 }
 
 function CyvasseWSClient(websockConn, loadNewPage) {
@@ -26,6 +22,10 @@ function CyvasseWSClient(websockConn, loadNewPage) {
     var self = this;
 
 	this.conn.onmessage = function(msg) {
+        if(self.debug === true) {
+            console.log("[onmessage]");
+            console.log(msg.data);
+        }
 		self.handleMessage(msg.data);
 	};
 
@@ -54,7 +54,7 @@ CyvasseWSClient.prototype.handleMessage = function(msgData) {
             throw new Error("Got a reply to an unknown server request!");
         }
 
-        if(answeredRequest.success === false) {
+        if(msgObj.success === false) {
             throw new Error("Got an error message from the server: " + msgObj.error + "\n" +
                 "as response to:\n\n" + JSON.stringify(answeredRequest));
         }
@@ -91,7 +91,12 @@ CyvasseWSClient.prototype.handleMessage = function(msgData) {
 };
 
 CyvasseWSClient.prototype.send = function(msgObj) {
-    this.conn.send(JSON.stringify(msgObj));
+    var msgData = JSON.stringify(msgObj);
+    if(this.debug === true) {
+        console.log("[send]");
+        console.log(msgData);
+    }
+    this.conn.send(msgData);
     this.awaitingReply.push(msgObj);
 };
 
