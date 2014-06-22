@@ -19,12 +19,12 @@
 
 	Rule set<br />
 	<select id='create-game-rule-set' size='2'>
-		<option value='mikelepage'>Mike Le Page's rule set</option>
+		<option value='mikelepage' selected>Mike Le Page's rule set</option>
 	</select>
 
 	<br /><br />
 
-	<input type='radio' id='color-white' name='color' value='white'> <label for='color-white'>White</label><br />
+	<input type='radio' id='color-white' name='color' value='white' checked> <label for='color-white'>White</label><br />
 	<input type='radio' id='color-black' name='color' value='black'> <label for='color-black'>Black</label><br />
 
 	<br />
