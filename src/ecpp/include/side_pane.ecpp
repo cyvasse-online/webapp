@@ -32,4 +32,3 @@
 	<button id='create-game-submit-public' disabled>Create public game</button>
 	<button id='create-game-submit-private'>Create private game</button>
 </aside>
-<script>setupCreateGameHandlers()</script>

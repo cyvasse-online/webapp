@@ -44,20 +44,26 @@ var Module = {
 	filePackagePrefixURL: "/"
 };
 
-$(document).ready(function() {
-	emscriptenHeader = $("#emscripten-header");
-	statusElement = $("#status");
-	progressElement = $("#progress");
-	spinnerElement = $("#spinner");
-});
-
-function loadPage(url, success) {
-	if(typeof(url) !== "string" && url instanceof String === false) {
+function loadPage(url, success, pushState) {
+	if(typeof(url) !== "string" && !(url instanceof String)) {
 		throw new TypeError("url has to be a string");
+	}
+	if(pushState === undefined) {
+		pushState = true;
+	}
+	if(typeof(pushState) !== "boolean") {
+		throw new TypeError("pushState has to be a bool");
+	}
+
+	if(url.substr(-1) == "/") {
+		url = url + "index";
 	}
 
 	$.getJSON(url + ".json", function(reply) {
-		History.pushState(null, reply.title, url);
+		if(pushState) {
+			History.pushState(null, reply.title, url);
+		}
+
 		$("#page-wrap").html(reply.content);
 		if(typeof(success) === "function") {
 			success();
@@ -89,8 +95,12 @@ function getMatchID(url)
 	return url.substr(-4);
 }
 
-function setupCreateGameHandlers()
-{
+$(document).ready(function() {
+	emscriptenHeader = $("#emscripten-header");
+	statusElement = $("#status");
+	progressElement = $("#progress");
+	spinnerElement = $("#spinner");
+
 	$("#create-game-submit-private").click(function() {
 		ruleSet = $("#create-game-rule-set").val();
 		color   = $("input:radio[name=color]:checked").val();
@@ -109,4 +119,8 @@ function setupCreateGameHandlers()
 			wsClient.createGame(ruleSet, color);
 		};
 	});
-} // setupCreateGameHandlers
+
+	$(window).on("statechange", function() {
+		loadPage(History.getState().url, null, false);
+	});
+});
