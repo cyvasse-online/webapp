@@ -97,7 +97,6 @@ CyvasseWSClient.prototype.send = function(msgObj) {
         console.log(msgData);
     }
     this.conn.send(msgData);
-    this.awaitingReply.push(msgObj);
 };
 
 CyvasseWSClient.prototype.sendRequest = function(msgObj) {
@@ -105,6 +104,7 @@ CyvasseWSClient.prototype.sendRequest = function(msgObj) {
     msgObj.messageID = this.nextMessageID++;
 
     this.send(msgObj);
+    this.awaitingReply.push(msgObj);
 };
 
 CyvasseWSClient.prototype.sendReply = function(request, msgObj) {
