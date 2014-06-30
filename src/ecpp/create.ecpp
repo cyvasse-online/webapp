@@ -20,6 +20,6 @@
 	}
 </style>
 <%include>side_pane.ecpp</%include>
-<div id='page-content'>
+<main id='page-content'>
 	Here, you'll see some explanation of the rule set soon :)
-</div>
+</main>
