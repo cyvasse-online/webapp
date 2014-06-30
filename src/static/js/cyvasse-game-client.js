@@ -132,3 +132,12 @@ CyvasseWSClient.prototype.joinGame = function(matchID) {
         }
     });
 };
+
+CyvasseWSClient.prototype.sendChatMsg = function(message) {
+    this.sendRequest({
+        "action": "chat message",
+        "param": {
+            "content": message
+        }
+    });
+};
