@@ -70,3 +70,14 @@
 a {
 	text-decoration: none;
 }
+
+/** works in chromium, probably the worst way to do this **/
+hr {
+	border-style: solid;
+	border-top: none;
+}
+
+.stick-to-bottom {
+	position: absolute;
+	bottom: 0;
+}

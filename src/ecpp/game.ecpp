@@ -1,22 +1,26 @@
 <%doc>
-    Copyright 2014 Jonas Platte
+	Copyright 2014 Jonas Platte
 
-    This file is part of Cyvasse Online.
+	This file is part of Cyvasse Online.
 
-    Cyvasse Online is free software: you can redistribute it and/or modify it under the
-    terms of the GNU Affero General Public License as published by the Free Software Foundation,
-    either version 3 of the License, or (at your option) any later version.
+	Cyvasse Online is free software: you can redistribute it and/or modify it under the
+	terms of the GNU Affero General Public License as published by the Free Software Foundation,
+	either version 3 of the License, or (at your option) any later version.
 
-    Cyvasse Online is distributed in the hope that it will be useful, but WITHOUT
-    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-    PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+	Cyvasse Online is distributed in the hope that it will be useful, but WITHOUT
+	ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+	PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
 
-    You should have received a copy of the GNU Affero General Public License along with this program.
-    If not, see <http://www.gnu.org/licenses/>.
+	You should have received a copy of the GNU Affero General Public License along with this program.
+	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
 <style scoped>
 	#game-wrap {
-		height: 100%;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 25%;
 		overflow-x: auto;
 		text-align: center;
 	}
@@ -26,21 +30,58 @@
 		padding: 0;
 		border: 0 none;
 	}
+
+	#logbox {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 75%;
+		right: 0;
+
+		border-left: 1px solid #000;
+	}
+
+	/* this is awful but position: absolute seems to hate the border-box fix.
+	   padding with another absolute positioned container works */
+	#logbox-inner {
+		position: absolute;
+		top: 5px;
+		bottom: 5px;
+		left: 5px;
+		right: 5px;
+	}
+
+	/* I am normally the kind of person to care about code style and performance,
+	   even for CSS selectors... But I'm generally only doing what works for me with
+	   the CSS at the moment so I don't give a F about the awfulness of this rule! */
+	#logbox-inner > * {
+		width: 100%;
+	}
 </style>
 
 <div id='game-wrap'>
 	<canvas class='emscripten' id='canvas' oncontextmenu='event.preventDefault()'></canvas>
+</div>
+<div id='logbox'>
+	<!-- I hate wrapping div's, but I don't want to invest time
+	     in figuring out how to do this properly at the moment -->
+	<div id='logbox-inner'>
+		<div class='stick-to-bottom'>
+			<hr />
+			<textarea id='chat-input' style='width: 100%'></textarea>
+		</div>
+	</div>
 </div>
 
 % const std::string& pathname = request.getPathInfo();
 % if(pathname.substr(pathname.length() - 5) != ".json")
 % {
 <script>
-    $(document).ready(function() {
-        initializeWSClient();
-        wsClient.conn.onopen = function() {
-            wsClient.joinGame(getMatchID(document.location.href));
-        };
-    })
+	$(document).ready(function() {
+		initializeWSClient();
+		wsClient.conn.onopen = function() {
+			wsClient.joinGame(getMatchID(document.location.href));
+		};
+	})
 </script>
 % }
