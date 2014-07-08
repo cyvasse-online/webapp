@@ -17,7 +17,6 @@ function CyvasseWSClient(websockConn, loadNewPage) {
     this.nextMessageID = 1;
     this.awaitingReply = [];
     this.cachedIngameRequests = [];
-    this.gameData = {};
 
     var self = this;
 
@@ -61,14 +60,14 @@ CyvasseWSClient.prototype.handleMessage = function(msgData) {
 
         switch(answeredRequest.action) {
             case "create game":
-                this.gameData.playerID = msgObj.data.playerID;
+                Module.gameMetaData.playerID = msgObj.data.playerID;
                 this.loadNewPage("/match/" + msgObj.data.matchID, function() {
                     loadCyvasseJs();
                 });
                 break;
             case "join game":
-                this.gameData.playerID = msgObj.data.playerID;
-                this.gameData.color = msgObj.data.color;
+                Module.gameMetaData.playerID = msgObj.data.playerID;
+                Module.gameMetaData.color = msgObj.data.color;
                 loadCyvasseJs();
                 break;
             default:

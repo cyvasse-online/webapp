@@ -79,6 +79,7 @@ function initializeWSClient()
 	}
 	wsClient = new CyvasseWSClient(new WebSocket("ws://" + window.location.hostname + ":2516/"), loadPage);
 	Module.wsClient = wsClient;
+	Module.gameMetaData = {};
 
 	Module.setStatus("Downloading...");
 	window.onerror = function() {
