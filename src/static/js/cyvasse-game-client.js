@@ -1,5 +1,4 @@
 function loadCyvasseJs() {
-    Module.canvas = document.getElementById("canvas");
     emscriptenHeader.show();
     $.getScript("/cyvasse.js");
 }
@@ -66,8 +65,9 @@ CyvasseWSClient.prototype.handleMessage = function(msgData) {
                 });
                 break;
             case "join game":
-                Module.gameMetaData.playerID = msgObj.data.playerID;
+                Module.gameMetaData.ruleSet = msgObj.data.ruleSet;
                 Module.gameMetaData.color = msgObj.data.color;
+                Module.gameMetaData.playerID = msgObj.data.playerID;
                 loadCyvasseJs();
                 break;
             default:
@@ -114,6 +114,9 @@ CyvasseWSClient.prototype.sendReply = function(request, msgObj) {
 };
 
 CyvasseWSClient.prototype.createGame = function(ruleSet, color) {
+    Module.gameMetaData.ruleSet = ruleSet;
+    Module.gameMetaData.color = color;
+
     this.sendRequest({
         "action": "create game",
         "param": {

@@ -6,7 +6,9 @@ var spinnerElement;
 var wsClient;
 
 var Module = {
-	preRun: [],
+	preRun: [function() {
+		Module.canvas = document.getElementById("canvas");
+	}],
 	postRun: [],
 	print: function(text) {
 		console.log(text);
@@ -14,7 +16,6 @@ var Module = {
 	printErr: function(text) {
 		console.error(text);
 	},
-	canvas: document.getElementById("canvas"),
 	setStatus: function(text) {
 		if(!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: "" };
 		if(text === Module.setStatus.text) return;
