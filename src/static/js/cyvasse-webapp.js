@@ -45,8 +45,33 @@ var Module = {
 	filePackagePrefixURL: "/"
 };
 
+// for type checks
+function isString(object) {
+	return typeof(object) === "string" || object instanceof String;
+}
+
+// tiny jQuery extension from somewhere off the net
+$.fn.exists = function () {
+	// int-to-bool conversion through twice applying the ! operator
+    return !!this.length;
+};
+
+// another thingy from teh internetz, this time really ugly...
+// but it works, and I'm not particularily intersted in doing it better
+function htmlEncode(value){
+  // create a in-memory div, set it's inner text(which jQuery automatically encodes)
+  // then grab the encoded contents back out. The div never exists on the page.
+  return $('<div/>').text(value).html();
+}
+
+function htmlDecode(value){
+  return $('<div/>').html(value).text();
+}
+
+// own stuff again
+
 function loadPage(url, success, pushState) {
-	if(typeof(url) !== "string" && !(url instanceof String)) {
+	if(!isString(url)) {
 		throw new TypeError("url has to be a string");
 	}
 	if(pushState === undefined) {
@@ -126,3 +151,66 @@ $(document).ready(function() {
 		loadPage(History.getState().url, null, false);
 	});
 });
+
+// chat + game log stuff
+
+var SenderEnum = {
+	SERVER: "Server",
+	PLAYER_WHITE: "White player",
+	PLAYER_BLACK: "Black player"
+};
+
+// don't allow modification of SenderEnum
+Object.freeze(SenderEnum);
+
+// this is awful, but is seems there no better method of doing this
+// ... or you aren't even supposed to do it at all in JavaScript
+function isSenderEnum(str) {
+	if(!isString(str)) {
+		throw new TypeError("str has to be a string");
+	}
+
+	for(var elem in SenderEnum) {
+		if(str == SenderEnum[elem]) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+var logbox = $();
+
+function logboxAddMessage(msgHtml) {
+	if(!isString(msgHtml)) {
+		throw new TypeError("msgHtml has to be a string");
+	}
+	if(!logbox.exists()) {
+		logbox = $("#logbox");
+		if(!logbox.exists()) {
+			throw new Error("Couldn't find #logbox");
+		}
+	}
+
+	// TODO
+}
+
+function logboxAddGameMessage(sender, msgObj) {
+	if(!isSenderEnum(sender)) {
+		throw new TypeError("sender has to be a member of SenderEnum: " + JSON.stringify(Object.keys(SenderEnum)));
+	}
+	if(sender == SenderEnum.SERVER) {
+		console.error("The sender of a game message should be a player, not the server...");
+	}
+
+	// logboxAddMessage() a nicely formatted version of the information in msgObj
+}
+
+function logboxAddChatMessage(sender, msg) {
+	if(!isSenderEnum(sender)) {
+		throw new TypeError("sender has to be a member of SenderEnum: " + JSON.stringify(Object.keys(SenderEnum)));
+	}
+
+	// might allow basic html somewhen
+	logboxAddMessage("<b>" + sender + "</b>: " + htmlEncode(msg));
+}
