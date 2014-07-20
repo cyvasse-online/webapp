@@ -36,7 +36,7 @@ CyvasseWSClient.prototype.handleMessage = function(msgData) {
     var msgObj = JSON.parse(msgData);
 
     if(msgObj.messageType === "request") {
-        console.log("Got a request from the server; can't handle that yet.");
+        throw new Error("Got a request from the server.");
     }
     else if(msgObj.messageType === "reply") {
         var answeredRequest;
@@ -70,18 +70,19 @@ CyvasseWSClient.prototype.handleMessage = function(msgData) {
                 Module.gameMetaData.playerID = msgObj.data.playerID;
                 loadCyvasseJs();
                 break;
-            default:
-                if(this.handleMessageIngame === undefined) {
-                    console.log("Got a message for the game before it was loaded, caching.");
-                    this.cachedIngameRequests.push(msgData);
-                }
-                else {
-                    if(typeof(this.handleMessageIngame) !== "function") {
-                        throw new TypeError("handleMessageIngame has to be a function");
-                    }
+        }
+    }
+    else if(msgObj.messageType === "game update") {
+        if(this.handleMessageIngame === undefined) {
+            console.log("Got a message for the game before it was loaded, caching.");
+            this.cachedIngameRequests.push(msgData);
+        }
+        else {
+            if(typeof(this.handleMessageIngame) !== "function") {
+                throw new TypeError("handleMessageIngame has to be a function");
+            }
 
-                    handleMessageIngame(msgData);
-                }
+            handleMessageIngame(msgData);
         }
     }
     else {
@@ -90,7 +91,11 @@ CyvasseWSClient.prototype.handleMessage = function(msgData) {
 };
 
 CyvasseWSClient.prototype.send = function(msgObj) {
-    var msgData = JSON.stringify(msgObj);
+    var msgData = msgObj;
+    if(typeof msgObj === "object") {
+        msgData = JSON.stringify(msgObj);
+    }
+
     if(this.debug === true) {
         console.log("[send]");
         console.log(msgData);
