@@ -82,7 +82,7 @@ CyvasseWSClient.prototype.handleMessage = function(msgData) {
                 throw new TypeError("handleMessageIngame has to be a function");
             }
 
-            handleMessageIngame(msgData);
+            this.handleMessageIngame(msgData);
         }
     }
     else {
