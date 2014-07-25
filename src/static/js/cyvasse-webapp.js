@@ -17,23 +17,17 @@ var Module = {
 		console.error(text);
 	},
 	setStatus: function(text) {
-		if(!Module.setStatus.last) Module.setStatus.last = { time: Date.now(), text: "" };
-		if(text === Module.setStatus.text) return;
-		var m = text.match(/([^(]+)\((\d+(\.\d+)?)\/(\d+)\)/);
-		var now = Date.now();
-		if(m && now - Date.now() < 30) return; // if this is a progress update, skip it if too soon
-		if(m) {
-			text = m[1];
-			//progressElement.value = parseInt(m[2])*100;
-			//progressElement.max = parseInt(m[4])*100;
-			//progressElement.hidden = false;
-			spinnerElement.show();
-		} else {
-			//progressElement.value = null;
-			//progressElement.max = null;
-			//progressElement.hidden = true;
-			if(!text) emscriptenHeader.hide();
+		if(!text) {
+			spinnerElement.hide();
+
+			// ugly hack to prevent the status set
+			// in the RenderedMatch constructor to
+			// be removed by some initialization code
+			if(statusElement.html() == "Setup") {
+				return;
+			}
 		}
+
 		statusElement.html(text);
 	},
 	totalDependencies: 0,
