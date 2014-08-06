@@ -37,23 +37,23 @@ Piece movements
 
 **Orthogonal movement**
 
-![Rabble and King](/img/tutorial/mikelepage/movement_orthogonal_1.png)
-![Crossbows](/img/tutorial/mikelepage/movement_orthogonal_3.png)
-![Trebuchet](/img/tutorial/mikelepage/movement_orthogonal_n.png)
+![Rabble and King](/img/rule_sets/mikelepage/movement_orthogonal_1.png)
+![Crossbows](/img/rule_sets/mikelepage/movement_orthogonal_3.png)
+![Trebuchet](/img/rule_sets/mikelepage/movement_orthogonal_n.png)
 
 **Diagonal movement**
 
-![Spears](/img/tutorial/mikelepage/movement_diagonal_2.png)
-![Elephant](/img/tutorial/mikelepage/movement_diagonal_n.png)
+![Spears](/img/rule_sets/mikelepage/movement_diagonal_2.png)
+![Elephant](/img/rule_sets/mikelepage/movement_diagonal_n.png)
 
 **Hexagonal movement ("around" fortresses)**
 
-![Light Horse](/img/tutorial/mikelepage/movement_hexagonal_3.png)
-![Heavy Horse](/img/tutorial/mikelepage/movement_hexagonal_n.png)
+![Light Horse](/img/rule_sets/mikelepage/movement_hexagonal_3.png)
+![Heavy Horse](/img/rule_sets/mikelepage/movement_hexagonal_n.png)
 
 **Range-based movement (move anywhere within a range)**
 
-![Dragon](/img/tutorial/mikelepage/movement_range_4.png)
+![Dragon](/img/rule_sets/mikelepage/movement_range_4.png)
 
 Terrain (coloured tiles placed on the board at the beginning of the game)
 -------
@@ -70,17 +70,9 @@ Terrain, as well as Mountains, doesn't belong to either player.
 | Forest    | Spears      | Spears, Elephant         |
 | Grassland | Light Horse | Light Horse, Heavy Horse |
 
-**Crossbows and Trebuchet pieces on their home terrain**
+**All tier 2 and 3 pieces on their home terrain**
 
-![Hill](/img/tutorial/mikelepage/hill.png)
-
-**Spears and Elephant pieces on their home terrain**
-
-![Forest](/img/tutorial/mikelepage/forest.png)
-
-**Light Horse and Heavy Horse pieces on their home terrain**
-
-![Grassland](/img/tutorial/mikelepage/grassland.png)
+![Terrain Tiles](/img/rule_sets/mikelepage/terrain.png)
 
 Fortresses
 ----------
