@@ -1,5 +1,3 @@
-SUBDIRS = news .
-
 AUTOMAKE_OPTIONS = subdir-objects
 
 AM_CXXFLAGS = \

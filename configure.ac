@@ -18,12 +18,13 @@ AC_CHECK_PROGS(MARKDOWN, [markdown_py])
 
 AC_CONFIG_FILES([
 	Makefile
+	news/Makefile
+	rule_sets/Makefile
 	src/Makefile
-	src/news/Makefile
 ])
 AC_CONFIG_LINKS([
+	news.yml:$srcdir/news/news.yml
 	static:$srcdir/src/static
-	news.yml:$srcdir/src/news/news.yml
 	pagemeta.yml:$srcdir/src/pagemeta.yml
 ])
 

@@ -1,1 +1,1 @@
-SUBDIRS = src
+SUBDIRS = news rule_sets src

@@ -38,7 +38,8 @@ int main()
 		// mapping require the git version of tntnet
 
 		// static files
-		app.mapUrl("^/(.+)$", "static@tntnet").setPathInfo("$1");
+		app.mapUrl("^/(.+)$",          "static@tntnet").setPathInfo("$1");
+		app.mapUrl("^/rule_sets/(.+)", "static@tntnet").setPathInfo("$1").setArg("documentRoot", "rule_sets");
 
 		// dynamic content
 		app.mapUrl("^/$",                       "page"  ).setArg("content", "index");
