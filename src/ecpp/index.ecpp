@@ -49,7 +49,7 @@
 
 				try
 				{
-					std::string filename = "src/news/" + node["filename"].as<std::string>();
+					std::string filename = "news/" + node["filename"].as<std::string>();
 					std::ifstream ifs(filename, std::ifstream::in);
 
 					if(ifs)
