@@ -19,11 +19,6 @@
 	#include <tnt/savepoint.h>
 	#include <yaml-cpp/yaml.h>
 </%pre>
-<style scoped>
-	#side-pane {
-		border-left: 1px solid #333;
-	}
-</style>
 <main id='page-content'>
 	Hi there! <br />
 	<br />

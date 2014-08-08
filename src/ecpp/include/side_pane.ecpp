@@ -18,17 +18,15 @@
 	<h2>Create a new game</h2>
 
 	Rule set<br />
-	<select id='create-game-rule-set' size='2'>
-		<option value='mikelepage' selected>Mike Le Page's rule set</option>
-	</select>
+	<input type='radio' id='rule-set-mikelepage' name='ruleSet' value='mikelepage' /> <label for='rule-set-mikelepage'>Mike Le Page's rule set</label>
 
 	<br /><br />
 
-	<input type='radio' id='color-white' name='color' value='white' checked> <label for='color-white'>White</label><br />
-	<input type='radio' id='color-black' name='color' value='black'> <label for='color-black'>Black</label><br />
+	<input type='radio' id='color-white' name='color' value='white' checked /> <label for='color-white'>White</label><br />
+	<input type='radio' id='color-black' name='color' value='black' /> <label for='color-black'>Black</label><br />
 
 	<br />
 
 	<button id='create-game-submit-public' disabled>Create public game</button>
-	<button id='create-game-submit-private'>Create private game</button>
+	<button id='create-game-submit-private' disabled>Create private game</button>
 </aside>

@@ -35,6 +35,11 @@
 }
 
 /** inside #page-wrap **/
+#page-wrap > main:nth-child(2),
+#page-wrap > aside:nth-child(2) {
+	border-left: 1px solid #333;
+}
+
 #page-content, #side-pane {
 	height: 100%;
 	padding: 10px;

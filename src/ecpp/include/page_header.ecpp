@@ -80,7 +80,7 @@
 	</style>
 	<div id='emscripten-header' style='display: none'>
 		<div id='spinner'></div>
-		<div id='status'>Downloading...</div>
+		<div id='status'></div>
 
 		<progress value='0' max='100' id='progress' hidden></progress>
 	</div>

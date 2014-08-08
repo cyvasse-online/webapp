@@ -55,11 +55,11 @@ $.fn.exists = function () {
 function htmlEncode(value){
   // create a in-memory div, set it's inner text(which jQuery automatically encodes)
   // then grab the encoded contents back out. The div never exists on the page.
-  return $('<div/>').text(value).html();
+  return $("<div/>").text(value).html();
 }
 
 function htmlDecode(value){
-  return $('<div/>').html(value).text();
+  return $("<div/>").html(value).text();
 }
 
 // own stuff again
@@ -78,6 +78,10 @@ function loadPage(url, success, pushState) {
 	if(url.substr(-1) == "/") {
 		url = url + "index";
 	}
+	else if(url.substr(-11, 7) == "/match/") {
+		wsClient = null;
+		emscriptenHeader.hide();
+	}
 
 	$.getJSON(url + ".json", function(reply) {
 		if(pushState) {
@@ -93,7 +97,7 @@ function loadPage(url, success, pushState) {
 
 function initializeWSClient()
 {
-	if(wsClient !== undefined) {
+	if(wsClient !== undefined && wsClient !== null) {
 		// already initialized
 		throw new Error("WebSocket client already initialized!");
 	}
@@ -122,9 +126,17 @@ $(document).ready(function() {
 	progressElement = $("#progress");
 	spinnerElement = $("#spinner");
 
+	$("input[name='ruleSet']").change(function() {
+		if(document.location.pathname == "/") {
+			// TODO: load /match/create
+		}
+
+		// TODO: show ruleset documentation / tutorial
+	});
+
 	$("#create-game-submit-private").click(function() {
-		ruleSet = $("#create-game-rule-set").val();
-		color   = $("input:radio[name=color]:checked").val();
+		ruleSet = $("input:radio[name='ruleSet']:checked").val();
+		color   = $("input:radio[name='color']:checked").val();
 		if(ruleSet === null || color === null) {
 			return;
 		}
@@ -173,7 +185,7 @@ function isSenderEnum(str) {
 	return false;
 }
 
-var logbox = $();
+var logbox = $("#logbox");
 
 function logboxAddMessage(msgHtml) {
 	if(!isString(msgHtml)) {
