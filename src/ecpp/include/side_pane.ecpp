@@ -17,18 +17,32 @@
 <aside id='side-pane'>
 	<h2>Create a new game</h2>
 
-	Rule set<br />
+	<h3>Rule set</h3>
+
 	<input type='radio' id='rule-set-mikelepage' name='ruleSet' value='mikelepage' /> <label for='rule-set-mikelepage'>Mike Le Page's rule set</label>
 
-	<br /><br />
+	<div id='game-settings'>
 
-	<input type='radio' id='color-white' name='color' value='white' checked /> <label for='color-white'>White</label><br />
-	<input type='radio' id='color-black' name='color' value='black' /> <label for='color-black'>Black</label><br />
+		<div>
+			<h3>Play as</h3>
 
-	<br />
+			<input type='radio' id='color-white' name='color' value='white' checked /> <label for='color-white'>White player</label>
+			<input type='radio' id='color-black' name='color' value='black' /> <label for='color-black'>Black player</label>
+		</div>
 
-	<button id='create-game-submit-public' disabled>Create public game</button>
-	<button id='create-game-submit-private' disabled>Create private game</button>
+		<div>
+			<h3>Game mode</h3>
+
+			<input type='radio' id='game-mode-direct' name='gameMode' value='direct' checked /> <label for='game-mode-direct'>Online: Direct (send the match url to a friend)</label>
+			<input type='radio' id='game-mode-random' name='gameMode' value='random' disabled /> <label for='game-mode-random'>Online: Random opponent from the internet</label>
+			<input type='radio' id='game-mode-bot' name='gameMode' value='bot' disabled /> <label for='game-mode-random'>Local: Play against a bot</label>
+			<input type='radio' id='game-mode-local' name='gameMode' value='local' disabled /> <label for='game-mode-random'>Local: Play against a friend on this computer</label>
+		</div>
+
+		<br />
+
+		<button id='create-game-button'>Create game</button>
+	</div>
 
 	<script>setupSidePaneEventHandlers()</script>
 </aside>

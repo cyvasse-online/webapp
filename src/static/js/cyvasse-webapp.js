@@ -100,6 +100,8 @@ function loadRuleSetDoc(ruleSet)
 {
 	// TODO: Show loading animation
 
+	$("#game-settings").show();
+
 	$.get("/rule_sets/" + ruleSet + ".html", function(reply) {
 		$("#page-content").html(reply);
 	});
@@ -152,7 +154,7 @@ function setupSidePaneEventHandlers()
 		}
 	});
 
-	$("#create-game-submit-private").click(function() {
+	$("#create-game-button").click(function() {
 		ruleSet = $("input:radio[name='ruleSet']:checked").val();
 		color   = $("input:radio[name='color']:checked").val();
 		if(ruleSet === null || color === null) {

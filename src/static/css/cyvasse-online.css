@@ -42,18 +42,47 @@
 
 #page-content, #side-pane {
 	height: 100%;
-	padding: 10px;
 	float: left;
 }
 
 #page-content {
 	width: 70%;
-
+	padding: 10px;
 	overflow-x: auto;
 }
 
 #side-pane {
 	width: 30%;
+	padding: 10px 30px;
+}
+
+#side-pane input[type='radio'] {
+	display: none;
+}
+
+#side-pane label {
+	display: block;
+	width: 100%;
+	padding: 5px;
+	border-style: solid;
+	border-width: 1px 1px 0 1px;
+	border-color: #999;
+}
+
+#side-pane label:last-of-type {
+	border-bottom-width: 1px;
+}
+
+#side-pane input[type='radio']:checked + label {
+	background-color: #00a7ff;
+}
+
+#side-pane input[type='radio']:disabled + label {
+	color: #999;
+}
+
+#game-settings {
+	display: none;
 }
 
 /** inside #page-footer **/
