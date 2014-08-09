@@ -29,4 +29,6 @@
 
 	<button id='create-game-submit-public' disabled>Create public game</button>
 	<button id='create-game-submit-private' disabled>Create private game</button>
+
+	<script>setupSidePaneEventHandlers()</script>
 </aside>

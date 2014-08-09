@@ -16,5 +16,5 @@
 </%doc>
 <%include>side_pane.ecpp</%include>
 <main id='page-content'>
-	Here, you'll see some explanation of the rule set soon :)
+	Click a rule set to get the corresponding documentation here.
 </main>

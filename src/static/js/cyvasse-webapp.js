@@ -85,13 +85,23 @@ function loadPage(url, success, pushState) {
 
 	$.getJSON(url + ".json", function(reply) {
 		if(pushState) {
-			History.pushState(null, reply.title, url);
+			document.title = reply.title;
+			history.pushState(null, reply.title, url);
 		}
 
 		$("#page-wrap").html(reply.content);
 		if(typeof(success) === "function") {
 			success();
 		}
+	});
+}
+
+function loadRuleSetDoc(ruleSet)
+{
+	// TODO: Show loading animation
+
+	$.get("/rule_sets/" + ruleSet + ".html", function(reply) {
+		$("#page-content").html(reply);
 	});
 }
 
@@ -115,23 +125,31 @@ function initializeWSClient()
 	};
 }
 
-function getMatchID(url)
+function setupSidePaneEventHandlers()
 {
-	return url.substr(-4);
-}
-
-$(document).ready(function() {
-	emscriptenHeader = $("#emscripten-header");
-	statusElement = $("#status");
-	progressElement = $("#progress");
-	spinnerElement = $("#spinner");
-
 	$("input[name='ruleSet']").change(function() {
 		if(document.location.pathname == "/") {
-			// TODO: load /match/create
-		}
+			var title = "Create a new game | Cyvasse Online";
 
-		// TODO: show ruleset documentation / tutorial
+			document.title = title;
+			history.pushState(null, title, "/match/create");
+
+			var pageContent = $("#page-content");
+
+			pageContent.animate({"margin-left": "-70%"}, 800, function() {
+				pageContent.detach();
+				pageContent.html("");
+				pageContent.css("margin-left", "");
+				pageContent.appendTo("#page-wrap");
+
+				// load after animation
+				loadRuleSetDoc($("input[name='ruleSet']:checked").val());
+			});
+		}
+		else {
+			// load immediately
+			loadRuleSetDoc($("input[name='ruleSet']:checked").val());
+		}
 	});
 
 	$("#create-game-submit-private").click(function() {
@@ -152,10 +170,22 @@ $(document).ready(function() {
 			wsClient.createGame(ruleSet, color);
 		};
 	});
+}
 
-	$(window).on("statechange", function() {
-		loadPage(History.getState().url, null, false);
-	});
+function getMatchID(url)
+{
+	return url.substr(-4);
+}
+
+$(document).ready(function() {
+	emscriptenHeader = $("#emscripten-header");
+	statusElement = $("#status");
+	progressElement = $("#progress");
+	spinnerElement = $("#spinner");
+
+	window.onpopstate = function() {
+		loadPage(document.location.pathname, null, false);
+	};
 });
 
 // chat + game log stuff
