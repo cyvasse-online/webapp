@@ -1,61 +1,108 @@
-<style scoped>
-    img {
-        width: 350px;
-        height: auto;
-    }
-</style>
-
 Mikelepage's Cyvasse v5.0
 =========================
+
+Object of play
+--------------
+
+You win when capturing your opponents king and preventing the opponent from promoting a new king within their
+following turn. This can be accomplished by ruining the opponents fortress before capturing their king, but also by
+capturing all of their tier 3 pieces that are within one move of their fortress.
+
+Gameplay
+--------
+
+For the initial setup you have 40 "home" squares on your site of the board in which
+you have to place your 19 tier 1 to tier 3 pieces and 6 mountains. You can also
+place the dragon (your only tier 4 piece) inside this area, but you don't have to.
+
+Each player also has a fortress and six terrain tiles. All of these don't occupy the tiles they are on and have
+an effect on pieces standing on them. The fortress is always placed on the tile the king is placed on, and the
+terrain tiles are placed where their advantaged tier 2 pieces are placed.
+
+Your 26th piece, the dragon, can also be placed on the board during setup like all other
+pieces but it doesn't have to be. It can be "brought out" as a seperate move later.
+
+The move with which you bring out the dragon can target the fortress and all tiles in a range of 4
+(the dragons range for normal moves), as long as there is no mountains piece or any own piece on them.
+Capturing an opponent piece on this move is allowed.
 
 Pieces
 ------
 
-| Type        | Tier | Movement type | Range limit | Can be promoted to             |
-|-------------|------|---------------|-------------|--------------------------------|
-| Mountains   | -    | -             | -           | -                              |
-| Rabble      | 1    | orthogonally  | 1           | Crossbows, Spears, Light Horse |
-| King        | 1    | orthogonally  | 1           | -                              |
-| Crossbows   | 2    | orthogonally  | 3           | Trebuchet                      |
-| Spears      | 2    | diagonally    | 2           | Elephant                       |
-| Light Horse | 2    | hexagonal     | 3           | Heavy Horse                    |
-| Trebuchet   | 3    | orthogonally  | -           | King                           |
-| Elephant    | 3    | diagonally    | -           | King                           |
-| Heavy Horse | 3    | hexagonal     | -           | King                           |
-| Dragon      | 4    | range-based   | 4           | -                              |
+There are 10 types of piece in the game. All pieces except the mountains have a
+tier level which is used to determine whether a piece can capture another piece.
 
-### Properties limited to a certain piece type
+Each player has
 
-**Mountains:** Can't be captured, don't belong to either player
+* 6 Mountains
+* 6 Rabble
+* 1 King
+* 2 Crossbows
+* 2 Spears
+* 2 Light Horses
+* 2 Trebuchets
+* 2 Elephants
+* 2 Heavy Horses
+* 1 Dragon
 
-**King:** In flanking, acts as being of the same tier as the best other involved piece
+![All pieces](/img/rule_sets/mikelepage/all_pieces.png)
 
-**Dragon**: Can fly over mountains, can stay off the board when leaving the setup
+### Mountains (passive)
 
-Piece movements
----------------
+![Mountains](/img/rule_sets/mikelepage/mountains.png)
 
-**Orthogonal movement**
+Mountains are completely passive. They can't be captured and don't belong to either player.
 
-![Rabble and King](/img/rule_sets/mikelepage/movement_orthogonal_1.png)
-![Crossbows](/img/rule_sets/mikelepage/movement_orthogonal_3.png)
-![Trebuchet](/img/rule_sets/mikelepage/movement_orthogonal_n.png)
+They are placed during setup and are used to block the movement of opponents pieces.
+Dragons can fly over mountains, but no piece can be on the same tile as one.
 
-**Diagonal movement**
+### Active pieces
 
-![Spears](/img/rule_sets/mikelepage/movement_diagonal_2.png)
-![Elephant](/img/rule_sets/mikelepage/movement_diagonal_n.png)
+#### Tier 1
 
-**Hexagonal movement ("around" fortresses)**
+**Rabble:**
 
-![Light Horse](/img/rule_sets/mikelepage/movement_hexagonal_3.png)
-![Heavy Horse](/img/rule_sets/mikelepage/movement_hexagonal_n.png)
+![Rabble](/img/rule_sets/mikelepage/rabble.png)
 
-**Range-based movement (move anywhere within a range)**
+**King:**
 
-![Dragon](/img/rule_sets/mikelepage/movement_range_4.png)
+![King](/img/rule_sets/mikelepage/king.png)
 
-Terrain (coloured tiles placed on the board at the beginning of the game)
+#### Tier 2
+
+**Crossbows:**
+
+![Crossbows](/img/rule_sets/mikelepage/crossbows.png)
+
+**Spears:**
+
+![Spears](/img/rule_sets/mikelepage/spears.png)
+
+**Light Horse:**
+
+![Light Horse](/img/rule_sets/mikelepage/light_horse.png)
+
+#### Tier 3
+
+**Crossbows:**
+
+![Trebuchet](/img/rule_sets/mikelepage/trebuchet.png)
+
+**Elephant:**
+
+![Elephant](/img/rule_sets/mikelepage/elephant.png)
+
+**Heavy Horse:**
+
+![Heavy Horse](/img/rule_sets/mikelepage/heavy_horse.png)
+
+#### Tier 4
+
+**Dragon:**
+
+![Dragon](/img/rule_sets/mikelepage/dragon.png)
+
+Terrain
 -------
 
 Terrain increases the effective tier of certain pieces when defending by 1 when one of those pieces stands on them.
@@ -109,28 +156,34 @@ movement of Light Horse and Heavy Horse pieces.
 Capturing
 ---------
 
-A piece can always capture another piece of the same or lesser tier level.
+A piece can always capture another piece of the same or lower tier.
+There is a way to capture pieces of higher tier though, it is called *flanking*.
 
-### Flanking
+Flanking can happen when a multiple of your pieces of lower rank have a bearing on an opponents piece of higher rank.
+When the "combined" tier of your flanking pieces is equal or higher to that of the target piece, the highest-tier
+piece / one of the highest-tier pieces can capture the target piece.
 
-<!-- TODO -->
+In the "combined" tier of your flanking pieces, every 2 or more pieces of a lower tier count
+the same as n - 1 pieces of the next higher tier, where n is the count of pieces of that tier.
+The king doesn't count as tier 1 piece though when flanking.
+It counts as the same tier as the highest other flanking piece.
 
-Gameplay
---------
+To illustrate, here are some basic examples:
 
-For the initial setup you have 40 "home" squares on your site of the board in which you have to place your 19 tier 1 to
-tier 3 pieces and 6 mountains. You can also place the dragon inside this area, but you don't have to.
+* Two tier 1 pieces count as tier 2
+* Two tier 2 pieces count as tier 3
+* Three tier 1 pieces count as tier 3
+* Three tier 2 pieces count as tier 4
+* Four tier 1 pieces count as tier 4
 
-The fortress is always placed on the tile the king is placed on, and the
-terrain tiles are placed where their advantaged tier 2 pieces are placed.
+These advanced examples show how different ranked piece can flank together:
 
-If dragon is not placed on the board initially, it can be "brought out" as a seperate move later.
-This move can have the fortress and all tiles in a range of 4 (the dragons range for normal moves) as target, as long
-as there is no mountains piece or any own piece on them. Capture an opponent piece on this move is allowed.
+* One tier 1 piece and one piece tier 2 can't flank
+* Two tier 1 pieces and one tier 2 piece count as tier 3
+* Two tier 1 pieces and one tier 3 piece can't flank
+* Two tier 1 pieces and two tier 2 pieces count as tier 4
+* Three tier 1 pieces and one tier 3 piece count as tier 4
 
-Object of play
---------------
-
-A player wins when capturing the opponents king and preventing the opponent from promoting a new king within his / her
-following turn. This can be accomplished by ruining the opponents fortress before capturing his king, but also by
-capturing all of the opponents tier 3 pieces that are within one move of his / her fortress.
+Not all pieces that have a bearing on a certain target piece have to be flanking pieces.
+If there are two tier 2 pieces and one tier 2 piece that all have a bearing on a tier 2 piece, you can either
+directly capture it with your tier 2 piece or capture it with one of your tier 1 pieces through flanking.

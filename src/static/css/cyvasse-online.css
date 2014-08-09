@@ -76,6 +76,15 @@ a {
 	text-decoration: none;
 }
 
+th {
+	padding: 0.5em 1em;
+	text-align: left;
+}
+
+td {
+	padding: 0 1em;
+}
+
 /** works in chromium, probably the worst way to do this **/
 hr {
 	border-style: solid;
