@@ -4,26 +4,22 @@ Mikelepage's Cyvasse v5.0
 Object of play
 --------------
 
-You win when capturing your opponents king and preventing the opponent from promoting a new king within their
-following turn. This can be accomplished by ruining the opponents fortress before capturing their king, but also by
-capturing all of their tier 3 pieces that are within one move of their fortress.
+You win by capturing your opponent's king and preventing them from replacing it on the very next turn.
 
 Gameplay
 --------
 
-For the initial setup you have 40 "home" squares on your site of the board in which
-you have to place your 19 tier 1 to tier 3 pieces and 6 mountains. You can also
-place the dragon (your only tier 4 piece) inside this area, but you don't have to.
+For the initial setup you have 40 "home" squares on your site of the board in which you have to place your king and
+6x rabble (your tier 1 pieces), 6x tier 2 pieces and 6x tier 3 pieces, as well as 6x mountains. You can place out
+your dragon (your only tier 4 piece) during setup, but you can also hold it back and "bring it out" later.
 
-Each player also has a fortress and six terrain tiles. All of these don't occupy the tiles they are on and have
-an effect on pieces standing on them. The fortress is always placed on the tile the king is placed on, and the
-terrain tiles are placed where their advantaged tier 2 pieces are placed.
+Each player also has a fortress and 6x terrain tiles that are placed automatically when you place the pieces.
+Tiles are different from pieces: while no two pieces can occupy the same space, tiles have an effect on the pieces
+standing on them. The fortress is always located at the king's starting position, and each of the terrain tiles are
+located at the starting positions of specific tier 2 pieces.
 
-Your 26th piece, the dragon, can also be placed on the board during setup like all other
-pieces but it doesn't have to be. It can be "brought out" as a seperate move later.
-
-The move with which you bring out the dragon can target the fortress and all tiles in a range of 4
-(the dragons range for normal moves), as long as there is no mountains piece or any own piece on them.
+White starts. Players take turns making moves. The move with which you bring out the dragon must be within
+a range of 4 spaces (the dragon's range for normal moves) from the fortress, including the fortress itself.
 Capturing an opponent piece on this move is allowed.
 
 Pieces
@@ -52,121 +48,65 @@ Each player has
 ![Mountains](/img/rule_sets/mikelepage/mountains.png)
 
 Mountains are completely passive. They can't be captured and don't belong to either player.
-
-They are placed during setup and are used to block the movement of opponents pieces.
+They are placed during setup and are used to block the movement of opponent's pieces.
 Dragons can fly over mountains, but no piece can be on the same tile as one.
 
 ### Active pieces
 
 #### Tier 1
 
-**Rabble:**
+**Rabble pieces move 1 square orthogonally:**
 
 ![Rabble](/img/rule_sets/mikelepage/rabble.png)
 
-**King:**
+**The King piece also moves one square orthogonally:**
 
 ![King](/img/rule_sets/mikelepage/king.png)
 
 #### Tier 2
 
-**Crossbows:**
+**Crossbows pieces move up to 3 squares orthogonally:**
 
 ![Crossbows](/img/rule_sets/mikelepage/crossbows.png)
 
-**Spears:**
+**Spears pieces move up to 2 squares diagonally:**
 
 ![Spears](/img/rule_sets/mikelepage/spears.png)
 
-**Light Horse:**
+**Light Horse pieces move up to 3 squares hexagonally (around either fortress):**
 
 ![Light Horse](/img/rule_sets/mikelepage/light_horse.png)
 
 #### Tier 3
 
-**Crossbows:**
+**Trebuchet pieces move orthogonally as far as possible:**
 
 ![Trebuchet](/img/rule_sets/mikelepage/trebuchet.png)
 
-**Elephant:**
+**Elephant pieces move diagonally as far as possible:**
 
 ![Elephant](/img/rule_sets/mikelepage/elephant.png)
 
-**Heavy Horse:**
+**Heavy Horse pieces move as far as possible hexagonally (around either fortress):**
 
 ![Heavy Horse](/img/rule_sets/mikelepage/heavy_horse.png)
 
 #### Tier 4
 
-**Dragon:**
+**The Dragon moves up to a range of 4 spaces (must be contiguous, no "jumping" of other pieces):**
 
 ![Dragon](/img/rule_sets/mikelepage/dragon.png)
-
-Terrain
--------
-
-Terrain increases the effective tier of certain pieces when defending by 1 when one of those pieces stands on them.
-Every terrain type has one advantaged tier 2 piece type and one advantaged tier 3 piece type.
-During setup, the terrain tiles are bound to their advantaged tier 2 pieces, so that when
-beginning the match, all tier 2 and tier 3 pieces are equally hard to capture.
-Terrain, as well as Mountains, doesn't belong to either player.
-
-| Type      | Placed via  | "Home terrain" for       |
-|-----------|-------------|--------------------------|
-| Hill      | Crossbows   | Crossbows, Trebuchet     |
-| Forest    | Spears      | Spears, Elephant         |
-| Grassland | Light Horse | Light Horse, Heavy Horse |
-
-**All tier 2 and 3 pieces on their home terrain**
-
-![Terrain Tiles](/img/rule_sets/mikelepage/terrain.png)
-
-Fortresses
-----------
-
-Fortresses, as well as terrain, provide a +1 increase of the defense tier of pieces standing in them. For fortresses
-though, this works for all pieces of the player owning the fortress, except the dragon.
-
-Fortresses can also promote pieces standing on them. There are two types of piece promotions: The first one is ordinary
-"piece improving" promotion. This type of promotion only happens when it's the beginning of the turn of the player who
-owns the fortress and a players piece of the type the original piece should be promoted to was captured before.
-
-The following ordinary piece promotions are possible:
-
-| Original piece | Promoted to |
-|----------------|-------------|
-| Rabble         | Crossbows   |
-| Rabble         | Spears      |
-| Rabble         | Light Horse |
-| Crossbows      | Trebuchet   |
-| Spears         | Elephant    |
-| Light Horse    | Heavy Horse |
-
-When the piece in the fortress is a rabble and there are multiple piece types it could be promoted to, the player can
-choose which of those piece types it will be promoted to.
-
-The second type of promotion is the promotion of a tier 3 piece to king. This can happen both at the beginning and the
-end of a players turn and only during the turn immediately after the king was captured.
-
-A fortress can also be ruined. This happens when it is occupied by an opponent piece and cannot be retaken on the move
-immediately following the occupation. When a fortress is ruined, it is removed from the board. The player who ruined the
-fortress then has to select one of the six corner tiles of the board to be used as alternative center for the hexagonal
-movement of Light Horse and Heavy Horse pieces.
 
 Capturing
 ---------
 
-A piece can always capture another piece of the same or lower tier.
-There is a way to capture pieces of higher tier though, it is called *flanking*.
-
-Flanking can happen when a multiple of your pieces of lower rank have a bearing on an opponents piece of higher rank.
+Flanking can happen when multiple lower ranked pieces have a bearing on an opponents piece of higher rank.
 When the "combined" tier of your flanking pieces is equal or higher to that of the target piece, the highest-tier
 piece / one of the highest-tier pieces can capture the target piece.
 
-In the "combined" tier of your flanking pieces, every 2 or more pieces of a lower tier count
-the same as n - 1 pieces of the next higher tier, where n is the count of pieces of that tier.
-The king doesn't count as tier 1 piece though when flanking.
-It counts as the same tier as the highest other flanking piece.
+In the "combined" tier of your flanking pieces, every 2 or more pieces of a lower tier count the same as n - 1 pieces
+of the next higher tier, where n is the count of pieces of that tier. The king doesn't count as tier 1 piece though
+when flanking. It counts as the same tier as the highest other flanking piece.
 
 To illustrate, here are some basic examples:
 
@@ -184,6 +124,61 @@ These advanced examples show how different ranked piece can flank together:
 * Two tier 1 pieces and two tier 2 pieces count as tier 4
 * Three tier 1 pieces and one tier 3 piece count as tier 4
 
-Not all pieces that have a bearing on a certain target piece have to be flanking pieces.
-If there are two tier 2 pieces and one tier 2 piece that all have a bearing on a tier 2 piece, you can either
-directly capture it with your tier 2 piece or capture it with one of your tier 1 pieces through flanking.
+Not all pieces that have a bearing on a certain target piece have to be flanking pieces. If there are two tier 2
+pieces and one tier 2 piece that all have a bearing on a tier 2 piece, you can either directly capture it with
+your tier 2 piece or capture it with one of your tier 1 pieces through flanking.
+
+Terrain
+-------
+
+Tier 2 and tier 3 pieces that have the same movement style are also advantaged on the same kind of terrain.
+
+Terrain increases the effective tier of those pieces by 1, but only when one of those pieces stands on them
+and is being attacked. During setup, the terrain tiles are automatically placed at the tier 2 piece starting
+positions, so that at the beginning the match, all tier 2 and tier 3 pieces are equally hard to capture.
+Terrain, as well as Mountains, does not belong to either player.
+
+| Type      | Placed via  | "Home terrain" for       |
+|-----------|-------------|--------------------------|
+| Hill      | Crossbows   | Crossbows, Trebuchet     |
+| Forest    | Spears      | Spears, Elephant         |
+| Grassland | Light Horse | Light Horse, Heavy Horse |
+
+**All tier 2 and 3 pieces on their home terrain**
+
+![Terrain Tiles](/img/rule_sets/mikelepage/terrain.png)
+
+Fortresses
+----------
+
+Fortresses, like terrain, provide a +1 increase of the defense tier of pieces standing in them.
+As opposed to terrain, this works for all pieces of the player owning the fortress, except the dragon
+(which is already tier 4), but not for pieces of the other player.
+
+Fortresses can also promote pieces standing on them. There are two types of piece promotions: The first one is an
+ordinary "piece improvement" promotion. This type of promotion only happens at the beginning of the turn of the player
+whose fortress it is, and only where that player has already lost a piece of the type the promotion is replacing.
+
+The following piece promotions are possible:
+
+| Original piece | Promoted to |
+|----------------|-------------|
+| Rabble         | Crossbows   |
+| Rabble         | Spears      |
+| Rabble         | Light Horse |
+| Crossbows      | Trebuchet   |
+| Spears         | Elephant    |
+| Light Horse    | Heavy Horse |
+
+When a rabble occupies the fortress and there are multiple piece types to which
+it could be promoted, the player can then choose which piece it becomes.
+
+The second type of promotion becomes possible when the king is captured. In order for that player to continue, they
+must immediately promote one of their tier 3 pieces to King. This can happen at the beginning of the turn (if a tier 3
+piece already occupies the fortress) or the end of the turn (if they move a tier 3 piece to the fortress).
+If the King cannot be replaced the turn immediately after the king was captured, the game is over.
+
+A fortress can also be ruined as a strategy to stop the opponent promoting more pieces. This happens when it is
+occupied by an opponent's piece and cannot be retaken on the move immediately following the occupation. When a fortress
+is ruined, it is removed from the board. The player who ruined the fortress then has to select one of the six corner
+tiles of the board to be used as alternative center for the hexagonal movement of Light Horse and Heavy Horse pieces.
