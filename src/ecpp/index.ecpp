@@ -33,7 +33,7 @@
 %		tnt::Savepoint save1(reply);
 
 		<section id='news'>
-			<h1>News</h1>
+			<h2>News</h2>
 			<%cpp>
 				try
 				{
@@ -52,7 +52,7 @@
 							if(ifs)
 							{
 								reply.out() << "<article>";
-								reply.out() << "<h2>" << node["title"].as<std::string>() << "</h2>\n";
+								reply.out() << "<h3>" << node["title"].as<std::string>() << "</h3>\n";
 								reply.out() << ifs.rdbuf();
 								reply.out() << "</article>";
 

@@ -1,7 +1,5 @@
 var emscriptenHeader;
 var statusElement;
-var progressElement;
-var spinnerElement;
 
 var wsClient;
 
@@ -18,8 +16,6 @@ var Module = {
 	},
 	setStatus: function(text) {
 		if(!text) {
-			spinnerElement.hide();
-
 			// ugly hack to prevent the status set
 			// in the RenderedMatch constructor to
 			// be removed by some initialization code
@@ -117,7 +113,7 @@ function initializeWSClient()
 	Module.wsClient = wsClient;
 	Module.gameMetaData = {};
 
-	Module.setStatus("Downloading...");
+	Module.setStatus("Downloading <span class='ani-loading-dot>.</span>'");
 	window.onerror = function() {
 		Module.setStatus("Exception thrown, see JavaScript console");
 		spinnerElement.hide();
@@ -143,7 +139,7 @@ function setupSidePaneEventHandlers()
 				pageContentWrap.css("margin-left", "");
 				pageContentWrap.appendTo("#page-wrap");
 
-				$("#page-content").html("Loading...");
+				$("#page-content").html("Loading <span class='ani-loading-dot>.</span>'");
 
 				// load after animation
 				loadRuleSetDoc($("input[name='ruleSet']:checked").val());

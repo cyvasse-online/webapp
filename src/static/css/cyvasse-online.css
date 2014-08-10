@@ -34,6 +34,20 @@
 	line-height: 50px; /* can be removed if the text is replaced with a graphic */
 }
 
+#emscripten-header {
+	position: absolute;
+	top: 0;
+	left: 20%;
+	height: 40px;
+	margin: 5px;
+}
+
+#status {
+	line-height: 40px;
+	font-weight: bold;
+	color: #888;
+}
+
 /** inside #page-wrap **/
 #page-wrap > main:nth-child(2),
 #page-wrap > aside:nth-child(2) {
@@ -148,3 +162,25 @@ hr {
 	top: 70px;
 	right: 20px;
 }
+
+.ani-loading-dot {
+	animation: loading 1s linear 0 infinite;
+	position: relative;
+}
+
+@keyframes 'loading' {
+	0%   { left: 0 }
+	33%  { left: 0 }
+	34%  { left: .3em }
+	66%  { left: .3em }
+	67%  { left: .6em }
+	100% { left: .6em }
+}
+
+/*
+@keyframes 'loading' {
+	0%  { background-color: "#666" }
+	33% { background-color: "#abc" }
+	67% { background-color: "#f4e" }
+}
+*/
