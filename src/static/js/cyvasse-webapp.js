@@ -136,13 +136,14 @@ function setupSidePaneEventHandlers()
 			document.title = title;
 			history.pushState(null, title, "/match/create");
 
-			var pageContent = $("#page-content");
+			var pageContentWrap = $("#page-content-wrap");
 
-			pageContent.animate({"margin-left": "-70%"}, 800, function() {
-				pageContent.detach();
-				pageContent.html("");
-				pageContent.css("margin-left", "");
-				pageContent.appendTo("#page-wrap");
+			pageContentWrap.animate({"margin-left": "-70%"}, 800, function() {
+				pageContentWrap.detach();
+				pageContentWrap.css("margin-left", "");
+				pageContentWrap.appendTo("#page-wrap");
+
+				$("#page-content").html("Loading...");
 
 				// load after animation
 				loadRuleSetDoc($("input[name='ruleSet']:checked").val());

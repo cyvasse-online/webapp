@@ -19,58 +19,64 @@
 	#include <tnt/savepoint.h>
 	#include <yaml-cpp/yaml.h>
 </%pre>
-<main id='page-content'>
-	Hi there! <br />
-	<br />
-	On this website, you can play Cyvasse, a game described in <strong>A Song of Ice and Fire</strong>. <br />
-	<br />
-	It is already working, but still misses a lot of all planned features. <br />
-	If you are curious about the development, check out our <a href='https://trello.com/cyvasseonline'>Trello board</a>. <br />
-	<br />
-	You can contact us per mail to give us feedback about the site and the game: <a href='mailto:contact@cyvasse-online.com'>contact@cyvasse-online.com</a>.<br />
+<main id='page-content-wrap'>
+	<div id='page-content'>
+		Hi there!<br />
+		<br />
+		On this website, you can play Cyvasse, a game described in <strong>A Song of Ice and Fire</strong>.<br />
+		<br />
+		It is already working, but still misses a lot of all planned features.<br />
+		If you are curious about the development, check out our <a href='https://trello.com/cyvasseonline'>Trello board</a>.<br />
+		<br />
+		You can contact us per mail to give us feedback about the site and the game: <a href='mailto:contact@cyvasse-online.com'>contact@cyvasse-online.com</a>.<br />
 
-%	tnt::Savepoint save1(reply);
+%		tnt::Savepoint save1(reply);
 
-	<h1>News</h1>
-	<%cpp>
-		try
-		{
-			YAML::Node posts = YAML::LoadFile("news.yml");
-
-			// for now, simply show all news
-			for(const YAML::Node& node : posts)
-			{
-				tnt::Savepoint save2(reply);
-
+		<section id='news'>
+			<h1>News</h1>
+			<%cpp>
 				try
 				{
-					std::string filename = "news/" + node["filename"].as<std::string>();
-					std::ifstream ifs(filename, std::ifstream::in);
+					YAML::Node posts = YAML::LoadFile("news.yml");
 
-					if(ifs)
+					// for now, simply show all news
+					for(const YAML::Node& node : posts)
 					{
-						reply.out() << "<h2>" << node["title"].as<std::string>() << "</h2>\n";
-						reply.out() << ifs.rdbuf();
+						tnt::Savepoint save2(reply);
 
-						ifs.close();
+						try
+						{
+							std::string filename = "news/" + node["filename"].as<std::string>();
+							std::ifstream ifs(filename, std::ifstream::in);
+
+							if(ifs)
+							{
+								reply.out() << "<article>";
+								reply.out() << "<h2>" << node["title"].as<std::string>() << "</h2>\n";
+								reply.out() << ifs.rdbuf();
+								reply.out() << "</article>";
+
+								ifs.close();
+							}
+						}
+						catch(YAML::Exception& e)
+						{
+							// TODO: log error
+							save2.rollback();
+						}
+
+						save2.commit();
 					}
 				}
 				catch(YAML::Exception& e)
 				{
 					// TODO: log error
-					save2.rollback();
+					save1.rollback();
 				}
 
-				save2.commit();
-			}
-		}
-		catch(YAML::Exception& e)
-		{
-			// TODO: log error
-			save1.rollback();
-		}
-
-		save1.commit();
-	</%cpp>
+				save1.commit();
+			</%cpp>
+		</section>
+	</div>
 </main>
 <%include>side_pane.ecpp</%include>

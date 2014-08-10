@@ -40,20 +40,22 @@
 	border-left: 1px solid #333;
 }
 
-#page-content, #side-pane {
+#page-content-wrap, #side-pane-wrap {
 	height: 100%;
 	float: left;
 }
 
-#page-content {
+#page-content-wrap {
 	width: 70%;
-	padding: 10px;
-	overflow-x: auto;
+	overflow-y: auto;
 }
 
-#side-pane {
+#side-pane-wrap {
 	width: 30%;
-	padding: 10px 30px;
+}
+
+#page-content, #side-pane {
+	margin: 1.5em;
 }
 
 #side-pane input[type='radio'] {
@@ -63,7 +65,7 @@
 #side-pane label {
 	display: block;
 	width: 100%;
-	padding: 5px;
+	padding: 0.4em;
 	border-style: solid;
 	border-width: 1px 1px 0 1px;
 	border-color: #999;
@@ -73,12 +75,17 @@
 	border-bottom-width: 1px;
 }
 
+#side-pane label:hover {
+	background-color: #eee;
+}
+
 #side-pane input[type='radio']:checked + label {
 	background-color: #00a7ff;
 }
 
 #side-pane input[type='radio']:disabled + label {
 	color: #999;
+	background-color: #fff;
 }
 
 #game-settings {
@@ -105,6 +112,16 @@ a {
 	text-decoration: none;
 }
 
+button {
+	padding: 0.6em;
+	border: 1px solid #999;
+	background-color: #eee;
+}
+
+button:hover {
+	background-color: #ddd;
+}
+
 th {
 	padding: 0.5em 1em;
 	text-align: left;
@@ -120,7 +137,14 @@ hr {
 	border-top: none;
 }
 
+/* general-purpose css classes */
 .stick-to-bottom {
 	position: absolute;
 	bottom: 0;
+}
+
+.notification {
+	position: fixed;
+	top: 70px;
+	right: 20px;
 }
