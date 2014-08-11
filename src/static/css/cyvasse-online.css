@@ -82,7 +82,8 @@
 	padding: 0.4em;
 	border-style: solid;
 	border-width: 1px 1px 0 1px;
-	border-color: #999;
+	border-color: #888;
+	transition: background-color 0.2s;
 }
 
 #side-pane label:last-of-type {
@@ -98,8 +99,13 @@
 }
 
 #side-pane input[type='radio']:disabled + label {
-	color: #999;
+	color: #888;
 	background-color: #fff;
+}
+
+#side-pane input[type='radio']:checked:disabled + label {
+	background-color: #7fd7ff;
+	transition: background-color 0.4s linear;
 }
 
 #game-settings {
@@ -128,12 +134,17 @@ a {
 
 button {
 	padding: 0.6em;
-	border: 1px solid #999;
+	border: 1px solid #888;
 	background-color: #eee;
 }
 
 button:hover {
 	background-color: #ddd;
+}
+
+button:disabled {
+	color: #888;
+	background-color: #fff;
 }
 
 th {
@@ -166,6 +177,9 @@ hr {
 .ani-loading-dot {
 	animation: loading 1s linear 0 infinite;
 	position: relative;
+	display: inline-block;
+	width: 0.9em;
+	text-align: left;
 }
 
 @keyframes 'loading' {
@@ -176,11 +190,3 @@ hr {
 	67%  { left: .6em }
 	100% { left: .6em }
 }
-
-/*
-@keyframes 'loading' {
-	0%  { background-color: "#666" }
-	33% { background-color: "#abc" }
-	67% { background-color: "#f4e" }
-}
-*/

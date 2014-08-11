@@ -18,7 +18,7 @@
 	<a href='/' id='logo'>Cyvasse Online</a>
 
 	<div id='emscripten-header' style='display: none'>
-		<div id='status'></div>
+		<span id='status'></span>
 	</div>
 </header>
 

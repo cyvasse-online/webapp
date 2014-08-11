@@ -22,27 +22,35 @@
 
 		<input type='radio' id='rule-set-mikelepage' name='ruleSet' value='mikelepage' /> <label for='rule-set-mikelepage'>Mike Le Page's rule set</label>
 
-		<div id='game-settings'>
-			<div>
-				<h3>Play as</h3>
+		<div>
+			<h3>Play as</h3>
 
-				<input type='radio' id='color-white' name='color' value='white' checked /> <label for='color-white'>White player</label>
-				<input type='radio' id='color-black' name='color' value='black' /> <label for='color-black'>Black player</label>
-			</div>
-
-			<div>
-				<h3>Game mode</h3>
-
-				<input type='radio' id='game-mode-direct' name='gameMode' value='direct' checked /> <label for='game-mode-direct'>Online: Direct (send the match url to a friend)</label>
-				<input type='radio' id='game-mode-random' name='gameMode' value='random' disabled /> <label for='game-mode-random'>Online: Random opponent from the internet</label>
-				<input type='radio' id='game-mode-bot' name='gameMode' value='bot' disabled /> <label for='game-mode-random'>Local: Play against a bot</label>
-				<input type='radio' id='game-mode-local' name='gameMode' value='local' disabled /> <label for='game-mode-random'>Local: Play against a friend on this computer</label>
-			</div>
-
-			<br />
-
-			<button id='create-game-button'>Create game</button>
+			<input type='radio' id='color-white' name='color' value='white' /> <label for='color-white'>White player</label>
+			<input type='radio' id='color-black' name='color' value='black' /> <label for='color-black'>Black player</label>
 		</div>
+
+	<%doc>
+		<div>
+			<h3>Extras</h3>
+
+			<div>
+				<!-- Optional rules for the selected rule set -->
+			</div>
+		</div>
+	</%doc>
+
+		<div>
+			<h3>Game mode</h3>
+
+			<input type='radio' id='game-mode-direct' name='gameMode' value='direct' checked /> <label for='game-mode-direct'>Online: Direct (send the match url to a friend)</label>
+			<input type='radio' id='game-mode-random' name='gameMode' value='random' disabled /> <label for='game-mode-random'>Online: Random opponent from the internet</label>
+			<input type='radio' id='game-mode-bot' name='gameMode' value='bot' disabled /> <label for='game-mode-random'>Local: Play against a bot</label>
+			<input type='radio' id='game-mode-local' name='gameMode' value='local' disabled /> <label for='game-mode-random'>Local: Play against a friend on this computer</label>
+		</div>
+
+		<br />
+
+		<button id='create-game-button' disabled>Create game</button>
 	</div>
 
 	<script>setupSidePaneEventHandlers()</script>

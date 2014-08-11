@@ -94,18 +94,23 @@ function loadPage(url, success, pushState) {
 
 function loadRuleSetDoc(ruleSet)
 {
-	// TODO: Show loading animation
+	if(ruleSet) {
+		$("#game-settings").show();
 
-	$("#game-settings").show();
-
-	$.get("/rule_sets/" + ruleSet + ".html", function(reply) {
-		$("#page-content").html(reply);
-	});
+		$("#page-content").html("Loading<div class='ani-loading-dot>.</div>'");
+		$.get("/rule_sets/" + ruleSet + ".html", function(reply) {
+			$("#page-content").html(reply);
+		});
+	}
+	else {
+		$("#game-settings").hide();
+		$("#page-content").html("Click a rule set to get the corresponding documentation here.");
+	}
 }
 
 function initializeWSClient()
 {
-	if(wsClient !== undefined && wsClient !== null) {
+	if(wsClient) {
 		// already initialized
 		throw new Error("WebSocket client already initialized!");
 	}
@@ -113,7 +118,7 @@ function initializeWSClient()
 	Module.wsClient = wsClient;
 	Module.gameMetaData = {};
 
-	Module.setStatus("Downloading <span class='ani-loading-dot'>.</span>");
+	Module.setStatus("Downloading<span class='ani-loading-dot'>.</span>");
 	window.onerror = function() {
 		Module.setStatus("Exception thrown, see JavaScript console");
 		spinnerElement.hide();
@@ -121,6 +126,11 @@ function initializeWSClient()
 			if(text) Module.printErr("[post-exception status] " + text);
 		};
 	};
+}
+
+function createGameParamValid(ruleSet, color)
+{
+	return !!ruleSet && !!color;
 }
 
 function setupSidePaneEventHandlers()
@@ -139,8 +149,6 @@ function setupSidePaneEventHandlers()
 				pageContentWrap.css("margin-left", "");
 				pageContentWrap.appendTo("#page-wrap");
 
-				$("#page-content").html("Loading <span class='ani-loading-dot>.</span>'");
-
 				// load after animation
 				loadRuleSetDoc($("input[name='ruleSet']:checked").val());
 			});
@@ -151,16 +159,26 @@ function setupSidePaneEventHandlers()
 		}
 	});
 
+	$("#side-pane input").change(function() {
+		$("#create-game-button").attr("disabled", !createGameParamValid
+			(
+				$("input:radio[name='ruleSet']:checked").val(),
+				$("input:radio[name='color']:checked").val()
+			)
+		);
+	});
+
 	$("#create-game-button").click(function() {
 		ruleSet = $("input:radio[name='ruleSet']:checked").val();
 		color   = $("input:radio[name='color']:checked").val();
-		if(ruleSet === null || color === null) {
-			return;
+		if(!createGameParamValid(ruleSet, color)) {
+			throw new Error("#create-game-button should be disabled if the given parameters are not valid.");
 		}
 
-		// TODO:
-		// * disable inputs
-		// * show loading animation
+		$("#side-pane :input").attr("disabled", true);
+		$("#create-game-button").attr("disabled", true);
+		$("#create-game-button").css("color", "#000");
+		$("#create-game-button").html("Creating game<span class='ani-loading-dot'>.</span>");
 
 		initializeWSClient();
 
