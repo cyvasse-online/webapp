@@ -113,7 +113,7 @@ function initializeWSClient()
 	Module.wsClient = wsClient;
 	Module.gameMetaData = {};
 
-	Module.setStatus("Downloading <span class='ani-loading-dot>.</span>'");
+	Module.setStatus("Downloading <span class='ani-loading-dot'>.</span>");
 	window.onerror = function() {
 		Module.setStatus("Exception thrown, see JavaScript console");
 		spinnerElement.hide();
