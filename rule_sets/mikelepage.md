@@ -43,6 +43,9 @@ Each player has
 
 ![All pieces](/img/rule_sets/mikelepage/all_pieces.png)
 
+Piece movement
+--------------
+
 ### Mountains (passive)
 
 ![Mountains](/img/rule_sets/mikelepage/mountains.png)
@@ -96,6 +99,14 @@ Dragons can fly over mountains, but no piece can be on the same tile as one.
 **The Dragon moves up to a range of 4 spaces (must be contiguous, no "jumping" of other pieces):**
 
 ![Dragon](/img/rule_sets/mikelepage/dragon.png)
+
+### Interference
+
+The following graphics illustrate the basic movement possibilites when other pieces are in the way.
+
+![Movement interference example: Trebuchet](/img/rule_sets/mikelepage/movement_interference_1.png)
+![Movement interference example: Elephant](/img/rule_sets/mikelepage/movement_interference_2.png)
+![Movement interference example: Dragon](/img/rule_sets/mikelepage/movement_interference_3.png)
 
 Capturing
 ---------
