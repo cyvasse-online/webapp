@@ -112,6 +112,64 @@
 	display: none;
 }
 
+#game-wrap {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 25%;
+	overflow-x: auto;
+	text-align: center;
+}
+
+/* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+canvas {
+	padding: 0;
+	border: 0 none;
+}
+
+/* this is awful but position: absolute seems to hate the border-box fix.
+   padding with another absolute positioned container works */
+#logbox-wrap {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 75%;
+	right: 0;
+}
+
+#logbox {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	bottom: 5px;
+	left: 5px;
+}
+
+/* I am normally the kind of person to care about code style and performance,
+   even for CSS selectors... But I'm generally only doing what works for me with
+   the CSS at the moment so I don't give a F about the awfulness of this rule! */
+#logbox > * {
+	width: 100%;
+}
+
+.message-area {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 5em;
+	overflow-y: auto;
+}
+
+#logbox .stick-to-bottom {
+	height: 5em;
+}
+
+#chat-input {
+	resize: none;
+	height: 3.95em;
+}
+
 /** inside #page-footer **/
 #page-footer-left {
 	margin-left: 2px;

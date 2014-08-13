@@ -32,7 +32,8 @@ var Module = {
 		Module.setStatus(left ? "Preparing... (" + (this.totalDependencies-left) + "/" + this.totalDependencies + ")"
 			: "All downloads complete.");
 	},
-	filePackagePrefixURL: "/"
+	filePackagePrefixURL: "/",
+	doNotCaptureKeyboard: true
 };
 
 // for type checks
@@ -48,13 +49,13 @@ $.fn.exists = function () {
 
 // another thingy from teh internetz, this time really ugly...
 // but it works, and I'm not particularily intersted in doing it better
-function htmlEncode(value){
+function htmlEncode(value) {
   // create a in-memory div, set it's inner text(which jQuery automatically encodes)
   // then grab the encoded contents back out. The div never exists on the page.
   return $("<div/>").text(value).html();
 }
 
-function htmlDecode(value){
+function htmlDecode(value) {
   return $("<div/>").html(value).text();
 }
 
@@ -92,8 +93,7 @@ function loadPage(url, success, pushState) {
 	});
 }
 
-function loadRuleSetDoc(ruleSet)
-{
+function loadRuleSetDoc(ruleSet) {
 	if(ruleSet) {
 		$("#game-settings").show();
 
@@ -108,8 +108,7 @@ function loadRuleSetDoc(ruleSet)
 	}
 }
 
-function initializeWSClient()
-{
+function initializeWSClient() {
 	if(wsClient) {
 		// already initialized
 		throw new Error("WebSocket client already initialized!");
@@ -128,14 +127,16 @@ function initializeWSClient()
 	};
 }
 
-function createGameParamValid(ruleSet, color)
-{
-	return !!ruleSet && !!color;
+function createGameParamValid(ruleSet, color, gameMode) {
+	return !!ruleSet && !!color && !!gameMode;
 }
 
-function setupSidePaneEventHandlers()
-{
+function setupSidePaneEventHandlers() {
 	$("input[name='ruleSet']").change(function() {
+		loadRuleSetDoc($("input[name='ruleSet']:checked").val());
+	});
+
+	$("#side-pane input").change(function() {
 		if(document.location.pathname == "/") {
 			var title = "Create a new game | Cyvasse Online";
 
@@ -153,25 +154,22 @@ function setupSidePaneEventHandlers()
 				loadRuleSetDoc($("input[name='ruleSet']:checked").val());
 			});
 		}
-		else {
-			// load immediately
-			loadRuleSetDoc($("input[name='ruleSet']:checked").val());
-		}
-	});
 
-	$("#side-pane input").change(function() {
 		$("#create-game-button").attr("disabled", !createGameParamValid
 			(
 				$("input:radio[name='ruleSet']:checked").val(),
-				$("input:radio[name='color']:checked").val()
+				$("input:radio[name='color']:checked").val(),
+				$("input:radio[name='gameMode']:checked").val()
 			)
 		);
 	});
 
 	$("#create-game-button").click(function() {
-		ruleSet = $("input:radio[name='ruleSet']:checked").val();
-		color   = $("input:radio[name='color']:checked").val();
-		if(!createGameParamValid(ruleSet, color)) {
+		ruleSet  = $("input:radio[name='ruleSet']:checked").val();
+		color    = $("input:radio[name='color']:checked").val();
+		gameMode = $("input:radio[name='gameMode']:checked").val();
+
+		if(!createGameParamValid(ruleSet, color, gameMode)) {
 			throw new Error("#create-game-button should be disabled if the given parameters are not valid.");
 		}
 
@@ -189,8 +187,7 @@ function setupSidePaneEventHandlers()
 	});
 }
 
-function getMatchID(url)
-{
+function getMatchID(url) {
 	return url.substr(-4);
 }
 
@@ -204,66 +201,3 @@ $(document).ready(function() {
 		loadPage(document.location.pathname, null, false);
 	};
 });
-
-// chat + game log stuff
-
-var SenderEnum = {
-	SERVER: "Server",
-	PLAYER_WHITE: "White player",
-	PLAYER_BLACK: "Black player"
-};
-
-// don't allow modification of SenderEnum
-Object.freeze(SenderEnum);
-
-// this is awful, but is seems there no better method of doing this
-// ... or you aren't even supposed to do it at all in JavaScript
-function isSenderEnum(str) {
-	if(!isString(str)) {
-		throw new TypeError("str has to be a string");
-	}
-
-	for(var elem in SenderEnum) {
-		if(str == SenderEnum[elem]) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
-var logbox = $("#logbox");
-
-function logboxAddMessage(msgHtml) {
-	if(!isString(msgHtml)) {
-		throw new TypeError("msgHtml has to be a string");
-	}
-	if(!logbox.exists()) {
-		logbox = $("#logbox");
-		if(!logbox.exists()) {
-			throw new Error("Couldn't find #logbox");
-		}
-	}
-
-	// TODO
-}
-
-function logboxAddGameMessage(sender, msgObj) {
-	if(!isSenderEnum(sender)) {
-		throw new TypeError("sender has to be a member of SenderEnum: " + JSON.stringify(Object.keys(SenderEnum)));
-	}
-	if(sender == SenderEnum.SERVER) {
-		console.error("The sender of a game message should be a player, not the server...");
-	}
-
-	// logboxAddMessage() a nicely formatted version of the information in msgObj
-}
-
-function logboxAddChatMessage(sender, msg) {
-	if(!isSenderEnum(sender)) {
-		throw new TypeError("sender has to be a member of SenderEnum: " + JSON.stringify(Object.keys(SenderEnum)));
-	}
-
-	// might allow basic html somewhen
-	logboxAddMessage("<b>" + sender + "</b>: " + htmlEncode(msg));
-}
