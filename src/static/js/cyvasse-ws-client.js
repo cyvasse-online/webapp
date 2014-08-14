@@ -28,7 +28,11 @@ function CyvasseWSClient(websockConn, loadNewPage) {
 	};
 
 	this.conn.onclose = function() {
-		console.log("The connection to the server was closed.");
+		if(!Module.logbox) {
+			throw new Error("Can't access the log box");
+		}
+		
+		Module.logbox.addMessage("<em>The connection to the server was closed.</em>");
 	};
 }
 
@@ -51,6 +55,10 @@ CyvasseWSClient.prototype = {
 				throw new Error("Got a chat message with sender but without message content");
 			}
 
+			if(!Module.logbox) {
+				throw new Error("Can't access the log box");
+			}
+			
 			Module.logbox.addChatMessage(msgObj.param.sender, msgObj.param.message);
 
 			// TODO: reply

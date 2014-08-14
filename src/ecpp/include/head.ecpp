@@ -24,7 +24,7 @@
 	<link rel='stylesheet' href='/css/noscript.css' />
 </noscript>
 <script src='/js/jquery-2.1.1.min.js'></script>
-<script src='/js/cyvasse-game-client.js'></script>
+<script src='/js/cyvasse-ws-client.js'></script>
 <script src='/js/cyvasse-webapp.js'></script>
 
 %	PagemetaData metadata = (PagemetaReader()).getData(request.getArg("content"));
