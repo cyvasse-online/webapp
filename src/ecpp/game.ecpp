@@ -18,16 +18,14 @@
 <div id='game-wrap'>
 	<canvas class='emscripten' id='canvas' oncontextmenu='event.preventDefault()'></canvas>
 </div>
-<aside id='logbox-wrap'>
-	<!-- I hate wrapping div's, but I don't want to invest time
-	     in figuring out how to do this properly at the moment -->
-	<div id='logbox'>
-		<div class='message-area'>
-		</div>
-		<div class='stick-to-bottom'>
-			<hr />
-			<textarea id='chat-input' style='width: 100%'></textarea>
-		</div>
+<aside id='logbox'>
+	<div class='scroll-to-bottom'>
+		<div>Scroll to bottom</div>
+	</div>
+	<div class='message-area'></div>
+	<div class='stick-to-bottom'>
+		<hr class='separator-h' />
+		<textarea class='chat-input' placeholder='Write a message...'></textarea>
 	</div>
 </aside>
 

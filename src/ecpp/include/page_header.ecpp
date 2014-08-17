@@ -16,10 +16,7 @@
 </%doc>
 <header id='page-header'>
 	<a href='/' id='logo'>Cyvasse Online</a>
-
-	<div id='emscripten-header' style='display: none'>
-		<span id='status'></span>
-	</div>
+	<span id='status'></span>
 </header>
 
 <noscript>

@@ -1,4 +1,3 @@
-var emscriptenHeader;
 var statusElement;
 
 var wsClient;
@@ -19,9 +18,8 @@ var Module = {
 			// ugly hack to prevent the status set
 			// in the RenderedMatch constructor to
 			// be removed by some initialization code
-			if(statusElement.html() == "Setup") {
+			if(statusElement.html() == "Setup")
 				return;
-			}
 		}
 
 		statusElement.html(text);
@@ -62,23 +60,19 @@ function htmlDecode(value) {
 // own stuff again
 
 function loadPage(url, success, pushState) {
-	if(!isString(url)) {
+	if(!isString(url))
 		throw new TypeError("url has to be a string");
-	}
-	if(pushState === undefined) {
-		pushState = true;
-	}
-	if(typeof(pushState) !== "boolean") {
-		throw new TypeError("pushState has to be a bool");
-	}
 
-	if(url.substr(-1) == "/") {
+	if(pushState === undefined)
+		pushState = true;
+
+	if(typeof(pushState) !== "boolean")
+		throw new TypeError("pushState has to be a bool");
+
+	if(url.substr(-1) == "/")
 		url = url + "index";
-	}
-	else if(url.substr(-11, 7) == "/match/") {
+	else if(url.substr(-11, 7) == "/match/")
 		wsClient = null;
-		emscriptenHeader.hide();
-	}
 
 	$.getJSON(url + ".json", function(reply) {
 		if(pushState) {
@@ -87,9 +81,8 @@ function loadPage(url, success, pushState) {
 		}
 
 		$("#page-wrap").html(reply.content);
-		if(typeof(success) === "function") {
+		if(typeof(success) === "function")
 			success();
-		}
 	});
 }
 
@@ -109,10 +102,9 @@ function loadRuleSetDoc(ruleSet) {
 }
 
 function initializeWSClient() {
-	if(wsClient) {
-		// already initialized
+	if(wsClient) // already initialized
 		throw new Error("WebSocket client already initialized!");
-	}
+
 	wsClient = new CyvasseWSClient(new WebSocket("ws://" + window.location.hostname + ":2516/"), loadPage);
 	Module.wsClient = wsClient;
 	Module.gameMetaData = {};
@@ -120,7 +112,6 @@ function initializeWSClient() {
 	Module.setStatus("Downloading<span class='ani-loading-dot'>.</span>");
 	window.onerror = function() {
 		Module.setStatus("Exception thrown, see JavaScript console");
-		spinnerElement.hide();
 		Module.setStatus = function(text) {
 			if(text) Module.printErr("[post-exception status] " + text);
 		};
@@ -169,9 +160,8 @@ function setupSidePaneEventHandlers() {
 		color    = $("input:radio[name='color']:checked").val();
 		gameMode = $("input:radio[name='gameMode']:checked").val();
 
-		if(!createGameParamValid(ruleSet, color, gameMode)) {
+		if(!createGameParamValid(ruleSet, color, gameMode))
 			throw new Error("#create-game-button should be disabled if the given parameters are not valid.");
-		}
 
 		$("#side-pane :input").attr("disabled", true);
 		$("#create-game-button").attr("disabled", true);
@@ -192,10 +182,8 @@ function getMatchID(url) {
 }
 
 $(document).ready(function() {
-	emscriptenHeader = $("#emscripten-header");
 	statusElement = $("#status");
-	progressElement = $("#progress");
-	spinnerElement = $("#spinner");
+	//progressElement = $("#progress");
 
 	window.onpopstate = function() {
 		loadPage(document.location.pathname, null, false);

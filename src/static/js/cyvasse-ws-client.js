@@ -1,15 +1,12 @@
 function loadCyvasseJs() {
-	emscriptenHeader.show();
 	$.getScript("/cyvasse.js");
 }
 
 function CyvasseWSClient(websockConn, loadNewPage) {
-	if(websockConn instanceof WebSocket === false) {
+	if(websockConn instanceof WebSocket === false)
 		throw new TypeError("websockConn has to be a WebSocket instance");
-	}
-	if(typeof(loadNewPage) !== "function") {
+	if(typeof(loadNewPage) !== "function")
 		throw new TypeError("loadNewPage has to be a function");
-	}
 
 	this.conn = websockConn;
 	this.loadNewPage = loadNewPage;
@@ -28,10 +25,9 @@ function CyvasseWSClient(websockConn, loadNewPage) {
 	};
 
 	this.conn.onclose = function() {
-		if(!Module.logbox) {
+		if(!Module.logbox)
 			throw new Error("Can't access the log box");
-		}
-		
+
 		Module.logbox.addMessage("<em>The connection to the server was closed.</em>");
 	};
 }
@@ -41,24 +37,17 @@ CyvasseWSClient.prototype = {
 		var msgObj = JSON.parse(msgData);
 
 		if(msgObj.messageType === "request") {
-			if(msgObj.action !== "chat message") {
+			if(msgObj.action !== "chat message")
 				throw new Error("Got a request from the server that's not a chat message");
-			}
-			
-			if(!msgObj.param) {
+			if(!msgObj.param)
 				throw new Error("Got a chat message without parameters");
-			}
-			if(!msgObj.param.sender) {
+			if(!msgObj.param.sender)
 				throw new Error("Got a chat message without sender");
-			}
-			if(!msgObj.param.message) {
+			if(!msgObj.param.message)
 				throw new Error("Got a chat message with sender but without message content");
-			}
-
-			if(!Module.logbox) {
+			if(!Module.logbox)
 				throw new Error("Can't access the log box");
-			}
-			
+
 			Module.logbox.addChatMessage(msgObj.param.sender, msgObj.param.message);
 
 			// TODO: reply
@@ -73,14 +62,11 @@ CyvasseWSClient.prototype = {
 					answeredRequest = this.awaitingReply.splice(request, 1)[0];
 				}
 			}
-			if(answeredRequest === undefined) {
+			if(answeredRequest === undefined)
 				throw new Error("Got a reply to an unknown server request");
-			}
-
-			if(msgObj.success === false) {
+			if(msgObj.success === false)
 				throw new Error("Got an error message from the server: " + msgObj.error + "\n" +
 					"as response to:\n\n" + JSON.stringify(answeredRequest));
-			}
 
 			switch(answeredRequest.action) {
 				case "create game":
@@ -95,9 +81,8 @@ CyvasseWSClient.prototype = {
 					Module.gameMetaData.playerID = msgObj.data.playerID;
 					loadCyvasseJs();
 
-					if(this.afterJoinGame !== undefined) {
+					if(this.afterJoinGame !== undefined)
 						this.afterJoinGame();
-					}
 
 					break;
 				case "chat message":
@@ -111,9 +96,8 @@ CyvasseWSClient.prototype = {
 				this.cachedIngameRequests.push(msgData);
 			}
 			else {
-				if(typeof(this.handleMessageIngame) !== "function") {
+				if(typeof(this.handleMessageIngame) !== "function")
 					throw new TypeError("handleMessageIngame has to be a function");
-				}
 
 				this.handleMessageIngame(msgData);
 			}
@@ -172,9 +156,8 @@ CyvasseWSClient.prototype = {
 			}
 		});
 
-		if(typeof(success) === "function") {
+		if(typeof(success) === "function")
 			this.afterJoinGame = success;
-		}
 	},
 
 	sendChatMsg: function(sender, message) {
