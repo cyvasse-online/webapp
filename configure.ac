@@ -18,6 +18,7 @@ AC_CHECK_PROGS(MARKDOWN, [markdown_py])
 
 AC_CONFIG_FILES([
 	Makefile
+	config.yml
 	news/Makefile
 	rule_sets/Makefile
 	src/Makefile

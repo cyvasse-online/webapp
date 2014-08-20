@@ -7,7 +7,7 @@ depcomp
 install-sh
 missing
 
-## symlinks
+# symlinks
 static
 !/src/static
 news.yml
@@ -21,7 +21,12 @@ config.status
 Makefile
 Makefile.in
 
-# Compiled files
+# config files
+
+config.yml
+log.xml
+
+# compiled files
 
 cyvasse-online
 ## not compiled in this package, but

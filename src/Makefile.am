@@ -22,6 +22,9 @@ cyvasse_online_SOURCES = \
 	pagemeta_reader.hpp \
 	$(cyvasse_online_ecpp_sources)
 
+cyvasse_online_CPPFLAGS = \
+	-I$(top_srcdir)/cyvasse-common/include
+
 nodist_cyvasse_online_SOURCES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp)
 
 cyvasse_online_LDADD = \

@@ -16,13 +16,29 @@
 
 #include <fstream>
 #include <iostream>
+#include <string>
 #include <tnt/tntconfig.h>
 #include <tnt/tntnet.h>
 #include <cxxtools/log.h>
-#include <cxxtools/jsondeserializer.h>
+#include <yaml-cpp/yaml.h>
+#include <cyvdb/config.hpp>
 
 int main()
 {
+	log_init("log.xml");
+
+	auto config = YAML::LoadFile("config.yml");
+	auto listenPort   = config["listenPort"].as<int>();
+	auto matchDataUrl = config["matchDataUrl"].as<std::string>();
+
+	if(matchDataUrl.empty())
+	{
+		std::cerr << "Error: No database url set!" << std::endl;
+		return 1;
+	}
+
+	cyvdb::DBConfig::glob().setMatchDataUrl(matchDataUrl);
+
 	try
 	{
 		tnt::Tntnet app;
@@ -31,7 +47,7 @@ int main()
 		// still relying on the webapp being executed from top_builddir
 		config.documentRoot = "static";
 
-		app.listen(2517);
+		app.listen(listenPort);
 		app.setAppName("cyvasse-online");
 
 		// setArg() and setting the documentRoot per
