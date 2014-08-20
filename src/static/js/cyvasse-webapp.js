@@ -118,8 +118,10 @@ function initializeWSClient() {
 	};
 }
 
-function createGameParamValid(ruleSet, color, gameMode) {
-	return !!ruleSet && !!color && !!gameMode;
+function createGameParamValid(metaData) {
+	return !!metaData.ruleSet
+		&& !!metaData.color
+		&& !!metaData.gameMode;
 }
 
 function setupSidePaneEventHandlers() {
@@ -146,21 +148,21 @@ function setupSidePaneEventHandlers() {
 			});
 		}
 
-		$("#create-game-button").attr("disabled", !createGameParamValid
-			(
-				$("input:radio[name='ruleSet']:checked").val(),
-				$("input:radio[name='color']:checked").val(),
-				$("input:radio[name='gameMode']:checked").val()
-			)
-		);
+		$("#create-game-button").attr("disabled", !createGameParamValid({
+			ruleSet:  $("input:radio[name='ruleSet']:checked").val(),
+			color:    $("input:radio[name='color']:checked").val(),
+			gameMode: $("input:radio[name='gameMode']:checked").val()
+		}));
 	});
 
 	$("#create-game-button").click(function() {
-		ruleSet  = $("input:radio[name='ruleSet']:checked").val();
-		color    = $("input:radio[name='color']:checked").val();
-		gameMode = $("input:radio[name='gameMode']:checked").val();
+		var metaData = {
+			ruleSet:  $("input:radio[name='ruleSet']:checked").val(),
+			color:    $("input:radio[name='color']:checked").val(),
+			gameMode: $("input:radio[name='gameMode']:checked").val()
+		};
 
-		if(!createGameParamValid(ruleSet, color, gameMode))
+		if(!createGameParamValid(metaData))
 			throw new Error("#create-game-button should be disabled if the given parameters are not valid.");
 
 		$("#side-pane :input").attr("disabled", true);
@@ -172,7 +174,7 @@ function setupSidePaneEventHandlers() {
 
 		// TODO: might not be the best to overwrite conn.onopen
 		wsClient.conn.onopen = function() {
-			wsClient.createGame(ruleSet, color);
+			wsClient.createGame(metaData);
 		};
 	});
 }

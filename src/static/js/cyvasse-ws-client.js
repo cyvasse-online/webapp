@@ -135,16 +135,12 @@ CyvasseWSClient.prototype = {
 		this.send(msgObj);
 	},
 
-	createGame: function(ruleSet, color) {
-		Module.gameMetaData.ruleSet = ruleSet;
-		Module.gameMetaData.color = color;
+	createGame: function(metaData) {
+		Module.gameMetaData = metaData;
 
 		this.sendRequest({
 			"action": "create game",
-			"param": {
-				"ruleSet": ruleSet,
-				"color": color
-			}
+			"param": metaData
 		});
 	},
 

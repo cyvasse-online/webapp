@@ -162,7 +162,7 @@ LogBox.prototype = {
 	},
 
 	addStatusMessage: function(msgHtml) {
-		this.addMessage("<span class='status-msg'>" + msg + "</span>");
+		this.addMessage("<span class='status-msg'>" + msgHtml + "</span>");
 	},
 
 	addChatMessage: function(sender, msg) {
