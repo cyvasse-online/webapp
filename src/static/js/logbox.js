@@ -161,12 +161,19 @@ LogBox.prototype = {
 		// TODO: logboxAddMessage() a nicely formatted version of the information in msgObj
 	},
 
+	addStatusMessage: function(msgHtml) {
+		this.addMessage("<span class='status-msg'>" + msg + "</span>");
+	},
+
 	addChatMessage: function(sender, msg) {
 		if(!isSenderEnum(sender))
 			throw new TypeError("sender has to be a member of SenderEnum: " + JSON.stringify(Object.keys(SenderEnum)));
 
 		// might allow basic html somewhen
-		this.addMessage("<strong>" + sender + ":</strong> " + htmlEncode(msg));
+		if(sender == SenderEnum.SERVER)
+			this.addStatusMessage(htmlEncode(msg));
+		else
+			this.addMessage("<strong>" + sender + ":</strong> " + htmlEncode(msg));
 
 		if(this.scrToBtmVisible) {
 			if(sender == this.player) {

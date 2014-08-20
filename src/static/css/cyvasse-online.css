@@ -173,6 +173,10 @@ canvas {
 	margin: .2em .3em;
 }
 
+.status-msg {
+	color: #666;
+}
+
 .chat-input {
 	resize: none;
 	height: 3.95em;

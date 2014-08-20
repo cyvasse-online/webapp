@@ -1,0 +1,3 @@
+[submodule "cyvasse-common"]
+	path = cyvasse-common
+	url = https://github.com/cyvasse-online/cyvasse-common.git
