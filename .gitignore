@@ -26,6 +26,11 @@ Makefile.in
 config.yml
 log.xml
 
+# common user-created files
+
+*.pid
+nohup.out
+
 # compiled files
 
 cyvasse-online
