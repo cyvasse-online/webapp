@@ -41,6 +41,10 @@
 }
 
 /** inside #page-wrap **/
+.fullsize-content {
+	margin: 1em;
+}
+
 #page-wrap > main:nth-child(2),
 #page-wrap > aside:nth-child(2) {
 	border-left: 1px solid #333;
@@ -49,11 +53,11 @@
 #page-content-wrap, #side-pane-wrap {
 	height: 100%;
 	float: left;
+	overflow-y: auto;
 }
 
 #page-content-wrap {
 	width: 70%;
-	overflow-y: auto;
 }
 
 #side-pane-wrap {
@@ -102,6 +106,10 @@
 
 #game-settings {
 	display: none;
+}
+
+#news {
+	margin-top: 3em;
 }
 
 #game-wrap {
@@ -190,15 +198,16 @@ canvas {
 
 /** inside #page-footer **/
 #page-footer > * {
+	position: absolute;
 	font-size: .9em;
 }
 
 #page-footer-left {
-	margin-left: .5em;
+	left: .5em;
 }
 
 #page-footer-right {
-	margin-right: .5em;
+	right: .5em;
 }
 
 /* general styling */

@@ -9,6 +9,7 @@ cyvasse_online_ecpp_sources = \
 	ecpp/404.ecpp \
 	ecpp/500.ecpp \
 	ecpp/create.ecpp \
+	ecpp/disclaimer.ecpp \
 	ecpp/index.ecpp \
 	ecpp/game.ecpp \
 	ecpp/page.ecpp
