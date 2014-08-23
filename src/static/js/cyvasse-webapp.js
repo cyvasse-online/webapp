@@ -71,8 +71,6 @@ function loadPage(url, success, pushState) {
 
 	if(url.substr(-1) == "/")
 		url = url + "index";
-	else if(url.substr(-11, 7) == "/match/")
-		wsClient = null;
 
 	$.getJSON(url + ".json", function(reply) {
 		if(pushState) {

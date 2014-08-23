@@ -70,16 +70,27 @@ CyvasseWSClient.prototype = {
 
 			switch(answeredRequest.action) {
 				case "create game":
+					Module.gameMetaData.matchID  = msgObj.data.matchID;
 					Module.gameMetaData.playerID = msgObj.data.playerID;
 					this.loadNewPage("/match/" + msgObj.data.matchID, function() {
 						loadCyvasseJs();
 					});
 					break;
 				case "join game":
-					Module.gameMetaData.ruleSet = msgObj.data.ruleSet;
 					Module.gameMetaData.color = msgObj.data.color;
 					Module.gameMetaData.playerID = msgObj.data.playerID;
-					loadCyvasseJs();
+
+					if(answeredRequest.param.random)
+						Module.gameMetaData.matchID = msgObj.data.matchID;
+					else
+						Module.gameMetaData.ruleSet = msgObj.data.ruleSet;
+
+					if(document.location.pathname.substr(0, 7) == "/match/")
+						loadCyvasseJs();
+					else
+						this.loadNewPage("/match/" + Module.gameMetaData.matchID, function() {
+							loadCyvasseJs();
+						});
 
 					if(this.afterJoinGame !== undefined)
 						this.afterJoinGame();
@@ -145,10 +156,28 @@ CyvasseWSClient.prototype = {
 	},
 
 	joinGame: function(matchID, success) {
+		Module.gameMetaData.matchID = matchID;
+
 		this.sendRequest({
 			"action": "join game",
 			"param": {
+				"random": false,
 				"matchID": matchID
+			}
+		});
+
+		if(typeof(success) === "function")
+			this.afterJoinGame = success;
+	},
+
+	joinRandomGame: function(ruleSet, success) {
+		Module.gameMetaData.ruleSet = ruleSet;
+
+		this.sendRequest({
+			"action": "join game",
+			"param": {
+				"random": true,
+				"ruleSet": ruleSet
 			}
 		});
 
