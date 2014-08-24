@@ -8,9 +8,10 @@ bin_PROGRAMS = cyvasse-online
 cyvasse_online_ecpp_sources = \
 	ecpp/404.ecpp \
 	ecpp/500.ecpp \
-	ecpp/create.ecpp \
+	ecpp/create-game.ecpp \
 	ecpp/disclaimer.ecpp \
 	ecpp/index.ecpp \
+	ecpp/join-game.ecpp \
 	ecpp/game.ecpp \
 	ecpp/page.ecpp
 

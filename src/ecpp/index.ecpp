@@ -19,8 +19,8 @@
 	#include <tnt/savepoint.h>
 	#include <yaml-cpp/yaml.h>
 </%pre>
-<main id='page-content-wrap'>
-	<div id='page-content'>
+<main class='page-content-wrap boxed'>
+	<div class='page-content'>
 		Hi there!<br />
 		<br />
 		On this website, you can play Cyvasse, a game described in <strong>A Song of Ice and Fire</strong>.<br />

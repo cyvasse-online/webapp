@@ -1,2 +1,4 @@
 create:
-  title: Create a new game
+  title: Create a game
+join:
+  title: Join a game

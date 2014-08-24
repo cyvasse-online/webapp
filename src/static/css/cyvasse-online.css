@@ -1,11 +1,20 @@
 /* page layout */
-#page-header, #page-wrap, #page-footer {
-	position: fixed;
-	left: 0;
-	right: 0;
+html,
+body {
+	height: 100%;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+#page-header,
+#page-footer {
+	width: 100%;
 }
 
 #page-header {
+	position: fixed;
 	top: 0;
 	height: 3em;
 	line-height: 3em;
@@ -15,15 +24,29 @@
 	z-index: 2;
 }
 
+#page-outer-wrap {
+	display: table;
+	/* min-height would be better, but this works everywhere and FF doesn't want min-height */
+	height: 100%;
+	padding-top: 3em;
+	padding-bottom: 2em;
+}
+
 #page-wrap {
-	top: 3em;
-	bottom: 2em;
+	display: table-row;
+}
+
+#page-wrap > * {
+	display: table-cell;
+	vertical-align: top;
 }
 
 #page-footer {
-	bottom: 0;
+	position: relative;
+	margin-top: -2em;
 	height: 2em;
-	line-height: 2em;
+	line-height: 1.9em; /* FF 31 doesn't accept calc(2em - 1px) */
+	line-height: calc(2em - 1px);
 
 	border-top: 1px solid #333;
 }
@@ -45,66 +68,23 @@
 	margin: 1em;
 }
 
-#page-wrap > main:nth-child(2),
-#page-wrap > aside:nth-child(2) {
+.boxed + .boxed {
 	border-left: 1px solid #333;
 }
 
-#page-content-wrap, #side-pane-wrap {
-	height: 100%;
-	float: left;
-	overflow-y: auto;
+.side-pane-wrap {
+	width: 450px;
 }
 
-#page-content-wrap {
-	width: 70%;
-}
-
-#side-pane-wrap {
-	width: 30%;
-}
-
-#page-content, #side-pane {
+.page-content, .side-pane {
 	margin: 1em;
 }
 
-#side-pane input[type='radio'] {
-	display: none;
+#create-join-option {
+	font-weight: bold;
 }
 
-#side-pane label {
-	display: block;
-	width: 100%;
-	padding: .4em;
-	border-style: solid;
-	border-width: 1px 1px 0 1px;
-	border-color: #888;
-	transition: background-color .2s;
-}
-
-#side-pane label:last-of-type {
-	border-bottom-width: 1px;
-}
-
-#side-pane label:hover {
-	background-color: #eee;
-}
-
-#side-pane input[type='radio']:checked + label {
-	background-color: #00a7ff;
-}
-
-#side-pane input[type='radio']:disabled + label {
-	color: #888;
-	background-color: #fff;
-}
-
-#side-pane input[type='radio']:checked:disabled + label {
-	background-color: #7fd7ff;
-	transition: background-color .4s linear;
-}
-
-#game-settings {
+#option-extras {
 	display: none;
 }
 
@@ -118,7 +98,7 @@
 	bottom: 0;
 	left: 0;
 	right: 25%;
-	overflow-x: auto;
+	overflow: auto;
 	text-align: center;
 }
 
@@ -252,6 +232,14 @@ hr {
 }
 
 /* general-purpose css classes */
+.clearfix:after {
+    content: '.';
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0px;
+}
+
 .stick-to-bottom {
 	position: absolute;
 	bottom: 0;
@@ -285,4 +273,55 @@ hr {
 	66%  { left: .3em }
 	67%  { left: .6em }
 	100% { left: .6em }
+}
+
+/** Selection 'boxes' (side pane) **/
+.option input[type='radio'],
+.option input[type='checkbox'] {
+	display: none;
+}
+
+.option label {
+	display: inline-block;
+	padding: .4em;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #888;
+	transition: background-color .2s;
+}
+
+.option label:hover {
+	background-color: #eee;
+}
+
+.option input:checked + label {
+	background-color: #00a7ff;
+}
+
+.option input:disabled + label {
+	color: #888;
+	background-color: #fff;
+}
+
+.option input:checked:disabled + label {
+	background-color: #7fd7ff;
+	transition: background-color .4s linear;
+}
+
+.option-vertical label {
+	width: 100%;
+}
+
+.option-vertical label:not(:last-of-type) {
+	border-bottom-width: 0;
+}
+
+.option-horizontal-2 label {
+	width: 50%;
+	float: left;
+	text-align: center;
+}
+
+.option-horizontal-2 label:not(:last-of-type) {
+	border-right-width: 0;
 }

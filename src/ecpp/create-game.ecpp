@@ -14,9 +14,16 @@
 	You should have received a copy of the GNU Affero General Public License along with this program.
 	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
+<%args>
+	bool pageContent;
+</%args>
+% if(!pageContent) {
 <%include>side_pane.ecpp</%include>
-<main id='page-content-wrap'>
-	<div id='page-content'>
+<main class='page-content-wrap boxed'>
+% }
+	<div class='page-content'>
 		Click a rule set to get the corresponding documentation here.
 	</div>
+% if(!pageContent) {
 </main>
+% }

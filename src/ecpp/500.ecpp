@@ -18,6 +18,8 @@
 std::string errorMessage;
 </%args>
 %	if(errorMessage.empty()) errorMessage = "Internal Server Error";
-<h2><$ errorMessage $></h2>
+<div class='fullsize-content'>
+	<h2><$ errorMessage $></h2>
+</div>
 
 %	return HTTP_INTERNAL_SERVER_ERROR;

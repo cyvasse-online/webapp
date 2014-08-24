@@ -59,43 +59,57 @@ function htmlDecode(value) {
 
 // own stuff again
 
-function loadPage(url, success, pushState) {
+function loadPage(url, success, pushState, replaceRoot, getData) {
 	if(!isString(url))
 		throw new TypeError("url has to be a string");
 
 	if(pushState === undefined)
 		pushState = true;
-
-	if(typeof(pushState) !== "boolean")
+	else if(typeof(pushState) !== "boolean")
 		throw new TypeError("pushState has to be a bool");
 
-	if(url.substr(-1) == "/")
-		url = url + "index";
+	if(replaceRoot === undefined)
+		replaceRoot = "#page-wrap";
+	else if(!isString(replaceRoot))
+		throw new TypeError("replaceRoot has to be a string");
 
-	$.getJSON(url + ".json", function(reply) {
+	var realUrl = url;
+	if(realUrl.substr(-1) == "/")
+		realUrl = realUrl + "index";
+
+	$.getJSON(realUrl + ".json", getData, function(reply) {
 		if(pushState) {
 			document.title = reply.title;
 			history.pushState(null, reply.title, url);
 		}
 
-		$("#page-wrap").html(reply.content);
-		if(typeof(success) === "function")
-			success();
+		$(replaceRoot).children().fadeOut(300, function() {
+			$(replaceRoot).html(reply.content);
+			$(replaceRoot).children().hide();
+
+			if(typeof(success) === "function")
+				success();
+
+			$(replaceRoot).children().fadeIn(300);
+		});
 	});
 }
 
 function loadRuleSetDoc(ruleSet) {
-	if(ruleSet) {
-		$("#game-settings").show();
+	var pageContent = $(".page-content");
 
-		$("#page-content").html("Loading<div class='ani-loading-dot>.</div>'");
+	if(ruleSet) {
+		$("#option-extras").show();
+
+		pageContent.html("Loading<div class='ani-loading-dot'>.</div>");
+		// TODO: replace with loadPage
 		$.get("/rule_sets/" + ruleSet + ".html", function(reply) {
-			$("#page-content").html(reply);
+			pageContent.html(reply);
 		});
 	}
 	else {
-		$("#game-settings").hide();
-		$("#page-content").html("Click a rule set to get the corresponding documentation here.");
+		$("#option-extras").hide();
+		pageContent.html("Click a rule set to get the corresponding documentation here.");
 	}
 }
 
@@ -122,35 +136,94 @@ function createGameParamValid(metaData) {
 		&& !!metaData.gameMode;
 }
 
-function setupSidePaneEventHandlers() {
-	$("input[name='ruleSet']").change(function() {
-		loadRuleSetDoc($("input[name='ruleSet']:checked").val());
-	});
+function updateGameOptions()
+{
+	var gameOptions = $("#game-options");
 
-	$("#side-pane input").change(function() {
-		if(document.location.pathname == "/") {
-			var title = "Create a new game | Cyvasse Online";
-
-			document.title = title;
-			history.pushState(null, title, "/match/create");
-
-			var pageContentWrap = $("#page-content-wrap");
-
-			pageContentWrap.animate({"margin-left": "-70%"}, 800, function() {
-				pageContentWrap.detach();
-				pageContentWrap.css("margin-left", "");
-				pageContentWrap.appendTo("#page-wrap");
-
-				// load after animation
-				loadRuleSetDoc($("input[name='ruleSet']:checked").val());
-			});
+	var showOptions = function() {
+		switch($("input[name='create-join']:checked").val())
+		{
+			case "create-game":
+				$("#game-options input").prop("checked", false).attr("type", "radio");
+				$("#create-game-button").attr("disabled", true);
+				$("#create-game-only").fadeIn(300);
+				break;
+			case "join-game":
+				$("#game-options input:not([name='gameMode'])").attr("type", "checkbox").prop("checked", true);
+				$("#create-game-only").hide();
+				break;
+			default:
+				throw new Error("This function should only be called when either" +
+					"'Create game' or 'Join game' was clicked.");
 		}
 
-		$("#create-game-button").attr("disabled", !createGameParamValid({
-			ruleSet:  $("input:radio[name='ruleSet']:checked").val(),
-			color:    $("input:radio[name='color']:checked").val(),
-			gameMode: $("input:radio[name='gameMode']:checked").val()
-		}));
+		gameOptions.fadeIn(300);
+	};
+
+	if(gameOptions.is(":visible"))
+		gameOptions.fadeOut(300, showOptions);
+	else
+		showOptions();
+}
+
+function setupSidePaneEventHandlers() {
+	$("input[name='ruleSet']").change(function() {
+		if($("input[name='create-join']:checked").val() == "create-game")
+			loadRuleSetDoc($("input[name='ruleSet']:checked").val());
+	});
+
+	$("input[name='create-join']").change(function() {
+		var action = $("input[name='create-join']:checked").val();
+
+		if(document.location.pathname == "/") {
+			var pageOuterWrap      = $("#page-outer-wrap");
+			var oldPageContentWrap = $(".page-content-wrap");
+			var newPageContentWrap = $("<div class='page-content-wrap boxed' />");
+
+			newPageContentWrap.html("<div class='page-content'>Loading<span class='ani-loading-dot'>.</span></div>");
+
+			// dirty hack...
+			oldPageContentWrap.width(oldPageContentWrap.width());
+			newPageContentWrap.width(newPageContentWrap.width());
+
+			pageOuterWrap.width("170%");
+			newPageContentWrap.appendTo("#page-wrap");
+
+			pageOuterWrap.animate({"margin-left": -oldPageContentWrap.width()}, 600, function() {
+				// after animation...
+				oldPageContentWrap.remove();
+
+				pageOuterWrap.css("margin-left", "");
+				pageOuterWrap.width("");
+				newPageContentWrap.width("");
+
+				loadPage("/" + action, null, true, ".page-content-wrap", "pageContent=true");
+
+				updateGameOptions();
+			});
+		}
+		else if(document.location.pathname.substr(1) !== action) {
+			updateGameOptions();
+			loadPage("/" + action, null, true, ".page-content-wrap", "pageContent=true");
+		}
+	});
+
+	$("#game-options input").change(function() {
+		switch($("input[name='create-join']:checked").val())
+		{
+			case "create-game":
+				$("#create-game-button").attr("disabled", !createGameParamValid({
+					ruleSet:  $("input:radio[name='ruleSet']:checked").val(),
+					color:    $("input:radio[name='color']:checked").val(),
+					gameMode: $("input:radio[name='gameMode']:checked").val()
+				}));
+				break;
+			case "join-game":
+				// TODO
+				break;
+			default:
+				throw new Error("Congratiulations! You found a bug. What you just clicked should not be visible...");
+		}
 	});
 
 	$("#create-game-button").click(function() {
@@ -184,6 +257,11 @@ function getMatchID(url) {
 $(document).ready(function() {
 	statusElement = $("#status");
 	//progressElement = $("#progress");
+
+	$("a[href|='/']").click(function(event) {
+		event.preventDefault();
+		loadPage(this.href);
+	});
 
 	window.onpopstate = function() {
 		loadPage(document.location.pathname, null, false);

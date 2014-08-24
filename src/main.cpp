@@ -62,7 +62,8 @@ int main()
 		app.mapUrl("^/index(\\.json)?$",        "page$1").setArg("content", "index");
 		app.mapUrl("^/index\\.htm(l)?$",        "page"  ).setArg("content", "index");
 		app.mapUrl("^/disclaimer$",             "page"  ).setArg("content", "disclaimer");
-		app.mapUrl("^/match/create(\\.json)?$", "page$1").setArg("content", "create");
+		app.mapUrl("^/create-game(\\.json)?$",  "page$1").setArg("content", "create-game");
+		app.mapUrl("^/join-game(\\.json)?$",    "page$1").setArg("content", "join-game");
 		app.mapUrl("^/match/.{4}(\\.json)?$",   "page$1").setArg("content", "game");
 
 		app.run();

@@ -14,8 +14,16 @@
 	You should have received a copy of the GNU Affero General Public License along with this program.
 	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
-<div class='fullsize-content'>
-	<h2>Page not found</h2>
-</div>
-
-%	return HTTP_NOT_FOUND;
+<%args>
+	bool pageContent;
+</%args>
+% if(!pageContent) {
+<%include>side_pane.ecpp</%include>
+<main class='page-content-wrap boxed'>
+% }
+	<div class='page-content'>
+		Sorry, nothing too see here yet.
+	</div>
+% if(!pageContent) {
+</main>
+% }

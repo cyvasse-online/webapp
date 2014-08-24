@@ -26,9 +26,9 @@ function CyvasseWSClient(websockConn, loadNewPage) {
 
 	this.conn.onclose = function() {
 		if(!Module.logbox)
-			throw new Error("Can't access the log box");
-
-		Module.logbox.addStatusMessage("The connection to the server was closed.");
+			console.log("The connection to the server was closed.");
+		else
+			Module.logbox.addStatusMessage("The connection to the server was closed.");
 	};
 }
 
