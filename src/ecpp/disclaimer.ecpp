@@ -14,7 +14,7 @@
 	You should have received a copy of the GNU Affero General Public License along with this program.
 	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
-<div class='fullsize-content'>
+<div class='padded' id='page-content'>
 	<h3>Disclaimer</h3>
 
 	The game presented on this website takes inspiration from<br />
@@ -23,6 +23,6 @@
 </div>
 <# Only have a close button when js is enabled, because it's useless else #>
 <script>
-	$("<br /><br /><button id='closetab'>Close</button>").appendTo(".fullsize-content");
+	$("<br /><br /><button id='closetab'>Close</button>").appendTo("#page-content");
 	$("#closetab").click(function() { window.close(); });
 </script>

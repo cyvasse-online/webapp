@@ -40,10 +40,18 @@ function LogBox(selector, player) {
 	this.scrToBtmVisible = false;
 	this.transitioning = false;
 	this.unreadMessages = 0;
+	this.origDocTitle = document.title;
 
 	this.setHtmlElem();
 	this.initKeyDownHandler();
 	this.initScrollHandlers();
+
+	var logbox = this;
+
+	$(document).on("visibilitychange", function() {
+		if(!logbox.scrToBtmVisible)
+			logbox.resetUnreadMessages();
+	});
 }
 
 LogBox.prototype = {
@@ -62,6 +70,12 @@ LogBox.prototype = {
 			if(this.textarea.size() != 1)
 				throw new Error("There has to be exactly one textarea in the logbox.");
 		}
+	},
+
+	resetUnreadMessages: function() {
+		this.unreadMessages = 0;
+		this.scrToBtm.find("div").html("Scroll to bottom");
+		document.title = this.origDocTitle;
 	},
 
 	initKeyDownHandler: function() {
@@ -105,8 +119,7 @@ LogBox.prototype = {
 			logbox.transitioning = true;
 			logbox.scrToBtmVisible = false;
 
-			logbox.unreadMessages = 0;
-			logbox.scrToBtm.find("div").html("Scroll to bottom");
+			logbox.resetUnreadMessages();
 		});
 
 		this.msgArea.scroll(function() {
@@ -121,8 +134,7 @@ LogBox.prototype = {
 					logbox.transitioning = true;
 					logbox.scrToBtmVisible = false;
 
-					logbox.unreadMessages = 0;
-					logbox.scrToBtm.find("div").html("Scroll to bottom");
+					logbox.resetUnreadMessages();
 				}
 			}
 			else if(!logbox.scrToBtmVisible) {
@@ -148,8 +160,22 @@ LogBox.prototype = {
 
 		$("<div class='logbox-msg'>" + msgHtml + "</div>").appendTo(this.msgArea);
 
-		if(!this.scrToBtmVisible)
+		if(this.scrToBtmVisible) {
+			this.unreadMessages++;
+			this.scrToBtm.find("div").html("(" + this.unreadMessages + ") Scroll to bottom");
+			document.title = "(" + this.unreadMessages + ") " + this.origDocTitle;
+		}
+		else {
 			this.msgArea.scrollTop(this.msgArea.prop("scrollHeight"));
+			if(document.hidden) {
+				this.unreadMessages++;
+				document.title = "(" + this.unreadMessages + ") " + this.origDocTitle;
+			}
+		}
+	},
+
+	addStatusMessage: function(msgHtml) {
+		this.addMessage("<span class='status-msg'>" + msgHtml + "</span>");
 	},
 
 	addGameMessage: function(sender, msgObj) {
@@ -158,11 +184,7 @@ LogBox.prototype = {
 		if(sender == SenderEnum.SERVER)
 			console.error("The sender of a game message should be a player, not the server...");
 
-		// TODO: logboxAddMessage() a nicely formatted version of the information in msgObj
-	},
-
-	addStatusMessage: function(msgHtml) {
-		this.addMessage("<span class='status-msg'>" + msgHtml + "</span>");
+		this.addStatusMessage(sender + " did something..."); // TODO
 	},
 
 	addChatMessage: function(sender, msg) {
@@ -175,21 +197,14 @@ LogBox.prototype = {
 		else
 			this.addMessage("<strong>" + sender + ":</strong> " + htmlEncode(msg));
 
-		if(this.scrToBtmVisible) {
-			if(sender == this.player) {
-				this.msgArea.scrollTop(this.msgArea.prop("scrollHeight"));
-				this.msgArea.animate({"top": 0});
-				this.scrToBtm.animate({"top": "-2em"});
+		if(this.scrToBtmVisible && sender == this.player) {
+			this.msgArea.scrollTop(this.msgArea.prop("scrollHeight"));
+			this.msgArea.animate({"top": 0});
+			this.scrToBtm.animate({"top": "-2em"});
 
-				this.scrToBtmVisible = false;
+			this.scrToBtmVisible = false;
 
-				this.unreadMessages = 0;
-				this.scrToBtm.find("div").html("Scroll to bottom");
-			}
-			else {
-				this.unreadMessages++;
-				this.scrToBtm.find("div").html("(" + this.unreadMessages + ") Scroll to bottom");
-			}
+			this.resetUnreadMessages();
 		}
 	}
 };

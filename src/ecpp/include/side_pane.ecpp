@@ -23,51 +23,49 @@
 
 	std::string inputAttr = (joinGamePage ? "type='checkbox' checked" : "type='radio'");
 </%cpp>
-<aside class='side-pane-wrap boxed'>
-	<div class='side-pane'>
-		<div class='option option-horizontal-2 clearfix' id='create-join-option'>
-			<input type='radio' id='create-game' name='create-join' value='create-game' <{ if(createGamePage) { }>checked<{ } }> /> <label for='create-game'>Create game</label>
-			<input type='radio' id='join-game' name='create-join' value='join-game' <{ if(joinGamePage) { }>checked<{ } }> /> <label for='join-game'>Join game</label>
+<aside class='padded boxed side-pane'>
+	<div class='option option-horizontal-2 clearfix' id='create-join-option'>
+		<input type='radio' id='create-game' name='create-join' value='create-game' <{ if(createGamePage) { }>checked<{ } }> /> <label for='create-game'>Create game</label>
+		<input type='radio' id='join-game' name='create-join' value='join-game' <{ if(joinGamePage) { }>checked<{ } }> /> <label for='join-game'>Join game</label>
+	</div>
+
+	<div id='game-options' <{ if(!showGameOptions) { }>style='display: none'<{ } }>>
+		<div class='option option-vertical'>
+			<h3>Rule set</h3>
+
+			<input <$$ inputAttr $> id='rule-set-mikelepage' name='ruleSet' value='mikelepage' /> <label for='rule-set-mikelepage'>Mike Le Page's rule set</label>
 		</div>
 
-		<div id='game-options' <{ if(!showGameOptions) { }>style='display: none'<{ } }>>
+		<div class='option option-vertical'>
+			<h3>Play as</h3>
+
+			<input <$$ inputAttr $> id='color-white' name='color' value='white' /> <label for='color-white'>White player</label>
+			<input <$$ inputAttr $> id='color-black' name='color' value='black' /> <label for='color-black'>Black player</label>
+		</div>
+
+		<%doc>
+		<div class='option option-vertical'>
+			<h3>Extras</h3>
+
+			<div>
+				<!-- Optional rules for the selected rule set -->
+			</div>
+		</div>
+		</%doc>
+
+		<div id='create-game-only' <{ if(!createGamePage) { }>style='display: none'<{ } }>>
 			<div class='option option-vertical'>
-				<h3>Rule set</h3>
+				<h3>Game mode</h3>
 
-				<input <$$ inputAttr $> id='rule-set-mikelepage' name='ruleSet' value='mikelepage' /> <label for='rule-set-mikelepage'>Mike Le Page's rule set</label>
+				<input type='radio' id='game-mode-direct' name='gameMode' value='direct' /> <label for='game-mode-direct'>Online: Direct (send the match url to a friend)</label>
+				<input type='radio' id='game-mode-random' name='gameMode' value='random' /> <label for='game-mode-random'>Online: Random opponent from the internet</label>
+				<input type='radio' id='game-mode-bot' name='gameMode' value='bot' disabled /> <label for='game-mode-random'>Local: Play against a bot</label>
+				<input type='radio' id='game-mode-local' name='gameMode' value='local' disabled /> <label for='game-mode-random'>Local: Play against a friend on this computer</label>
 			</div>
 
-			<div class='option option-vertical'>
-				<h3>Play as</h3>
+			<br />
 
-				<input <$$ inputAttr $> id='color-white' name='color' value='white' /> <label for='color-white'>White player</label>
-				<input <$$ inputAttr $> id='color-black' name='color' value='black' /> <label for='color-black'>Black player</label>
-			</div>
-
-			<%doc>
-			<div class='option option-vertical'>
-				<h3>Extras</h3>
-
-				<div>
-					<!-- Optional rules for the selected rule set -->
-				</div>
-			</div>
-			</%doc>
-
-			<div id='create-game-only' <{ if(!createGamePage) { }>style='display: none'<{ } }>>
-				<div class='option option-vertical'>
-					<h3>Game mode</h3>
-
-					<input type='radio' id='game-mode-direct' name='gameMode' value='direct' /> <label for='game-mode-direct'>Online: Direct (send the match url to a friend)</label>
-					<input type='radio' id='game-mode-random' name='gameMode' value='random' /> <label for='game-mode-random'>Online: Random opponent from the internet</label>
-					<input type='radio' id='game-mode-bot' name='gameMode' value='bot' disabled /> <label for='game-mode-random'>Local: Play against a bot</label>
-					<input type='radio' id='game-mode-local' name='gameMode' value='local' disabled /> <label for='game-mode-random'>Local: Play against a friend on this computer</label>
-				</div>
-
-				<br />
-
-				<button id='create-game-button' disabled>Create game</button>
-			</div>
+			<button id='create-game-button' disabled>Create game</button>
 		</div>
 	</div>
 

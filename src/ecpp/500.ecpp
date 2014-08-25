@@ -18,7 +18,7 @@
 std::string errorMessage;
 </%args>
 %	if(errorMessage.empty()) errorMessage = "Internal Server Error";
-<div class='fullsize-content'>
+<div class='padded'>
 	<h2><$ errorMessage $></h2>
 </div>
 

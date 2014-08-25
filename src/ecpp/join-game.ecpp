@@ -19,11 +19,9 @@
 </%args>
 % if(!pageContent) {
 <%include>side_pane.ecpp</%include>
-<main class='page-content-wrap boxed'>
+<main class='padded boxed' id='page-content'>
 % }
-	<div class='page-content'>
-		Sorry, nothing too see here yet.
-	</div>
+	Sorry, nothing too see here yet.
 % if(!pageContent) {
 </main>
 % }

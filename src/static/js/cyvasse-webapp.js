@@ -96,7 +96,7 @@ function loadPage(url, success, pushState, replaceRoot, getData) {
 }
 
 function loadRuleSetDoc(ruleSet) {
-	var pageContent = $(".page-content");
+	var pageContent = $("#page-content");
 
 	if(ruleSet) {
 		$("#option-extras").show();
@@ -176,35 +176,37 @@ function setupSidePaneEventHandlers() {
 		var action = $("input[name='create-join']:checked").val();
 
 		if(document.location.pathname == "/") {
-			var pageOuterWrap      = $("#page-outer-wrap");
-			var oldPageContentWrap = $(".page-content-wrap");
-			var newPageContentWrap = $("<div class='page-content-wrap boxed' />");
+			var pageOuterWrap     = $("#page-outer-wrap");
+			var oldPageContentDiv = $("#page-content");
+			var newPageContentDiv = $("<div class='padded boxed' />");
 
-			newPageContentWrap.html("<div class='page-content'>Loading<span class='ani-loading-dot'>.</span></div>");
+			newPageContentDiv.html("<div class='page-content'>Loading<span class='ani-loading-dot'>.</span></div>");
 
 			// dirty hack...
-			oldPageContentWrap.width(oldPageContentWrap.width());
-			newPageContentWrap.width(newPageContentWrap.width());
+			oldPageContentDiv.width(oldPageContentDiv.width());
+			newPageContentDiv.width(newPageContentDiv.width());
 
 			pageOuterWrap.width("170%");
-			newPageContentWrap.appendTo("#page-wrap");
+			newPageContentDiv.appendTo("#page-wrap");
 
-			pageOuterWrap.animate({"margin-left": -oldPageContentWrap.width()}, 600, function() {
+			pageOuterWrap.animate({"margin-left": -oldPageContentDiv.width()}, 600, function() {
 				// after animation...
-				oldPageContentWrap.remove();
+				oldPageContentDiv.remove();
 
 				pageOuterWrap.css("margin-left", "");
 				pageOuterWrap.width("");
-				newPageContentWrap.width("");
+				newPageContentDiv.width("");
 
-				loadPage("/" + action, null, true, ".page-content-wrap", "pageContent=true");
+				newPageContentDiv.attr("id", "page-content");
+
+				loadPage("/" + action, null, true, "#page-content", "pageContent=true");
 
 				updateGameOptions();
 			});
 		}
 		else if(document.location.pathname.substr(1) !== action) {
 			updateGameOptions();
-			loadPage("/" + action, null, true, ".page-content-wrap", "pageContent=true");
+			loadPage("/" + action, null, true, "#page-content", "pageContent=true");
 		}
 	});
 
@@ -258,7 +260,7 @@ $(document).ready(function() {
 	statusElement = $("#status");
 	//progressElement = $("#progress");
 
-	$("a[href|='/']").click(function(event) {
+	$("a[href^='/']").click(function(event) {
 		event.preventDefault();
 		loadPage(this.href);
 	});

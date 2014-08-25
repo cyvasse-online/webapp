@@ -28,6 +28,7 @@ body {
 	display: table;
 	/* min-height would be better, but this works everywhere and FF doesn't want min-height */
 	height: 100%;
+	width: 100%;
 	padding-top: 3em;
 	padding-bottom: 2em;
 }
@@ -36,7 +37,7 @@ body {
 	display: table-row;
 }
 
-#page-wrap > * {
+#page-wrap > :not(script) {
 	display: table-cell;
 	vertical-align: top;
 }
@@ -64,20 +65,16 @@ body {
 }
 
 /** inside #page-wrap **/
-.fullsize-content {
-	margin: 1em;
+.padded {
+	padding: 1em;
 }
 
 .boxed + .boxed {
 	border-left: 1px solid #333;
 }
 
-.side-pane-wrap {
+.side-pane {
 	width: 450px;
-}
-
-.page-content, .side-pane {
-	margin: 1em;
 }
 
 #create-join-option {
@@ -93,13 +90,10 @@ body {
 }
 
 #game-wrap {
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 25%;
+	width: 75%;
 	overflow: auto;
 	text-align: center;
+	vertical-align: middle !important;
 }
 
 /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
@@ -109,11 +103,11 @@ canvas {
 }
 
 #logbox {
+	/* not quite elegant */
 	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 75%;
-	right: 0;
+	top: 3em;
+	bottom: 2em;
+	width: 25%;
 }
 
 /* I am normally the kind of person to care about code style and performance,
@@ -259,14 +253,17 @@ hr {
 }
 
 .ani-loading-dot {
-	animation: loading 1s linear 0 infinite;
+	animation-name: loading;
+	animation-duration: 1s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
 	position: relative;
 	display: inline-block;
 	width: .9em;
 	text-align: left;
 }
 
-@keyframes 'loading' {
+@keyframes loading {
 	0%   { left: 0 }
 	33%  { left: 0 }
 	34%  { left: .3em }
