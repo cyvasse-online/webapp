@@ -49,7 +49,7 @@ function LogBox(selector, player) {
 	var logbox = this;
 
 	$(document).on("visibilitychange", function() {
-		if(!logbox.scrToBtmVisible)
+		if(!document.hidden && !logbox.scrToBtmVisible)
 			logbox.resetUnreadMessages();
 	});
 }
