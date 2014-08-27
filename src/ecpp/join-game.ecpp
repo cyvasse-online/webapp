@@ -17,11 +17,35 @@
 <%args>
 	bool pageContent;
 </%args>
+<%pre>
+	#include <cyvdb/match_manager.hpp>
+	#include <cyvdb/match.hpp>
+</%pre>
 % if(!pageContent) {
 <%include>side_pane.ecpp</%include>
 <main class='padded boxed' id='page-content'>
-% }
-	Sorry, nothing too see here yet.
+	<div class='random-matches-wrap'>
+<%cpp>
+	}
+
+	auto matches = cyvdb::MatchManager().getRandomModeMatches();
+
+	if(matches.empty())
+		reply.out() << "No matches available currently.";
+	else
+		for(const auto& match : matches)
+		{
+</%cpp>
+		<div class='random-match'>
+			<input type='hidden' value='<$ match.id $>' />
+			Rule set: <strong><$ RuleSetToStr(match.ruleSet) $></strong>
+		</div>
+%		}
+	</div>
+	<div>
+		<a>Reload</a>
+	</div>
+	<hr />
 % if(!pageContent) {
 </main>
 % }

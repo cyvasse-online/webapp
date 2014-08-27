@@ -16,6 +16,7 @@ AC_PROG_SED
 # arch linux community repo which I had installed
 AC_CHECK_PROGS(MARKDOWN, [markdown_py])
 
+AC_CONFIG_SUBDIRS([cyvasse-common])
 AC_CONFIG_FILES([
 	Makefile
 	config.yml

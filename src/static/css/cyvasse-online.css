@@ -89,6 +89,16 @@ body {
 	margin-top: 3em;
 }
 
+.random-matches-wrap {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.random-match {
+	padding: .5em;
+	border: 1px solid #333;
+}
+
 #game-wrap {
 	width: 75%;
 	overflow: auto;

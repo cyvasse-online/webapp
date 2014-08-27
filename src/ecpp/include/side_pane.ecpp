@@ -21,7 +21,8 @@
 	bool createGamePage  = (showGameOptions && pathname.find("/create-game") == 0);
 	bool joinGamePage    = (showGameOptions && pathname.find("/join-game") == 0);
 
-	std::string inputAttr = (joinGamePage ? "type='checkbox' checked" : "type='radio'");
+	// TODO: Reenable filters when implemented
+	std::string inputAttr = (joinGamePage ? "type='checkbox' disabled" : "type='radio'");
 </%cpp>
 <aside class='padded boxed side-pane'>
 	<div class='option option-horizontal-2 clearfix' id='create-join-option'>

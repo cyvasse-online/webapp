@@ -30,7 +30,9 @@ cyvasse_online_CPPFLAGS = \
 nodist_cyvasse_online_SOURCES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp)
 
 cyvasse_online_LDADD = \
+	$(top_builddir)/cyvasse-common/libcyvdb.a \
 	-lcxxtools \
+	-ltntdb \
 	-ltntnet \
 	-ljsoncpp \
 	-lyaml-cpp

@@ -143,13 +143,14 @@ function updateGameOptions()
 	var showOptions = function() {
 		switch($("input[name='create-join']:checked").val())
 		{
+			// TODO: remove disabled attribute stuff when filters are implemented
 			case "create-game":
-				$("#game-options input").prop("checked", false).attr("type", "radio");
+				$("#game-options input").prop("checked", false).attr("type", "radio").attr("disabled", false);
 				$("#create-game-button").attr("disabled", true);
-				$("#create-game-only").fadeIn(300);
+				$("#create-game-only").show();
 				break;
 			case "join-game":
-				$("#game-options input:not([name='gameMode'])").attr("type", "checkbox").prop("checked", true);
+				$("#game-options input").prop("checked", false).attr("type", "checkbox").attr("disabled", true);
 				$("#create-game-only").hide();
 				break;
 			default:
