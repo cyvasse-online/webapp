@@ -92,10 +92,12 @@ body {
 .random-matches-wrap {
 	display: flex;
 	flex-wrap: wrap;
+	margin-bottom: 1em;
 }
 
 .random-match {
 	padding: .5em;
+	margin: 0 1em 0 0;
 	border: 1px solid #333;
 }
 

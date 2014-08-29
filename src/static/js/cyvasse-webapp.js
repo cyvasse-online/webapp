@@ -262,8 +262,11 @@ $(document).ready(function() {
 	//progressElement = $("#progress");
 
 	$("a[href^='/']").click(function(event) {
-		event.preventDefault();
-		loadPage(this.href);
+		if(button === 0) {
+			// left mouse click
+			event.preventDefault();
+			loadPage(this.href);
+		}
 	});
 
 	window.onpopstate = function() {

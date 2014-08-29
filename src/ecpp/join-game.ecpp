@@ -43,7 +43,7 @@
 %		}
 	</div>
 	<div>
-		<a>Reload</a>
+		<a href='#' id='random-matches-reload'>Reload</a>
 	</div>
 	<hr />
 % if(!pageContent) {
