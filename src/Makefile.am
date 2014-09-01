@@ -10,10 +10,11 @@ cyvasse_online_ecpp_sources = \
 	ecpp/500.ecpp \
 	ecpp/create-game.ecpp \
 	ecpp/disclaimer.ecpp \
+	ecpp/game.ecpp \
 	ecpp/index.ecpp \
 	ecpp/join-game.ecpp \
-	ecpp/game.ecpp \
-	ecpp/page.ecpp
+	ecpp/page.ecpp \
+	ecpp/random-game-view.ecpp
 
 BUILT_SOURCES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp)
 
@@ -31,6 +32,7 @@ nodist_cyvasse_online_SOURCES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp)
 
 cyvasse_online_LDADD = \
 	$(top_builddir)/cyvasse-common/libcyvdb.a \
+	$(top_builddir)/cyvasse-common/libcyvmath.a \
 	-lcxxtools \
 	-ltntdb \
 	-ltntnet \

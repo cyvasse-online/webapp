@@ -99,6 +99,7 @@ body {
 	padding: .5em;
 	margin: 0 1em 0 0;
 	border: 1px solid #333;
+	cursor: pointer;
 }
 
 #game-wrap {

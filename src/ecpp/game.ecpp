@@ -45,7 +45,11 @@
 	}
 </script>
 % const std::string& pathname = request.getPathInfo();
-% if(pathname.substr(pathname.length() - 5) != ".json")
+% if(pathname.substr(pathname.length() - 5) == ".json")
+% {
+<script>initLogBox();</script>
+% }
+% else
 % {
 <script>
 	$(document).ready(function() {
@@ -55,8 +59,4 @@
 		};
 	})
 </script>
-% }
-% else
-% {
-<script>initLogBox();</script>
 % }

@@ -1,0 +1,45 @@
+<%doc>
+	Copyright 2014 Jonas Platte
+
+	This file is part of Cyvasse Online.
+
+	Cyvasse Online is free software: you can redistribute it and/or modify it under the
+	terms of the GNU Affero General Public License as published by the Free Software Foundation,
+	either version 3 of the License, or (at your option) any later version.
+
+	Cyvasse Online is distributed in the hope that it will be useful, but WITHOUT
+	ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+	PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+
+	You should have received a copy of the GNU Affero General Public License along with this program.
+	If not, see <http://www.gnu.org/licenses/>.
+</%doc>
+<%pre>
+	#include <cyvdb/match_manager.hpp>
+	#include <cyvdb/match.hpp>
+	#include <cyvdb/player_manager.hpp>
+	#include <cyvdb/player.hpp>
+</%pre>
+<%cpp>
+	auto matches = cyvdb::MatchManager().getRandomModeMatches();
+
+	if(matches.empty())
+		reply.out() << "No matches available currently.";
+	else
+		for(const auto& match : matches)
+		{
+			auto players = cyvdb::PlayerManager().getPlayers(match.id);
+			if(players.size() != 1)
+			{
+				// log error?
+				continue;
+			}
+
+			const auto& colorStr = PlayersColorToStr(players.front().getColor());
+</%cpp>
+	<div class='random-match'>
+		<input type='hidden' value='<$ match.id $>' />
+		Rule set: <strong><$ RuleSetToStr(match.ruleSet) $></strong><br />
+		Play as: <strong><$ colorStr $></strong>
+	</div>
+%		}

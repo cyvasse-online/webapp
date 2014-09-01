@@ -146,6 +146,10 @@ function updateGameOptions()
 			// TODO: remove disabled attribute stuff when filters are implemented
 			case "create-game":
 				$("#game-options input").prop("checked", false).attr("type", "radio").attr("disabled", false);
+
+				// TODO
+				$("#game-mode-bot, #game-mode-local").attr("disabled", true);
+
 				$("#create-game-button").attr("disabled", true);
 				$("#create-game-only").show();
 				break;
@@ -262,7 +266,7 @@ $(document).ready(function() {
 	//progressElement = $("#progress");
 
 	$("a[href^='/']").click(function(event) {
-		if(button === 0) {
+		if(event.button === 0) {
 			// left mouse click
 			event.preventDefault();
 			loadPage(this.href);

@@ -42,10 +42,10 @@ int main()
 	try
 	{
 		tnt::Tntnet app;
-		tnt::TntConfig& config = tnt::TntConfig::it();
+		tnt::TntConfig& tntConfig = tnt::TntConfig::it();
 
 		// still relying on the webapp being executed from top_builddir
-		config.documentRoot = "static";
+		tntConfig.documentRoot = "static";
 
 		app.listen(listenPort);
 		app.setAppName("cyvasse-online");
@@ -57,14 +57,17 @@ int main()
 		app.mapUrl("^/(.+)$",          "static@tntnet").setPathInfo("$1");
 		app.mapUrl("^/rule_sets/(.+)", "static@tntnet").setPathInfo("$1").setArg("documentRoot", "rule_sets");
 
-		// dynamic content
-		app.mapUrl("^/$",                       "page"  ).setArg("content", "index");
-		app.mapUrl("^/index(\\.json)?$",        "page$1").setArg("content", "index");
-		app.mapUrl("^/index\\.htm(l)?$",        "page"  ).setArg("content", "index");
-		app.mapUrl("^/disclaimer$",             "page"  ).setArg("content", "disclaimer");
-		app.mapUrl("^/create-game(\\.json)?$",  "page$1").setArg("content", "create-game");
-		app.mapUrl("^/join-game(\\.json)?$",    "page$1").setArg("content", "join-game");
-		app.mapUrl("^/match/.{4}(\\.json)?$",   "page$1").setArg("content", "game");
+		// individual pages
+		app.mapUrl("^/$",                      "page"  ).setArg("content", "index");
+		app.mapUrl("^/index(\\.json)?$",       "page$1").setArg("content", "index");
+		app.mapUrl("^/index\\.htm(l)?$",       "page"  ).setArg("content", "index");
+		app.mapUrl("^/disclaimer$",            "page"  ).setArg("content", "disclaimer");
+		app.mapUrl("^/create-game(\\.json)?$", "page$1").setArg("content", "create-game");
+		app.mapUrl("^/join-game(\\.json)?$",   "page$1").setArg("content", "join-game");
+		app.mapUrl("^/match/.{4}(\\.json)?$",  "page$1").setArg("content", "game");
+
+		// non-page dynamic content
+		app.mapUrl("^/random-matches$", "random-game-view");
 
 		app.run();
 	}
