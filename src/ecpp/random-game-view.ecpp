@@ -35,7 +35,7 @@
 				continue;
 			}
 
-			const auto& colorStr = PlayersColorToStr(players.front().getColor());
+			const auto& colorStr = PlayersColorToStr(!players.front().getColor());
 </%cpp>
 	<div class='random-match'>
 		<input type='hidden' value='<$ match.id $>' />
