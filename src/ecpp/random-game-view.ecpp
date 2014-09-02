@@ -39,7 +39,7 @@
 </%cpp>
 	<div class='random-match'>
 		<input type='hidden' value='<$ match.id $>' />
-		Rule set: <strong><$ RuleSetToStr(match.ruleSet) $></strong><br />
-		Play as: <strong><$ colorStr $></strong>
+		Rule set: <strong><$ RuleSetToPrettyStr(match.ruleSet) $></strong><br />
+		Play as: <strong><$ colorStr $></strong><# TODO #>
 	</div>
 %		}

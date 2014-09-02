@@ -14,6 +14,9 @@
 	You should have received a copy of the GNU Affero General Public License along with this program.
 	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
+<%pre>
+	#include <cyvmath/rule_sets.hpp>
+</%pre>
 <%cpp>
 	const auto& pathname = request.getPathInfo();
 
@@ -26,22 +29,33 @@
 </%cpp>
 <aside class='padded boxed side-pane'>
 	<div class='option option-horizontal-2 clearfix' id='create-join-option'>
-		<input type='radio' id='create-game' name='create-join' value='create-game' <{ if(createGamePage) { }>checked<{ } }> /> <label for='create-game'>Create game</label>
-		<input type='radio' id='join-game' name='create-join' value='join-game' <{ if(joinGamePage) { }>checked<{ } }> /> <label for='join-game'>Join game</label>
+		<input type='radio' id='create-game' name='create-join' value='create-game' <{ if(createGamePage) { }>checked<{ } }> />
+			<label for='create-game'>Create game</label>
+		<input type='radio' id='join-game' name='create-join' value='join-game' <{ if(joinGamePage) { }>checked<{ } }> />
+			<label for='join-game'>Join game</label>
 	</div>
 
 	<div id='game-options' <{ if(!showGameOptions) { }>style='display: none'<{ } }>>
 		<div class='option option-vertical'>
 			<h3>Rule set</h3>
 
-			<input <$$ inputAttr $> id='rule-set-mikelepage' name='ruleSet' value='mikelepage' /> <label for='rule-set-mikelepage'>Mike Le Page's rule set</label>
+		<%cpp>
+			for(const auto& ruleSet : cyvmath::allRuleSets())
+			{
+				const auto& ruleSetStr = cyvmath::RuleSetToStr(ruleSet);
+		</%cpp>
+				<input <$$ inputAttr $> name='ruleSet' id='rule-set-<$ ruleSetStr $>' value='<$ ruleSetStr $>' />
+					<label for='rule-set-<$ ruleSetStr $>'><$ cyvmath::RuleSetToPrettyStr(ruleSet) $></label>
+%			}
 		</div>
 
 		<div class='option option-vertical'>
 			<h3>Play as</h3>
 
-			<input <$$ inputAttr $> id='color-white' name='color' value='white' /> <label for='color-white'>White player</label>
-			<input <$$ inputAttr $> id='color-black' name='color' value='black' /> <label for='color-black'>Black player</label>
+			<input <$$ inputAttr $> id='color-white' name='color' value='white' />
+				<label for='color-white'>White player</label>
+			<input <$$ inputAttr $> id='color-black' name='color' value='black' />
+				<label for='color-black'>Black player</label>
 		</div>
 
 		<%doc>
@@ -58,10 +72,14 @@
 			<div class='option option-vertical'>
 				<h3>Game mode</h3>
 
-				<input type='radio' id='game-mode-direct' name='gameMode' value='direct' /> <label for='game-mode-direct'>Online: Direct (send the match url to a friend)</label>
-				<input type='radio' id='game-mode-random' name='gameMode' value='random' /> <label for='game-mode-random'>Online: Random opponent from the internet</label>
-				<input type='radio' id='game-mode-bot' name='gameMode' value='bot' disabled /> <label for='game-mode-random'>Local: Play against a bot</label>
-				<input type='radio' id='game-mode-local' name='gameMode' value='local' disabled /> <label for='game-mode-random'>Local: Play against a friend on this computer</label>
+				<input type='radio' id='game-mode-direct' name='gameMode' value='direct' />
+					<label for='game-mode-direct'>Online: Direct (send the match url to a friend)</label>
+				<input type='radio' id='game-mode-random' name='gameMode' value='random' />
+					<label for='game-mode-random'>Online: Random opponent from the internet</label>
+				<input type='radio' id='game-mode-bot' name='gameMode' value='bot' disabled />
+					<label for='game-mode-random'>Local: Play against a bot</label>
+				<input type='radio' id='game-mode-local' name='gameMode' value='local' disabled />
+					<label for='game-mode-random'>Local: Play against a friend on this computer</label>
 			</div>
 
 			<br />
