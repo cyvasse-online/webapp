@@ -1,4 +1,4 @@
-create:
+create-game:
   title: Create a game
-join:
+join-game:
   title: Join a game
