@@ -21,7 +21,7 @@
 <%include>side_pane.ecpp</%include>
 <main class='padded boxed' id='page-content'>
 % }
-	Click a rule set to get the corresponding documentation here.
+	<span>Click a rule set to get the corresponding documentation here.</span>
 % if(!pageContent) {
 </main>
 % }
