@@ -19,17 +19,19 @@
 </%args>
 % if(!pageContent) {
 <%include>side_pane.ecpp</%include>
-<main class='padded boxed' id='page-content'>
+<div class='padded boxed'>
+	<main id='page-content'>
 % }
-	<div class='random-matches-wrap'>
-		<& random-game-view >
-	</div>
-	<div>
-		<a href='#' id='random-matches-reload'>Reload</a>
-	</div>
-	<hr />
+		<div class='random-matches-wrap'>
+			<& random-game-view >
+		</div>
+		<div>
+			<a href='#' id='random-matches-reload'>Reload</a>
+		</div>
+		<hr />
 
-	<script src='/js/random-game-view.js'></script>
+		<script src='/js/random-game-view.js'></script>
 % if(!pageContent) {
-</main>
+	</main>
+</div>
 % }

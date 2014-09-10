@@ -83,14 +83,13 @@ function loadPage(url, success, pushState, replaceRoot, getData) {
 			history.pushState(null, reply.title, url);
 		}
 
-		$(replaceRoot).contents().fadeOut(300, function() {
+		$(replaceRoot).fadeOut(300, function() {
 			$(replaceRoot).html(reply.content);
-			$(replaceRoot).contents().hide();
 
 			if(typeof(success) === "function")
 				success();
 
-			$(replaceRoot).contents().fadeIn(300);
+			$(replaceRoot).fadeIn(300);
 		});
 	});
 }
