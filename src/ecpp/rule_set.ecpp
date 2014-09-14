@@ -14,12 +14,18 @@
 	You should have received a copy of the GNU Affero General Public License along with this program.
 	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
-<%args>
-	std::string errorMessage;
-</%args>
-%	if(errorMessage.empty()) errorMessage = "Internal Server Error";
+<%pre>
+	#include <fstream>
+</%pre>
 <div class='padded'>
-	<h2><$ errorMessage $></h2>
+<%cpp>
+	std::ifstream ifs("rule_sets/" + request.getArg("name") + ".html");
+	if(!ifs)
+		reply.out() << "<h2>Rule set not found</h2>";
+	else
+	{
+		reply.out() << ifs.rdbuf();
+		ifs.close();
+	}
+</%cpp>
 </div>
-
-%	return HTTP_INTERNAL_SERVER_ERROR;

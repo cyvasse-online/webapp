@@ -14,7 +14,8 @@ cyvasse_online_ecpp_sources = \
 	ecpp/index.ecpp \
 	ecpp/join-game.ecpp \
 	ecpp/page.ecpp \
-	ecpp/random-game-view.ecpp
+	ecpp/random-game-view.ecpp \
+	ecpp/rule_set.ecpp
 
 BUILT_SOURCES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp)
 

@@ -54,20 +54,23 @@ int main()
 		// mapping require the git version of tntnet
 
 		// static files
-		app.mapUrl("^/(.+)$",          "static@tntnet").setPathInfo("$1");
-		app.mapUrl("^/rule_sets/(.+)", "static@tntnet").setPathInfo("$1").setArg("documentRoot", "rule_sets");
-
-		// individual pages
-		app.mapUrl("^/$",                      "page"  ).setArg("content", "index");
-		app.mapUrl("^/index(\\.json)?$",       "page$1").setArg("content", "index");
-		app.mapUrl("^/index\\.htm(l)?$",       "page"  ).setArg("content", "index");
-		app.mapUrl("^/disclaimer$",            "page"  ).setArg("content", "disclaimer");
-		app.mapUrl("^/create-game(\\.json)?$", "page$1").setArg("content", "create-game");
-		app.mapUrl("^/join-game(\\.json)?$",   "page$1").setArg("content", "join-game");
-		app.mapUrl("^/match/.{4}(\\.json)?$",  "page$1").setArg("content", "game");
+		app.mapUrl("^/(.+)$",                    "static@tntnet").setPathInfo("$1");
+		app.mapUrl("^/rule_sets/([^.]+\\.html)", "static@tntnet").setPathInfo("$1").setArg("documentRoot", "rule_sets");
 
 		// non-page dynamic content
 		app.mapUrl("^/random-matches$", "random-game-view");
+
+		// pages
+		app.mapUrl("^/$",                      	     "page"  ).setArg("content", "index");
+		app.mapUrl("^/index(\\.json)?$",       	     "page$1").setArg("content", "index");
+		app.mapUrl("^/index\\.htm(l)?$",             "page"  ).setArg("content", "index");
+		app.mapUrl("^/disclaimer$",                  "page"  ).setArg("content", "disclaimer");
+		app.mapUrl("^/create-game(\\.json)?$", 	     "page$1").setArg("content", "create-game");
+		app.mapUrl("^/join-game(\\.json)?$",         "page$1").setArg("content", "join-game");
+		app.mapUrl("^/match/.{4}(\\.json)?$",        "page$1").setArg("content", "game");
+		app.mapUrl("^/rule_sets/([^.]+)(\\.json)?$", "page$2").setArg("content", "rule_set").setArg("name", "$1");
+		// 404 if nothing matched
+		app.mapUrl(".*",                             "page"  ).setArg("content", "404");
 
 		app.run();
 	}
