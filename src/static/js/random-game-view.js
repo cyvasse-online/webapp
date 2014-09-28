@@ -1,5 +1,11 @@
 function setupRandomMatchClick() {
 	$(".random-match").click(function() {
+		// this prevents multiple consequent clicks from raising an
+		// exception because of multiple calls to initializeWSClient()
+		// TODO: in the future, fade out the whole page and show a
+		// loading animation instead.
+		$(".random-match").off("click");
+
 		initializeWSClient();
 		var matchID = $(this).find("input").val();
 		wsClient.conn.onopen = function() {
@@ -10,9 +16,9 @@ function setupRandomMatchClick() {
 
 function updateGameView() {
 	$.get("/random-matches", function(reply) {
+		setupRandomMatchClick();
 		$(".random-matches-wrap").html(reply);
 	});
-	setupRandomMatchClick();
 }
 
 setupRandomMatchClick();
