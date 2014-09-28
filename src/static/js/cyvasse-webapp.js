@@ -105,10 +105,16 @@ function loadRuleSetDoc(ruleSet) {
 		$.get("/rule_sets/" + ruleSet + ".html", function(reply) {
 			pageContent.html(reply);
 		});
+
+		$(".rule-set-new-tab-box").show();
+		$(".rule-set-new-tab").attr("href", "/rule_sets/" + ruleSet);
 	}
 	else {
 		$("#option-extras").hide();
 		pageContent.html("Click a rule set to get the corresponding documentation here.");
+
+		$(".rule-set-new-tab-box").show();
+		$(".rule-set-new-tab").attr("href", "#");
 	}
 }
 
@@ -179,6 +185,10 @@ function setupSidePaneEventHandlers() {
 	$("input[name='create-join']").change(function() {
 		var action = $("input[name='create-join']:checked").val();
 
+		var hideRuleSetNewTabBox = function() {
+			$(".rule-set-new-tab-box").fadeOut(300);
+		};
+
 		if(document.location.pathname == "/") {
 			var pageOuterWrap     = $("#page-outer-wrap");
 			var oldPageContentDiv = $("#page-content");
@@ -203,6 +213,7 @@ function setupSidePaneEventHandlers() {
 
 				newPageContentDiv.attr("id", "page-content");
 
+				hideRuleSetNewTabBox();
 				loadPage("/" + action, null, true, "#page-content", "pageContent=true");
 
 				updateGameOptions();
@@ -210,6 +221,7 @@ function setupSidePaneEventHandlers() {
 		}
 		else if(document.location.pathname.substr(1) !== action) {
 			updateGameOptions();
+			hideRuleSetNewTabBox();
 			loadPage("/" + action, null, true, "#page-content", "pageContent=true");
 		}
 	});

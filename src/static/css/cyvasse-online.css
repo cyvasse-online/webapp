@@ -89,6 +89,16 @@ body {
 	margin-top: 3em;
 }
 
+#page-content > h1:first-child {
+	margin-top: 0;
+}
+
+.rule-set-new-tab-box {
+	position: absolute;
+	top: 1em;
+	right: 1em;
+}
+
 .random-matches-wrap {
 	display: flex;
 	flex-wrap: wrap;
@@ -245,6 +255,10 @@ hr {
     display: block;
     visibility: hidden;
     height: 0;
+}
+
+.rel-positioned {
+	position: relative;
 }
 
 .stick-to-bottom {

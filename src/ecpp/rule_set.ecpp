@@ -17,7 +17,7 @@
 <%pre>
 	#include <fstream>
 </%pre>
-<div class='padded'>
+<div class='padded' id='page-content'>
 <%cpp>
 	std::ifstream ifs("rule_sets/" + request.getArg("name") + ".html");
 	if(!ifs)

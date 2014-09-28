@@ -19,7 +19,11 @@
 </%args>
 % if(!pageContent) {
 <%include>side_pane.ecpp</%include>
-<div class='padded boxed'>
+<div class='padded boxed rel-positioned'>
+	<# Not really nice to have this here, I should find a better solution [TODO] #>
+	<div class='rule-set-new-tab-box' style='display: none'>
+		<a href='#' target='_blank' class='rule-set-new-tab'>Open in seperate Tab</a>
+	</div>
 	<main id='page-content'>
 % }
 		<div class='random-matches-wrap'>

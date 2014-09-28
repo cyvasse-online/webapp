@@ -19,10 +19,13 @@
 </%args>
 % if(!pageContent) {
 <%include>side_pane.ecpp</%include>
-<div class='padded boxed'>
+<div class='padded boxed rel-positioned'>
+	<div class='rule-set-new-tab-box' style='display: none'>
+		<a href='#' target='_blank' class='rule-set-new-tab'>Open in seperate Tab</a>
+	</div>
 	<main id='page-content'>
 % }
-		Click a rule set to get the corresponding documentation here.
+		Select a rule set to get the corresponding documentation here.
 % if(!pageContent) {
 	</main>
 </div>
