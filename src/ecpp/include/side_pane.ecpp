@@ -16,6 +16,7 @@
 </%doc>
 <%pre>
 	#include <cyvmath/rule_sets.hpp>
+	#include <cyvmath/players_color.hpp>
 </%pre>
 <%cpp>
 	const auto& pathname = request.getPathInfo();
@@ -39,11 +40,9 @@
 		<div class='option option-vertical'>
 			<h3>Rule set</h3>
 
-		<%cpp>
-			for(const auto& ruleSet : cyvmath::allRuleSets())
-			{
-				const auto& ruleSetStr = cyvmath::RuleSetToStr(ruleSet);
-		</%cpp>
+%			for(const auto& ruleSet : cyvmath::allRuleSets())
+%			{
+%				const auto& ruleSetStr = cyvmath::RuleSetToStr(ruleSet);
 				<input <$$ inputAttr $> name='ruleSet' id='rule-set-<$ ruleSetStr $>' value='<$ ruleSetStr $>' />
 					<label for='rule-set-<$ ruleSetStr $>'><$ cyvmath::RuleSetToPrettyStr(ruleSet) $></label>
 %			}
@@ -52,10 +51,12 @@
 		<div class='option option-vertical'>
 			<h3>Play as</h3>
 
-			<input <$$ inputAttr $> id='color-white' name='color' value='white' />
-				<label for='color-white'>White player</label>
-			<input <$$ inputAttr $> id='color-black' name='color' value='black' />
-				<label for='color-black'>Black player</label>
+%			for(const auto& color : cyvmath::allPlayersColors())
+%			{
+%				const auto& playersColorStr = cyvmath::PlayersColorToStr(color);
+				<input <$$ inputAttr $> name='color' id='color-<$ playersColorStr $>' value='<$ playersColorStr $>' />
+					<label for='color-<$ playersColorStr $>'><$ cyvmath::PlayersColorToPrettyStr(color) $></label>
+%			}
 		</div>
 
 		<%doc>
