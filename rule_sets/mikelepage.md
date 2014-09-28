@@ -111,6 +111,9 @@ The following graphics illustrate the basic movement possibilites when other pie
 Capturing
 ---------
 
+A piece can always capture another piece of the same or lower tier.
+There is a way to capture pieces of higher tier though, it is called *flanking*.
+
 Flanking can happen when multiple lower ranked pieces have a bearing on an opponents piece of higher rank.
 When the "combined" tier of your flanking pieces is equal or higher to that of the target piece, the highest-tier
 piece / one of the highest-tier pieces can capture the target piece.
