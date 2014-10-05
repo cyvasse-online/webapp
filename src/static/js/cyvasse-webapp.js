@@ -31,6 +31,7 @@ var Module = {
 			: "All downloads complete.");
 	},
 	filePackagePrefixURL: "/",
+	memoryInitializerPrefixURL: "/",
 	doNotCaptureKeyboard: true
 };
 
