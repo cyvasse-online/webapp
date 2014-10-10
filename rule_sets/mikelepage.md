@@ -1,4 +1,4 @@
-Mikelepage's Cyvasse v5.0
+Mikelepage's Cyvasse v5.1
 =========================
 
 Object of play
@@ -10,17 +10,14 @@ Gameplay
 --------
 
 For the initial setup you have 40 "home" squares on your site of the board in which you have to place your king and
-6x rabble (your tier 1 pieces), 6x tier 2 pieces and 6x tier 3 pieces, as well as 6x mountains. You can place out
-your dragon (your only tier 4 piece) during setup, but you can also hold it back and "bring it out" later.
+dragon, plus 6x rabble (your tier 1 pieces), 6x tier 2 pieces, 6x tier 3 pieces as well as 6x mountains.
 
 Each player also has a fortress and 6x terrain tiles that are placed automatically when you place the pieces.
 Tiles are different from pieces: while no two pieces can occupy the same space, tiles have an effect on the pieces
 standing on them. The fortress is always located at the king's starting position, and each of the terrain tiles are
 located at the starting positions of specific tier 2 pieces.
 
-White starts. Players take turns making moves. The move with which you bring out the dragon must be within
-a range of 4 spaces (the dragon's range for normal moves) from the fortress, including the fortress itself.
-Capturing an opponent piece on this move is allowed.
+White starts. Players take turns making moves.
 
 Pieces
 ------
@@ -166,12 +163,16 @@ Fortresses
 ----------
 
 Fortresses, like terrain, provide a +1 increase of the defense tier of pieces standing in them.
-As opposed to terrain, this works for all pieces of the player owning the fortress, except the dragon
-(which is already tier 4), but not for pieces of the other player.
+As opposed to terrain, this works for all pieces of the player owning the fortress, except the
+dragon (which is already tier 4), but not for pieces of the other player.
 
-Fortresses can also promote pieces standing on them. There are two types of piece promotions: The first one is an
-ordinary "piece improvement" promotion. This type of promotion only happens at the beginning of the turn of the player
-whose fortress it is, and only where that player has already lost a piece of the type the promotion is replacing.
+A fortress can also be ruined: This happens immediately when it is occupied by an opponent's piece,
+and the icon changes to indicate that the fortress is ruined. Horse movement remains as shown above.
+
+Fortresses that have not been ruined can promote the pieces standing on them.
+There are two types of piece promotions: The first one is an ordinary "piece improvement" promotion.
+This type of promotion only happens at the beginning of the turn of the player whose fortress it is,
+and only where that player has already lost a piece of the type the promotion is replacing.
 
 The following piece promotions are possible:
 
@@ -184,15 +185,23 @@ The following piece promotions are possible:
 | Spears         | Elephant    |
 | Light Horse    | Heavy Horse |
 
-When a rabble occupies the fortress and there are multiple piece types to which
-it could be promoted, the player can then choose which piece it becomes.
+When a rabble occupies the fortress and there are multiple piece types to
+which it could be promoted, the player can then choose which piece it becomes.
 
-The second type of promotion becomes possible when the king is captured. In order for that player to continue, they
-must immediately promote one of their tier 3 pieces to King. This can happen at the beginning of the turn (if a tier 3
-piece already occupies the fortress) or the end of the turn (if they move a tier 3 piece to the fortress).
-If the King cannot be replaced the turn immediately after the king was captured, the game is over.
+The second type of promotion becomes possible when the king is captured. In order for that player to continue, they must
+immediately promote one of their tier 3 pieces to King. This can happen at the beginning of the turn (if a tier 3 piece
+already occupies the fortress) or the end of the turn (if they move a tier 3 piece to the fortress). If the King cannot
+be replaced the turn immediately after the king was captured, the game is over and the player who captured the King wins.
 
-A fortress can also be ruined as a strategy to stop the opponent promoting more pieces. This happens when it is
-occupied by an opponent's piece and cannot be retaken on the move immediately following the occupation. When a fortress
-is ruined, it is removed from the board. The player who ruined the fortress then has to select one of the six corner
-tiles of the board to be used as alternative center for the hexagonal movement of Light Horse and Heavy Horse pieces.
+Notes on Changes from previous version
+--------------------------------------
+
+1) "Bringing out" the Dragon - a closer reading of the books has revealed that the Dragon has been
+said to be "brought out" even when it was already stated to be on the board. We have revised our
+rules such that a Dragon must be placed on the board during setup, and that "bringing it out" simply
+means bringing it into the fray. Because of our play testing, we think this also makes the game more
+tactically interesting, although we can re-add it as an option in later builds if people request it.
+
+2) Ruining the fortress is now instant to encourage people to mount a better defence of
+their King/Fortress combination. We have also included a "ruined fortress" icon, and
+the horse movement remains unchanged when a fortress is ruined.
