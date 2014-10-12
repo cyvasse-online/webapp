@@ -16,8 +16,8 @@ function setupRandomMatchClick() {
 
 function updateGameView() {
 	$.get("/random-matches", function(reply) {
-		setupRandomMatchClick();
 		$(".random-matches-wrap").html(reply);
+		setupRandomMatchClick();
 	});
 }
 

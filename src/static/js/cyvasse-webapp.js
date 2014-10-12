@@ -107,8 +107,11 @@ function loadRuleSetDoc(ruleSet) {
 
 		pageContent.html("Loading<div class='ani-loading-dot'>.</div>");
 		// TODO: replace with loadPage
-		$.get("/rule_sets/" + ruleSet + ".html", function(reply) {
-			pageContent.html(reply);
+		$.ajax("/rule_sets/" + ruleSet + ".html", {
+			cache: false,
+			success: function(reply) {
+				pageContent.html(reply);
+			}
 		});
 
 		$(".rule-set-new-tab-box").show();
@@ -281,13 +284,13 @@ $(document).ready(function() {
 	statusElement = $("#status");
 	//progressElement = $("#progress");
 
-	$("a[href^='/']").click(function(event) {
+	/*$("a[href^='/']").click(function(event) {
 		if(event.button === 0) {
 			// left mouse click
 			event.preventDefault();
 			loadPage(this.href);
 		}
-	});
+	});*/
 
 	window.onpopstate = function() {
 		loadPage(document.location.pathname, null, false);
