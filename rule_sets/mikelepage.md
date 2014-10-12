@@ -9,8 +9,8 @@ You win by capturing your opponent's king and preventing them from replacing it 
 Gameplay
 --------
 
-For the initial setup you have 40 "home" squares on your site of the board in which you have to place your king and
-dragon, plus 6x rabble (your tier 1 pieces), 6x tier 2 pieces, 6x tier 3 pieces as well as 6x mountains.
+For the initial setup you have 40 "home" squares on the lower part of the board in which you have to place your
+king and dragon, plus 6x rabble (your tier 1 pieces), 6x tier 2 pieces, 6x tier 3 pieces as well as 6x mountains.
 
 Each player also has a fortress and 6x terrain tiles that are placed automatically when you place the pieces.
 Tiles are different from pieces: while no two pieces can occupy the same space, tiles have an effect on the pieces
