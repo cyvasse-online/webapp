@@ -49,13 +49,17 @@ $.fn.exists = function () {
 // another thingy from teh internetz, this time really ugly...
 // but it works, and I'm not particularily intersted in doing it better
 function htmlEncode(value) {
-  // create a in-memory div, set it's inner text(which jQuery automatically encodes)
+  // create a in-memory div, set it's inner text (which jQuery automatically encodes)
   // then grab the encoded contents back out. The div never exists on the page.
   return $("<div/>").text(value).html();
 }
 
 function htmlDecode(value) {
   return $("<div/>").html(value).text();
+}
+
+function capitalizeEachWord(str) {
+    return str.replace(/\w\S*/g, function(txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
 }
 
 // own stuff again

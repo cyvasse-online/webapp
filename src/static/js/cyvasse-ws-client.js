@@ -108,6 +108,17 @@ CyvasseWSClient.prototype = {
 
 				this.handleMessageIngame(msgData);
 			}
+
+			if(!Module.logbox)
+				throw new Error("logbox not initialized?!");
+
+			var sender;
+			if(playersColorToSenderEnum(Module.gameMetaData.color) == SenderEnum.PLAYER_WHITE)
+				sender = SenderEnum.PLAYER_BLACK;
+			else
+				sender = SenderEnum.PLAYER_WHITE;
+
+			Module.logbox.addGameMessage(sender, msgObj);
 		}
 		else {
 			throw new Error("Got malformed or incomplete message");

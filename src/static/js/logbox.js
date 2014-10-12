@@ -4,6 +4,12 @@ var SenderEnum = {
 	PLAYER_BLACK: "Black player"
 };
 
+function playersColorToSenderEnum(playersColorStr) {
+	return playersColorStr == "white" ? SenderEnum.PLAYER_WHITE :
+		playersColorStr == "black" ? SenderEnum.PLAYER_BLACK :
+		"[undefined]";
+}
+
 // don't allow modification of SenderEnum
 Object.freeze(SenderEnum);
 
@@ -184,7 +190,27 @@ LogBox.prototype = {
 		if(sender == SenderEnum.SERVER)
 			console.error("The sender of a game message should be a player, not the server...");
 
-		this.addStatusMessage(sender + " did something..."); // TODO
+		var msgStr = sender;
+
+		switch(msgObj.update)
+		{
+			case "leave setup":
+				msgStr += " finished setting up.";
+				break;
+			case "move piece":
+				msgStr += " moved his " + capitalizeEachWord(msgObj.data["piece type"]) +
+					" from " + msgObj.data["old position"] +
+					" to " + msgObj.data["new position"] + ".";
+				break;
+			case "promote piece":
+				msgStr += " promoted " + capitalizeEachWord(msgObj.data.from) +
+					" to " + capitalizeEachWord(msgObj.data.to) + ".";
+				break;
+			default:
+				throw new Error("Unknown game update received.");
+		}
+
+		this.addStatusMessage(msgStr);
 	},
 
 	addChatMessage: function(sender, msg) {
