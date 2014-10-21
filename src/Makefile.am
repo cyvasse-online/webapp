@@ -1,8 +1,5 @@
 AUTOMAKE_OPTIONS = subdir-objects
 
-AM_CXXFLAGS = \
-	-std=c++11
-
 bin_PROGRAMS = cyvasse-online
 
 cyvasse_online_ecpp_sources = \
