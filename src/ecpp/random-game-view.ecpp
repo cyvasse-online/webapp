@@ -22,20 +22,14 @@
 	#include <cyvmath/players_color.hpp>
 </%pre>
 <%cpp>
-	auto matches = cyvdb::MatchManager().getRandomModeMatches();
+	auto matches = cyvdb::MatchManager().getFreeRandomModeMatches();
 
 	if(matches.empty())
-		reply.out() << "No matches available currently.";
+		reply.out() << "No random games are waiting for a player currently.";
 	else
 		for(const auto& match : matches)
 		{
 			auto players = cyvdb::PlayerManager().getPlayers(match.id);
-			if(players.size() != 1)
-			{
-				// log error?
-				continue;
-			}
-
 			const auto& colorStr = PlayersColorToPrettyStr(!players.front().getColor());
 </%cpp>
 	<div class='random-match'>
