@@ -1,3 +1,9 @@
+/* font */
+@font-face {
+  font-family: 'Morpheus';
+  src: url('/morpheus.ttf');
+}
+
 /* page layout */
 html,
 body {
@@ -17,7 +23,6 @@ body {
 	position: fixed;
 	top: 0;
 	height: 3em;
-	line-height: 3em;
 
 	border-bottom: 1px solid #333;
 	background-color: #fff;
@@ -54,7 +59,10 @@ body {
 
 /** inside #page-header **/
 #logo {
-	margin-left: 1em;
+	margin-left: .5em;
+	font-family: Morpheus;
+	font-size: 1.9em;
+	color: #000;
 }
 
 #status {
