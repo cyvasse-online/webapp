@@ -20,18 +20,19 @@
 	#include <yaml-cpp/yaml.h>
 </%pre>
 <main class='padded boxed' id='page-content'>
-	Hi there!<br />
+	<%include>welcome.html</%include>
+	<#Hi there!<br />
 	<br />
 	On this website, you can play Cyvasse, a game described in <strong>A Song of Ice and Fire</strong>.<br />
 	<br />
 	It is already working, but still misses a lot of all planned features.<br />
 	If you are curious about the development, check out our <a href='https://trello.com/cyvasseonline'>Trello board</a>.<br />
 	<br />
-	You can contact us per mail to give us feedback about the site and the game: <a href='mailto:contact@cyvasse-online.com'>contact@cyvasse-online.com</a>.<br />
+	You can contact us per mail to give us feedback about the site and the game: <a href='mailto:contact@cyvasse-online.com'>contact@cyvasse-online.com</a>.<br />#>
 
 %	tnt::Savepoint save1(reply);
 
-	<section id='news'>
+	<#<section id='news'>
 		<h2>News</h2>
 		<%cpp>
 			try
@@ -45,7 +46,7 @@
 
 					try
 					{
-						std::string filename = "news/" + node["filename"].as<std::string>();
+						std::string filename = "page-content/news/" + node["filename"].as<std::string>();
 						std::ifstream ifs(filename, std::ifstream::in);
 
 						if(ifs)
@@ -75,6 +76,6 @@
 
 			save1.commit();
 		</%cpp>
-	</section>
+	</section>#>
 </main>
 <%include>side_pane.ecpp</%include>

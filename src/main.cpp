@@ -55,7 +55,8 @@ int main()
 
 		// static files
 		app.mapUrl("^/(.+)$",                    "static@tntnet").setPathInfo("$1");
-		app.mapUrl("^/rule_sets/([^.]+\\.html)", "static@tntnet").setPathInfo("$1").setArg("documentRoot", "rule_sets");
+		app.mapUrl("^/rule_sets/([^.]+\\.html)", "static@tntnet").setPathInfo("$1")
+			.setArg("documentRoot", "page-content/rule-sets");
 
 		// non-page dynamic content
 		app.mapUrl("^/random-matches$", "random-game-view");
@@ -68,7 +69,7 @@ int main()
 		app.mapUrl("^/create-game(\\.json)?$", 	     "page$1").setArg("content", "create-game");
 		app.mapUrl("^/join-game(\\.json)?$",         "page$1").setArg("content", "join-game");
 		app.mapUrl("^/match/.{4}(\\.json)?$",        "page$1").setArg("content", "game");
-		app.mapUrl("^/rule_sets/([^.]+)(\\.json)?$", "page$2").setArg("content", "rule_set").setArg("name", "$1");
+		app.mapUrl("^/rule_sets/([^.]+)(\\.json)?$", "page$2").setArg("content", "rule-set").setArg("name", "$1");
 		// 404 if nothing matched
 		app.mapUrl(".*",                             "page"  ).setArg("content", "404");
 

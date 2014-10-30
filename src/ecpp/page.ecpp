@@ -26,54 +26,52 @@
 	</head>
 	<body>
 		<%include>page_header.ecpp</%include>
-		<div id='page-outer-wrap'>
-			<div id='page-wrap' class='clearfix'>
-				<%cpp>
-					// create savepoint
-					tnt::Savepoint savepoint(reply);
+		<div id='page-wrap' class='clearfix'>
+			<%cpp>
+				// create savepoint
+				tnt::Savepoint savepoint(reply);
 
-					std::string content = request.getArg("content");
-					unsigned ret = HTTP_INTERNAL_SERVER_ERROR;
+				std::string content = request.getArg("content");
+				unsigned ret = HTTP_INTERNAL_SERVER_ERROR;
 
-					// handle all pages that mustn't be called by url here
-					if(content == "page" ||
-					   content == "page.json" ||
-					   content == "404" ||
-					   content == "500")
+				// handle all pages that mustn't be called by url here
+				if(content == "page" ||
+				   content == "page.json" ||
+				   content == "404" ||
+				   content == "500")
+				{
+					ret = callComp("404", request, reply);
+					assert(ret == HTTP_NOT_FOUND);
+				}
+				else
+				{
+					try
+					{
+						// call content component
+						ret = callComp(content, request, reply, qparam);
+						assert(ret == HTTP_OK);
+					}
+					catch(tnt::NotFoundException&)
 					{
 						ret = callComp("404", request, reply);
 						assert(ret == HTTP_NOT_FOUND);
 					}
-					else
+					catch(std::runtime_error& e)
 					{
-						try
-						{
-							// call content component
-							ret = callComp(content, request, reply, qparam);
-							assert(ret == HTTP_OK);
-						}
-						catch(tnt::NotFoundException&)
-						{
-							ret = callComp("404", request, reply);
-							assert(ret == HTTP_NOT_FOUND);
-						}
-						catch(std::runtime_error& e)
-						{
-							// when getting a runtime_error the reply could have been written to
-							// by the called component => roll it back through the savepoint
-							savepoint.rollback();
+						// when getting a runtime_error the reply could have been written to
+						// by the called component => roll it back through the savepoint
+						savepoint.rollback();
 
-							tnt::QueryParams errorParam;
-							errorParam.add("errorMessage", e.what());
-							ret = callComp("500", request, reply, errorParam);
-							assert(ret == HTTP_INTERNAL_SERVER_ERROR);
-						}
+						tnt::QueryParams errorParam;
+						errorParam.add("errorMessage", e.what());
+						ret = callComp("500", request, reply, errorParam);
+						assert(ret == HTTP_INTERNAL_SERVER_ERROR);
 					}
+				}
 
-					// deactivate savepoint
-					savepoint.commit();
-				</%cpp>
-			</div>
+				// deactivate savepoint
+				savepoint.commit();
+			</%cpp>
 		</div>
 		<%include>page_footer.ecpp</%include>
 	</body>

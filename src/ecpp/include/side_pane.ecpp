@@ -89,5 +89,5 @@
 		</div>
 	</div>
 
-	<script>setupSidePaneEventHandlers()</script>
+	<script>setupSidePaneEventHandlers();</script>
 </aside>

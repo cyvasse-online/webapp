@@ -29,22 +29,12 @@ body {
 	z-index: 2;
 }
 
-#page-outer-wrap {
-	display: table;
+#page-wrap {
 	/* min-height would be better, but this works everywhere and FF doesn't want min-height */
 	height: 100%;
 	width: 100%;
 	padding-top: 3em;
 	padding-bottom: 2em;
-}
-
-#page-wrap {
-	display: table-row;
-}
-
-#page-wrap > :not(script) {
-	display: table-cell;
-	vertical-align: top;
 }
 
 #page-footer {

@@ -23,12 +23,11 @@ AC_CONFIG_FILES([
 	Makefile
 	config.yml
 	log.xml
-	news/Makefile
-	rule_sets/Makefile
+	page-content/Makefile
 	src/Makefile
 ])
 AC_CONFIG_LINKS([
-	news.yml:$srcdir/news/news.yml
+	news.yml:$srcdir/page-content/news.yml
 	static:$srcdir/src/static
 	pagemeta.yml:$srcdir/src/pagemeta.yml
 ])

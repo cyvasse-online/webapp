@@ -1,1 +1,1 @@
-SUBDIRS = cyvasse-common news rule_sets src
+SUBDIRS = cyvasse-common page-content src

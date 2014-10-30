@@ -12,9 +12,10 @@ cyvasse_online_ecpp_sources = \
 	ecpp/join-game.ecpp \
 	ecpp/page.ecpp \
 	ecpp/random-game-view.ecpp \
-	ecpp/rule_set.ecpp
+	ecpp/rule-set.ecpp
 
-BUILT_SOURCES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp)
+BUILT_SOURCES = \
+	$(cyvasse_online_ecpp_sources:.ecpp=.cpp)
 
 cyvasse_online_SOURCES = \
 	main.cpp \
@@ -26,7 +27,8 @@ cyvasse_online_SOURCES = \
 cyvasse_online_CPPFLAGS = \
 	-I$(top_srcdir)/cyvasse-common/include
 
-nodist_cyvasse_online_SOURCES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp)
+nodist_cyvasse_online_SOURCES = \
+	$(cyvasse_online_ecpp_sources:.ecpp=.cpp)
 
 cyvasse_online_LDADD = \
 	$(top_builddir)/cyvasse-common/libcyvdb.a \
@@ -37,9 +39,13 @@ cyvasse_online_LDADD = \
 	-ljsoncpp \
 	-lyaml-cpp
 
-CLEANFILES = $(cyvasse_online_ecpp_sources:.ecpp=.cpp) $(cyvasse_online_ecpp_sources:.ecpp=.deps)
+CLEANFILES = \
+	$(cyvasse_online_ecpp_sources:.ecpp=.cpp) \
+	$(cyvasse_online_ecpp_sources:.ecpp=.deps)
 
-ECPPFLAGS = -I $(srcdir)/ecpp/include
+ECPPFLAGS = \
+	-I$(top_builddir)/page-content/static-text \
+	-I$(srcdir)/ecpp/include
 
 ecpp/%.cpp: ecpp/%.ecpp
 	$(AM_V_GEN)$(ECPPC) $(ECPPFLAGS) -n "$*" -m text/html -o $@ $<
