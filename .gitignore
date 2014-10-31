@@ -10,10 +10,10 @@ missing
 # symlinks
 static
 !/src/static
-news.yml
-!/news/news.yml
 pagemeta.yml
 !/src/pagemeta.yml
+news.yml
+!/page-content/news.yml
 
 .deps
 config.log
