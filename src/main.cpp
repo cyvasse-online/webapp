@@ -54,7 +54,13 @@ int main()
 		// mapping require the git version of tntnet
 
 		// static files
+
+		// ttf mime-type isn't autodetected
+		app.mapUrl("^/([^.]+)\\.(o|t)tf",        "static@tntnet").setPathInfo("$1")
+			.setArg("contentType", "application/font-sfnt");
+
 		app.mapUrl("^/(.+)$",                    "static@tntnet").setPathInfo("$1");
+
 		app.mapUrl("^/rule_sets/([^.]+\\.html)", "static@tntnet").setPathInfo("$1")
 			.setArg("documentRoot", "page-content/rule-sets");
 
