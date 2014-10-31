@@ -15,7 +15,7 @@
 	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
 <header id='page-header'>
-	<a href='/' id='logo'>Cyvasse Online</a>
+	<a href='/' id='logo'>Cyvasse onlinE <span id='beta-badge'>beta</span></a>
 	<span id='status'></span>
 </header>
 

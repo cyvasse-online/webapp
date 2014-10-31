@@ -5,7 +5,6 @@ all: \
 	\
 	rule-sets/mikelepage.html \
 	\
-	static-text/welcome.html \
 	static-text/what-is-cyvasse.html
 
 %.html : %.md

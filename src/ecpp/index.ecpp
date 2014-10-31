@@ -19,16 +19,8 @@
 	#include <tnt/savepoint.h>
 	#include <yaml-cpp/yaml.h>
 </%pre>
-<main class='padded boxed' id='page-content'>
-	<%include>welcome.html</%include>
-	<#Hi there!<br />
-	<br />
-	On this website, you can play Cyvasse, a game described in <strong>A Song of Ice and Fire</strong>.<br />
-	<br />
-	It is already working, but still misses a lot of all planned features.<br />
-	If you are curious about the development, check out our <a href='https://trello.com/cyvasseonline'>Trello board</a>.<br />
-	<br />
-	You can contact us per mail to give us feedback about the site and the game: <a href='mailto:contact@cyvasse-online.com'>contact@cyvasse-online.com</a>.<br />#>
+<main class='boxed' id='page-content'>
+	<%include>what-is-cyvasse.html</%include>
 
 %	tnt::Savepoint save1(reply);
 

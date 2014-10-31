@@ -8,6 +8,7 @@
 html,
 body {
 	height: 100%;
+    font-size: 120%;
 }
 
 body {
@@ -22,7 +23,7 @@ body {
 #page-header {
 	position: fixed;
 	top: 0;
-	height: 3em;
+	height: 2.5em;
 
 	border-bottom: 1px solid #333;
 	background-color: #fff;
@@ -33,7 +34,7 @@ body {
 	/* min-height would be better, but this works everywhere and FF doesn't want min-height */
 	height: 100%;
 	width: 100%;
-	padding-top: 3em;
+	padding-top: 2.5em;
 	padding-bottom: 2em;
 }
 
@@ -49,15 +50,24 @@ body {
 
 /** inside #page-header **/
 #logo {
-	margin-left: .5em;
+	margin-left: .6em;
 	font-family: Morpheus;
-	font-size: 1.9em;
+	font-size: 1.6em;
 	color: #000;
+}
+
+#beta-badge {
+    background: #000;
+    border-radius: .2em;
+    color: #fff;
+    padding: 0 .2em;
+    font-size: .8em;
+    margin-left: .2em;
 }
 
 #status {
 	margin-left: 18%;
-	line-height: 3em;
+	line-height: 2.5em;
 	font-weight: bold;
 	color: #888;
 }
@@ -85,6 +95,10 @@ body {
 
 #news {
 	margin-top: 3em;
+}
+
+#page-content {
+    margin: 1em;
 }
 
 #page-content > h1:first-child {
@@ -131,7 +145,7 @@ canvas {
 #logbox {
 	/* not quite elegant */
 	position: absolute;
-	top: 3em;
+	top: 2.5em;
 	bottom: 2em;
 	width: 25%;
 }
