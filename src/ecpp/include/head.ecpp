@@ -18,7 +18,8 @@
 	#include "pagemeta_reader.hpp"
 </%pre>
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-<link rel='stylesheet' href='/css/normalize-3.0.1.css' />
+<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+<link rel='stylesheet' href='/css/normalize-3.0.2.css' />
 <link rel='stylesheet' href='/css/cyvasse-online.css' />
 <noscript>
 	<link rel='stylesheet' href='/css/noscript.css' />
