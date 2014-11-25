@@ -16,25 +16,29 @@
 </%doc>
 <%pre>
 	#include <cyvdb/match_manager.hpp>
-	#include <cyvdb/match.hpp>
 	#include <cyvdb/player_manager.hpp>
-	#include <cyvdb/player.hpp>
-	#include <cyvmath/players_color.hpp>
+
+	using namespace cyvmath;
+	using namespace cyvdb;
 </%pre>
 <%cpp>
-	auto matches = cyvdb::MatchManager().getFreeRandomModeMatches();
+	auto matches = MatchManager().getOpenRandomMatches();
 
 	if(matches.empty())
 		reply.out() << "No random games are waiting for a player currently.";
 	else
 		for(const auto& match : matches)
 		{
-			auto players = cyvdb::PlayerManager().getPlayers(match.id);
-			const auto& colorStr = PlayersColorToPrettyStr(!players.front().getColor());
+			auto& players = match->getPlayers();
+			// if the game has no player or more than 1, it
+			// shouldn't have been returned by getOpenRandomMatches()
+			assert(players.size() == 1);
+
+			auto freeColor = !players.front()->getColor();
 </%cpp>
 	<div class='random-match'>
-		<input type='hidden' value='<$ match.id $>' />
-		Rule set: <strong><$ RuleSetToPrettyStr(match.ruleSet) $></strong><br />
-		Play as: <strong><$ colorStr $></strong>
+		<input type='hidden' value='<$ match->getID() $>' />
+		Rule set: <strong><$ RuleSetToPrettyStr(match->getRuleSet()) $></strong><br />
+		Play as: <strong><$ PlayersColorToPrettyStr(freeColor) $></strong>
 	</div>
 %		}
