@@ -13,7 +13,7 @@ static
 pagemeta.yml
 !/src/pagemeta.yml
 news.yml
-!/page-content/news.yml
+!/resources/news.yml
 
 .deps
 config.log
@@ -34,21 +34,27 @@ nohup.out
 # compiled files
 
 cyvasse-online
+
 ## not compiled in this package, but
 ## normally copied / linked from cyvasse-game
 cyvasse.data
 cyvasse.js
-cyvasse.js.map
 cyvasse.js.mem
+
+## generated from style.scss
+style.css
 
 **/src/ecpp/*.cpp
 
 *.deps
 *.html
+*.map
 *.o
 *.a
 
 # Other
+
+.sass-cache
 
 .dirstamp
 
