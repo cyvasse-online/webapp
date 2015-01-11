@@ -10,9 +10,10 @@ AX_CXX_COMPILE_STDCXX_11(noext, mandatory)
 AC_CHECK_PROGS(ECPPC, [ecppc])
 AC_CHECK_HEADER([tnt/tntnet.h], [], AC_MSG_ERROR([tntnet headers not found]))
 AC_CHECK_HEADER([tntdb/connection.h], [], AC_MSG_ERROR([tntdb headers not found]))
-AC_CHECK_HEADER([jsoncpp/json/json.h], [], AC_MSG_ERROR([jsoncpp headers not found]))
 AC_CHECK_HEADER([yaml-cpp/yaml.h], [], AC_MSG_ERROR([yaml-cpp headers not found]))
 AC_PROG_SED
+
+PKG_CHECK_MODULES([JSONCPP], [jsoncpp])
 
 # simply a markdown implementation available in the
 # arch linux community repo which I had installed

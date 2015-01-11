@@ -25,17 +25,20 @@ cyvasse_online_SOURCES = \
 cyvasse_online_CPPFLAGS = \
 	-I$(top_srcdir)/cyvasse-common/include
 
-nodist_cyvasse_online_SOURCES = \
-	$(cyvasse_online_ecpp_sources:.ecpp=.cpp)
+cyvasse_online_CXXFLAGS = \
+	$(JSONCPP_CFLAGS)
 
 cyvasse_online_LDADD = \
+	$(JSONCPP_CFLAGS) \
 	$(top_builddir)/cyvasse-common/libcyvdb.a \
 	$(top_builddir)/cyvasse-common/libcyvmath.a \
 	-lcxxtools \
 	-ltntdb \
 	-ltntnet \
-	-ljsoncpp \
 	-lyaml-cpp
+
+nodist_cyvasse_online_SOURCES = \
+	$(cyvasse_online_ecpp_sources:.ecpp=.cpp)
 
 CLEANFILES = \
 	$(cyvasse_online_ecpp_sources:.ecpp=.cpp) \

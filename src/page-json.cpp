@@ -17,8 +17,8 @@
 #include <tnt/ecpp.h>
 
 #include <fstream>
-#include <jsoncpp/json/value.h>
-#include <jsoncpp/json/writer.h>
+#include <json/value.h>
+#include <json/writer.h>
 #include <tnt/componentfactory.h>
 #include <tnt/http.h>
 #include <tnt/httperror.h>
