@@ -58,11 +58,11 @@ int main()
 		// ttf mime-type isn't autodetected
 		app.mapUrl("^/([^.]+)\\.(o|t)tf",        "static@tntnet").setPathInfo("$1")
 			.setArg("contentType", "application/font-sfnt");
-
 		app.mapUrl("^/(.+)$",                    "static@tntnet").setPathInfo("$1");
-
+		app.mapUrl("^/css/(.+)$",                "static@tntnet").setPathInfo("$1")
+			.setArg("documentRoot", "resources/css");
 		app.mapUrl("^/rule_sets/([^.]+\\.html)", "static@tntnet").setPathInfo("$1")
-			.setArg("documentRoot", "page-content/rule-sets");
+			.setArg("documentRoot", "resources/rule-sets");
 
 		// non-page dynamic content
 		app.mapUrl("^/random-matches$", "random-game-view");

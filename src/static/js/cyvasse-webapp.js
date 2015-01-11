@@ -46,7 +46,7 @@ $.fn.exists = function () {
     return !!this.length;
 };
 
-// another thingy from teh internetz, this time really ugly...
+// another thingy from teh internetz, which is quite ugly...
 // but it works, and I'm not particularily intersted in doing it better
 function htmlEncode(value) {
   // create a in-memory div, set it's inner text (which jQuery automatically encodes)
@@ -149,89 +149,11 @@ function createGameParamValid(metaData) {
 		&& !!metaData.gameMode;
 }
 
-function updateGameOptions()
-{
-	var gameOptions = $("#game-options");
-
-	var showOptions = function() {
-		switch($("input[name='create-join']:checked").val())
-		{
-			// TODO: remove disabled attribute stuff when filters are implemented
-			case "create-game":
-				$("#game-options input").prop("checked", false).attr("type", "radio").attr("disabled", false);
-
-				// TODO
-				$("#game-mode-bot, #game-mode-local").attr("disabled", true);
-
-				$("#create-game-button").attr("disabled", true);
-				$("#create-game-only").show();
-				break;
-			case "join-game":
-				$("#game-options input").prop("checked", false).attr("type", "checkbox").attr("disabled", true);
-				$("#create-game-only").hide();
-				break;
-			default:
-				throw new Error("This function should only be called when either" +
-					"'Create game' or 'Join game' was clicked.");
-		}
-
-		gameOptions.fadeIn(300);
-	};
-
-	if(gameOptions.is(":visible"))
-		gameOptions.fadeOut(300, showOptions);
-	else
-		showOptions();
-}
-
+// TODO: Rename
 function setupSidePaneEventHandlers() {
 	$("input[name='ruleSet']").change(function() {
 		if($("input[name='create-join']:checked").val() == "create-game")
 			loadRuleSetDoc($("input[name='ruleSet']:checked").val());
-	});
-
-	$("input[name='create-join']").change(function() {
-		var action = $("input[name='create-join']:checked").val();
-
-		var hideRuleSetNewTabBox = function() {
-			$(".rule-set-new-tab-box").fadeOut(300);
-		};
-
-		if(document.location.pathname == "/") {
-			var pageOuterWrap     = $("#page-outer-wrap");
-			var oldPageContentDiv = $("#page-content");
-			var newPageContentDiv = $("<div class='padded boxed' />");
-
-			newPageContentDiv.html("<div class='page-content'>Loading<span class='ani-loading-dot'>.</span></div>");
-
-			// dirty hack...
-			oldPageContentDiv.width(oldPageContentDiv.width());
-			newPageContentDiv.width(newPageContentDiv.width());
-
-			pageOuterWrap.width("170%");
-			newPageContentDiv.appendTo("#page-wrap");
-
-			pageOuterWrap.animate({"margin-left": -oldPageContentDiv.width()}, 600, function() {
-				// after animation...
-				oldPageContentDiv.remove();
-
-				pageOuterWrap.css("margin-left", "");
-				pageOuterWrap.width("");
-				newPageContentDiv.width("");
-
-				newPageContentDiv.attr("id", "page-content");
-
-				hideRuleSetNewTabBox();
-				loadPage("/" + action, null, true, "#page-content", "pageContent=true");
-
-				updateGameOptions();
-			});
-		}
-		else if(document.location.pathname.substr(1) !== action) {
-			updateGameOptions();
-			hideRuleSetNewTabBox();
-			loadPage("/" + action, null, true, "#page-content", "pageContent=true");
-		}
 	});
 
 	$("#game-options input").change(function() {
@@ -250,29 +172,6 @@ function setupSidePaneEventHandlers() {
 			default:
 				throw new Error("Congratiulations! You found a bug. What you just clicked should not be visible...");
 		}
-	});
-
-	$("#create-game-button").click(function() {
-		var metaData = {
-			ruleSet:  $("input:radio[name='ruleSet']:checked").val(),
-			color:    $("input:radio[name='color']:checked").val(),
-			gameMode: $("input:radio[name='gameMode']:checked").val()
-		};
-
-		if(!createGameParamValid(metaData))
-			throw new Error("#create-game-button should be disabled if the given parameters are not valid.");
-
-		$("#side-pane :input").attr("disabled", true);
-		$("#create-game-button").attr("disabled", true);
-		$("#create-game-button").css("color", "#000");
-		$("#create-game-button").html("Creating game<span class='ani-loading-dot'>.</span>");
-
-		initializeWSClient();
-
-		// TODO: might not be the best to overwrite conn.onopen
-		wsClient.conn.onopen = function() {
-			wsClient.createGame(metaData);
-		};
 	});
 }
 
@@ -295,4 +194,27 @@ $(document).ready(function() {
 	window.onpopstate = function() {
 		loadPage(document.location.pathname, null, false);
 	};
+
+	$("#create-game-button").click(function() {
+		var metaData = {
+			ruleSet:  "mikelepage", // hardcoded for now
+			color:    $("#select-play-as").val(),
+			gameMode: $("#select-game-mode").val()
+		};
+
+		if(!createGameParamValid(metaData))
+			throw new Error("#create-game-button should be disabled if the given parameters are not valid.");
+
+		$("#side-pane :input").attr("disabled", true);
+		$("#create-game-button").attr("disabled", true);
+		$("#create-game-button").css("color", "#000");
+		$("#create-game-button").html("Creating game<span class='ani-loading-dot'>.</span>");
+
+		initializeWSClient();
+
+		// TODO: might not be the best to overwrite conn.onopen
+		wsClient.conn.onopen = function() {
+			wsClient.createGame(metaData);
+		};
+	});
 });

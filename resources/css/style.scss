@@ -4,59 +4,74 @@
   src: url('/morpheus.ttf');
 }
 
+/* border-box fix */
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 /* page layout */
-html,
-body {
-	height: 100%;
-    font-size: 120%;
+$footerHeight: 2em;
+
+html, body {
+    height: 100%;
+    width: 100%;
 }
 
-body {
-	overflow-x: hidden;
-}
-
-#page-header,
-#page-footer {
+.page-wrap {
 	width: 100%;
+    min-height: 100%;
+	margin-bottom: -$footerHeight;
+
+    &:after {
+        content: "";
+        display: block;
+    }
 }
 
-#page-header {
-	position: fixed;
-	top: 0;
-	height: 2.5em;
-
-	border-bottom: 1px solid #333;
-	background-color: #fff;
-	z-index: 2;
+.page-footer,
+.page-wrap:after {
+    height: $footerHeight;
 }
 
-#page-wrap {
-	/* min-height would be better, but this works everywhere and FF doesn't want min-height */
-	height: 100%;
-	width: 100%;
-	padding-top: 2.5em;
-	padding-bottom: 2em;
-}
+.page-footer {
+    // probably quite ugly but I'm lazy right now
+    .container {
+        display: flex;
+        justify-content: space-between;
+    }
 
-#page-footer {
+    padding: 0 .4em;
+    width: 100%;
+
 	position: relative;
-	margin-top: -2em;
-	height: 2em;
-	line-height: 1.9em; /* FF 31 doesn't accept calc(2em - 1px) */
+	line-height: 1.9em;
 	line-height: calc(2em - 1px);
 
-	border-top: 1px solid #333;
+    border-top: 2px solid #aaa;
 }
 
-/** inside #page-header **/
-#logo {
-	margin-left: .6em;
+.page-header {
+    padding: .2em 0;
+
+    background-color: #fff;
+    border-bottom: 2px solid #aaa;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+/** inside .page-header **/
+.logo {
 	font-family: Morpheus;
-	font-size: 1.6em;
+	font-size: 2.2em;
 	color: #000;
 }
 
-#beta-badge {
+.badge {
     background: #000;
     border-radius: .2em;
     color: #fff;
@@ -72,7 +87,7 @@ body {
 	color: #888;
 }
 
-/** inside #page-wrap **/
+/** inside .page-wrap **/
 .padded {
 	padding: 1em;
 }
@@ -85,23 +100,11 @@ body {
 	width: 450px;
 }
 
-#create-join-option {
-	font-weight: bold;
+.page-content {
+    margin: 1em auto;
 }
 
-#option-extras {
-	display: none;
-}
-
-#news {
-	margin-top: 3em;
-}
-
-#page-content {
-    margin: 1em;
-}
-
-#page-content > h1:first-child {
+.page-content > h1:first-child {
 	margin-top: 0;
 }
 
@@ -129,7 +132,7 @@ body {
 	background: #ddd;
 }
 
-#game-wrap {
+.game-wrap {
 	width: 75%;
 	overflow: auto;
 	text-align: center;
@@ -142,7 +145,7 @@ canvas {
 	border: 0 none;
 }
 
-#logbox {
+.logbox {
 	/* not quite elegant */
 	position: absolute;
 	top: 2.5em;
@@ -153,7 +156,7 @@ canvas {
 /* I am normally the kind of person to care about code style and performance,
    even for CSS selectors... But I'm generally only doing what works for me with
    the CSS at the moment so I don't give a F about the awfulness of this rule! */
-#logbox > * {
+.logbox > * {
 	width: 100%;
 }
 
@@ -211,27 +214,7 @@ canvas {
 	box-shadow: none;
 }
 
-/** inside #page-footer **/
-#page-footer > * {
-	position: absolute;
-	font-size: .9em;
-}
-
-#page-footer-left {
-	left: .5em;
-}
-
-#page-footer-right {
-	right: .5em;
-}
-
 /* general styling */
-*, *:before, *:after {
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-}
-
 a {
 	text-decoration: none;
 }
@@ -252,13 +235,8 @@ button:disabled {
 	background-color: #fff;
 }
 
-th {
-	padding: .5em 1em;
-	text-align: left;
-}
-
 td {
-	padding: 0 1em;
+    padding-right: 1em;
 }
 
 /** works in chromium, probably the worst way to do this **/
@@ -268,14 +246,6 @@ hr {
 }
 
 /* general-purpose css classes */
-.clearfix:after {
-    content: '.';
-    clear: both;
-    display: block;
-    visibility: hidden;
-    height: 0;
-}
-
 .rel-positioned {
 	position: relative;
 }
@@ -298,73 +268,4 @@ hr {
 	right: 1em;
 }
 
-.ani-loading-dot {
-	animation-name: loading;
-	animation-duration: 1s;
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-	position: relative;
-	display: inline-block;
-	width: .9em;
-	text-align: left;
-}
-
-@keyframes loading {
-	0%   { left: 0 }
-	33%  { left: 0 }
-	34%  { left: .3em }
-	66%  { left: .3em }
-	67%  { left: .6em }
-	100% { left: .6em }
-}
-
-/** Selection 'boxes' (side pane) **/
-.option input[type='radio'],
-.option input[type='checkbox'] {
-	display: none;
-}
-
-.option label {
-	display: inline-block;
-	padding: .4em;
-	border-style: solid;
-	border-width: 1px;
-	border-color: #888;
-	transition: background-color .2s;
-}
-
-.option label:hover {
-	background-color: #eee;
-}
-
-.option input:checked + label {
-	background-color: #00a7ff;
-}
-
-.option input:disabled + label {
-	color: #888;
-	background-color: #fff;
-}
-
-.option input:checked:disabled + label {
-	background-color: #7fd7ff;
-	transition: background-color .4s linear;
-}
-
-.option-vertical label {
-	width: 100%;
-}
-
-.option-vertical label:not(:last-of-type) {
-	border-bottom-width: 0;
-}
-
-.option-horizontal-2 label {
-	width: 50%;
-	float: left;
-	text-align: center;
-}
-
-.option-horizontal-2 label:not(:last-of-type) {
-	border-right-width: 0;
-}
+@import "animation";

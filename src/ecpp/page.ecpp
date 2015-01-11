@@ -25,8 +25,8 @@
 		<%include>head.ecpp</%include>
 	</head>
 	<body>
-		<%include>page_header.ecpp</%include>
-		<div id='page-wrap' class='clearfix'>
+		<div class='page-wrap'>
+			<%include>page_header.ecpp</%include>
 			<%cpp>
 				// create savepoint
 				tnt::Savepoint savepoint(reply);

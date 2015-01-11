@@ -14,13 +14,9 @@
 	You should have received a copy of the GNU Affero General Public License along with this program.
 	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
-<header id='page-header'>
-	<a href='/' id='logo'>Cyvasse onlinE <span id='beta-badge'>beta</span></a>
-	<span id='status'></span>
-</header>
-
-<noscript>
-	<div id='noscript-warning'>
-		To be able to play, you have to enable JavaScript.
+<header class='page-header'>
+	<div class='container'>
+		<a href='/' class='logo'>Cyvasse onlinE <span class='badge'>beta</span></a>
+		<span id='status'></span>
 	</div>
-</noscript>
+</header>

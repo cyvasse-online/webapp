@@ -1,0 +1,19 @@
+.ani-loading-dot {
+    position: relative;
+    padding-right: .6em;
+    animation: {
+        name: loading;
+        duration: 1s;
+        timing-function: linear;
+        iteration-count: infinite;
+    }
+}
+
+@keyframes loading {
+    0%   { left: 0 }
+    33%  { left: 0 }
+    34%  { left: .3em }
+    66%  { left: .3em }
+    67%  { left: .6em }
+    100% { left: .6em }
+}

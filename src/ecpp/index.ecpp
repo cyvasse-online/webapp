@@ -19,55 +19,61 @@
 	#include <tnt/savepoint.h>
 	#include <yaml-cpp/yaml.h>
 </%pre>
-<main class='boxed' id='page-content'>
+<main class='page-content container'>
 	<%include>what-is-cyvasse.html</%include>
 
-%	tnt::Savepoint save1(reply);
+	<# TODO: Has to be rewritten when there are more rule sets #>
+	<p><strong>Looking for the rules?</strong> <a href='/rule_sets/mikelepage'>Click here!</a></p>
 
-	<#<section id='news'>
-		<h2>News</h2>
-		<%cpp>
-			try
-			{
-				YAML::Node posts = YAML::LoadFile("news.yml");
+	<section class='interactive-content'>
+		<h2>Join a random game</h2>
+		<div class='random-games'>
 
-				// for now, simply show all news
-				for(const YAML::Node& node : posts)
-				{
-					tnt::Savepoint save2(reply);
+		</div> <!-- .random-games -->
 
-					try
-					{
-						std::string filename = "page-content/news/" + node["filename"].as<std::string>();
-						std::ifstream ifs(filename, std::ifstream::in);
+		<h2>Spectate a public game</h2>
+		<div class='public-games'>
 
-						if(ifs)
-						{
-							reply.out() << "<article>";
-							reply.out() << "<h3>" << node["title"].as<std::string>() << "</h3>\n";
-							reply.out() << ifs.rdbuf();
-							reply.out() << "</article>";
+		</div> <!-- .public-games -->
 
-							ifs.close();
-						}
-					}
-					catch(YAML::Exception& e)
-					{
-						// TODO: log error
-						save2.rollback();
-					}
+		<h2>Create a new game</h2>
 
-					save2.commit();
-				}
-			}
-			catch(YAML::Exception& e)
-			{
-				// TODO: log error
-				save1.rollback();
-			}
+		<table>
+			<tr>
+				<td><strong>Play as</strong></td>
+				<td>
+					<select id='select-play-as'>
+						<option>White player</option>
+						<option>Black player</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td><strong>Game mode</strong></td>
+				<td>
+					<select id='select-game-mode'>
+						<option>Online: Direct (send the match url to a friend)</option>
+						<option>Online: Random opponent from the internet</option>
+						<option>Local: Play against a bot</option>
+						<option>Local: Play against a friend on this computer</option>
+					</select>
+				</td>
+			</tr>
+			<#<tr>
+				<td><strong>Extra rules</strong></td>
+				<td>
+					<input type='checkbox' id='extra-rule-seaPorts' />
+					<label for='extra-rule-seaPorts'>Sea ports</label>
+				</td>
+			</tr>#>
+		</table>
 
-			save1.commit();
-		</%cpp>
-	</section>#>
+		<br />
+
+		<button id='create-game-button'>Create game</button>
+
+	</section> <!-- .interactive-content -->
+	<noscript>
+		<# TODO: Error message or something like that #>
+	</noscript>
 </main>
-<%include>side_pane.ecpp</%include>

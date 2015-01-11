@@ -1,43 +1,14 @@
-var SenderEnum = {
-	SERVER: "Server",
-	PLAYER_WHITE: "White player",
-	PLAYER_BLACK: "Black player"
-};
-
-function playersColorToSenderEnum(playersColorStr) {
-	return playersColorStr == "white" ? SenderEnum.PLAYER_WHITE :
-		playersColorStr == "black" ? SenderEnum.PLAYER_BLACK :
-		"[undefined]";
-}
-
-// don't allow modification of SenderEnum
-Object.freeze(SenderEnum);
-
-// this is awful, but is seems there no better method of doing this
-// ... or you aren't even supposed to do it at all in JavaScript
-function isSenderEnum(str) {
-	if(!isString(str))
-		throw new TypeError("str has to be a string");
-
-	for(var elem in SenderEnum)
-		if(str == SenderEnum[elem])
-			return true;
-
-	return false;
-}
-
 function scrolledToBottom(elem) {
 	return elem.scrollTop() + elem.innerHeight() >= elem.prop("scrollHeight");
 }
 
-function LogBox(selector, player) {
+function LogBox(selector) {
 	if(!isString(selector))
 		throw new TypeError("cssId has to be a string");
 	if(!isSenderEnum(player))
 		throw new TypeError("player has to be SenderEnum.PLAYER_WHITE or SenderEnum.PLAYER_BLACK");
 
 	this.selector = selector;
-	this.player   = player;
 	this.htmlElem = $();
 	this.msgArea  = $();
 	this.textarea = $();
@@ -98,7 +69,7 @@ LogBox.prototype = {
 
 				if($.trim(this.value).length > 0) {
 					Module.wsClient.sendChatMsg(logbox.player, this.value);
-					logbox.addChatMessage(logbox.player, this.value);
+					logbox.addChatMessage(this.value, true);
 					this.value = "";
 				}
 			}
@@ -184,15 +155,10 @@ LogBox.prototype = {
 		this.addMessage("<span class='status-msg'>" + msgHtml + "</span>");
 	},
 
-	addGameMessage: function(sender, msgObj) {
-		if(!isSenderEnum(sender))
-			throw new TypeError("sender has to be a member of SenderEnum: " + JSON.stringify(Object.keys(SenderEnum)));
-		if(sender == SenderEnum.SERVER)
-			console.error("The sender of a game message should be a player, not the server...");
+	addGameMessage: function(msgData) {
+		var msgStr = msgData.user;
 
-		var msgStr = sender;
-
-		switch(msgObj.update)
+		switch(msgData.action)
 		{
 			case "leave setup":
 				msgStr += " finished setting up.";
@@ -213,17 +179,14 @@ LogBox.prototype = {
 		this.addStatusMessage(msgStr);
 	},
 
-	addChatMessage: function(sender, msg) {
-		if(!isSenderEnum(sender))
-			throw new TypeError("sender has to be a member of SenderEnum: " + JSON.stringify(Object.keys(SenderEnum)));
+	addChatMessage: function(msgData, doNotScroll) {
+		if(doNotScroll === undefined)
+			doNotScroll = false;
 
 		// might allow basic html somewhen
-		if(sender == SenderEnum.SERVER)
-			this.addStatusMessage(htmlEncode(msg));
-		else
-			this.addMessage("<strong>" + sender + ":</strong> " + htmlEncode(msg));
+		this.addMessage("<strong>" + msgData.user + ":</strong> " + htmlEncode(msgData.content));
 
-		if(this.scrToBtmVisible && sender == this.player) {
+		if(!doNotScroll && this.scrToBtmVisible) {
 			this.msgArea.scrollTop(this.msgArea.prop("scrollHeight"));
 			this.msgArea.animate({"top": 0});
 			this.scrToBtm.animate({"top": "-2em"});

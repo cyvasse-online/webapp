@@ -33,26 +33,50 @@ function CyvasseWSClient(websockConn, loadNewPage) {
 }
 
 CyvasseWSClient.prototype = {
-	handleMessage: function(msgData) {
-		var msgObj = JSON.parse(msgData);
+	handleMessage: function(msgStr) {
+		var msgObj = JSON.parse(msgStr);
 
-		if(msgObj.messageType === "request") {
-			if(msgObj.action !== "chat message")
-				throw new Error("Got a request from the server that's not a chat message");
-			if(!msgObj.param)
-				throw new Error("Got a chat message without parameters");
-			if(!msgObj.param.sender)
-				throw new Error("Got a chat message without sender");
-			if(!msgObj.param.message)
-				throw new Error("Got a chat message with sender but without message content");
-			if(!Module.logbox)
-				throw new Error("Can't access the log box");
-
-			Module.logbox.addChatMessage(msgObj.param.sender, msgObj.param.message);
+		if(msgObj.msgType === "chatMsg") {
+			Module.logbox.addChatMessage(msgObj.msgData);
 
 			// TODO: reply
 		}
-		else if(msgObj.messageType === "reply") {
+		else if(msgObj.msgType === "chatMsgAck") {
+
+		}
+		else if(msgObj.msgType === "gameMsg") {
+			if(this.handleMessageIngame === undefined) {
+				console.log("Got a message for the game before it was loaded, caching.");
+				this.cachedIngameRequests.push(msgData);
+			}
+			else {
+				if(typeof(this.handleMessageIngame) !== "function")
+					throw new TypeError("handleMessageIngame has to be a function");
+
+					this.handleMessageIngame(msgData);
+				}
+
+				if(!Module.logbox)
+					throw new Error("logbox not initialized?!");
+
+				var sender;
+				if(playersColorToSenderEnum(Module.gameMetaData.color) == SenderEnum.PLAYER_WHITE)
+					sender = SenderEnum.PLAYER_BLACK;
+				else
+					sender = SenderEnum.PLAYER_WHITE;
+
+				Module.logbox.addGameMessage(sender, msgObj);
+		}
+		else if(msgObj.msgType === "gameMsgAck") {
+
+		}
+		else if(msgObj.msgType === "gameMsgErr") {
+
+		}
+		else if(msgObj.msgType === "notification") {
+
+		}
+		else if(msgObj.msgType === "serverReply") {
 			var answeredRequest;
 
 			for(var request in this.awaitingReply) {
@@ -62,6 +86,7 @@ CyvasseWSClient.prototype = {
 					answeredRequest = this.awaitingReply.splice(request, 1)[0];
 				}
 			}
+
 			if(answeredRequest === undefined)
 				throw new Error("Got a reply to an unknown server request");
 			if(msgObj.success === false)
@@ -97,31 +122,12 @@ CyvasseWSClient.prototype = {
 					break;
 			}
 		}
-		else if(msgObj.messageType === "game update") {
-			if(this.handleMessageIngame === undefined) {
-				console.log("Got a message for the game before it was loaded, caching.");
-				this.cachedIngameRequests.push(msgData);
-			}
-			else {
-				if(typeof(this.handleMessageIngame) !== "function")
-					throw new TypeError("handleMessageIngame has to be a function");
-
-				this.handleMessageIngame(msgData);
-			}
-
-			if(!Module.logbox)
-				throw new Error("logbox not initialized?!");
-
-			var sender;
-			if(playersColorToSenderEnum(Module.gameMetaData.color) == SenderEnum.PLAYER_WHITE)
-				sender = SenderEnum.PLAYER_BLACK;
-			else
-				sender = SenderEnum.PLAYER_WHITE;
-
-			Module.logbox.addGameMessage(sender, msgObj);
+		else if(msgObj.msgType === "serverRequest") {
+			// Do nothing, just assume this doesn't happen
 		}
 		else {
-			throw new Error("Got malformed or incomplete message");
+			// Ignore the message
+			// TODO: Or maybe log an error somewhere?
 		}
 	},
 

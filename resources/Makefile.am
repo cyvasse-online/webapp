@@ -1,7 +1,5 @@
 all: \
-	news/cyvasse-online-beta.html \
-	news/we-re-on-facebook-now.html \
-	news/forum-up-and-running.html \
+	css/style.css \
 	\
 	rule-sets/mikelepage.html \
 	\
@@ -10,3 +8,7 @@ all: \
 %.html : %.md
 	@mkdir -p $(@D)
 	$(AM_V_GEN)$(MARKDOWN) -x tables -f $@ $<
+
+%.css : %.scss
+	@mkdir -p $(@D)
+	$(AM_V_GEN)$(SASS) $< $@

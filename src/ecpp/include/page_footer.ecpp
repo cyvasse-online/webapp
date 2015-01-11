@@ -14,11 +14,9 @@
 	You should have received a copy of the GNU Affero General Public License along with this program.
 	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
-<footer id='page-footer'>
-	<div id='page-footer-left'>
+<footer class='page-footer'>
+	<div class='container'>
 		<a href='https://github.com/cyvasse-online'>GitHub</a>
-	</div>
-	<div id='page-footer-right'>
 		<a href='/disclaimer' target='_blank'>Disclaimer</a>
 	</div>
 </footer>

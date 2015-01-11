@@ -44,7 +44,7 @@ CLEANFILES = \
 	$(cyvasse_online_ecpp_sources:.ecpp=.deps)
 
 ECPPFLAGS = \
-	-I$(top_builddir)/page-content/static-text \
+	-I$(top_builddir)/resources/static-text \
 	-I$(srcdir)/ecpp/include
 
 ecpp/%.cpp: ecpp/%.ecpp

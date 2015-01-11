@@ -18,16 +18,17 @@ AC_PROG_SED
 # arch linux community repo which I had installed
 AC_CHECK_PROGS(MARKDOWN, [markdown_py])
 
+AC_CHECK_PROGS(SASS, [sass])
+
 AC_CONFIG_SUBDIRS([cyvasse-common])
 AC_CONFIG_FILES([
 	Makefile
 	config.yml
 	log.xml
-	page-content/Makefile
+	resources/Makefile
 	src/Makefile
 ])
 AC_CONFIG_LINKS([
-	news.yml:$srcdir/page-content/news.yml
 	static:$srcdir/src/static
 	pagemeta.yml:$srcdir/src/pagemeta.yml
 ])

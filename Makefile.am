@@ -1,1 +1,1 @@
-SUBDIRS = cyvasse-common page-content src
+SUBDIRS = cyvasse-common resources src
