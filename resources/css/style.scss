@@ -246,10 +246,6 @@ hr {
 }
 
 /* general-purpose css classes */
-.rel-positioned {
-	position: relative;
-}
-
 .stick-to-bottom {
 	position: absolute;
 	bottom: 0;
@@ -260,12 +256,6 @@ hr {
 	margin: 0;
 	padding: 0;
 	border-bottom: 1px solid #000;
-}
-
-.notification {
-	position: fixed;
-	top: 4em;
-	right: 1em;
 }
 
 @import "animation";
