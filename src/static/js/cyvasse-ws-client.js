@@ -2,12 +2,8 @@ function loadCyvasseJs() {
 	$.getScript("/cyvasse.js");
 }
 
+// TODO: Why are we letting the caller instatiate the WebSocket?
 function CyvasseWSClient(websockConn, loadNewPage) {
-	if(websockConn instanceof WebSocket === false)
-		throw new TypeError("websockConn has to be a WebSocket instance");
-	if(typeof(loadNewPage) !== "function")
-		throw new TypeError("loadNewPage has to be a function");
-
 	this.conn = websockConn;
 	this.loadNewPage = loadNewPage;
 	this.nextMessageID = 1;
@@ -50,22 +46,16 @@ CyvasseWSClient.prototype = {
 				this.cachedIngameRequests.push(msgData);
 			}
 			else {
-				if(typeof(this.handleMessageIngame) !== "function")
-					throw new TypeError("handleMessageIngame has to be a function");
-
 					this.handleMessageIngame(msgData);
-				}
+			}
 
-				if(!Module.logbox)
-					throw new Error("logbox not initialized?!");
+			var sender;
+			if(playersColorToSenderEnum(Module.gameMetaData.color) == SenderEnum.PLAYER_WHITE)
+				sender = SenderEnum.PLAYER_BLACK;
+			else
+				sender = SenderEnum.PLAYER_WHITE;
 
-				var sender;
-				if(playersColorToSenderEnum(Module.gameMetaData.color) == SenderEnum.PLAYER_WHITE)
-					sender = SenderEnum.PLAYER_BLACK;
-				else
-					sender = SenderEnum.PLAYER_WHITE;
-
-				Module.logbox.addGameMessage(sender, msgObj);
+			Module.logbox.addGameMessage(sender, msgObj);
 		}
 		else if(msgObj.msgType === "gameMsgAck") {
 
@@ -88,7 +78,7 @@ CyvasseWSClient.prototype = {
 			}
 
 			if(answeredRequest === undefined)
-				throw new Error("Got a reply to an unknown server request");
+				throw new Error("Got a reply to an unknown server request: " + JSON.stringify(msgObj));
 			if(msgObj.success === false)
 				throw new Error("Got an error message from the server: " + msgObj.error + "\n" +
 					"as response to:\n\n" + JSON.stringify(answeredRequest));

@@ -3,11 +3,6 @@ function scrolledToBottom(elem) {
 }
 
 function LogBox(selector) {
-	if(!isString(selector))
-		throw new TypeError("cssId has to be a string");
-	if(!isSenderEnum(player))
-		throw new TypeError("player has to be SenderEnum.PLAYER_WHITE or SenderEnum.PLAYER_BLACK");
-
 	this.selector = selector;
 	this.htmlElem = $();
 	this.msgArea  = $();
@@ -41,11 +36,6 @@ LogBox.prototype = {
 			this.msgArea  = $(this.selector + " .message-area");
 			this.textarea = $(this.selector + " .chat-input");
 			this.scrToBtm = $(this.selector + " .scroll-to-bottom");
-
-			if(this.msgArea.size() != 1)
-				throw new Error("There has to be exactly one message area in the logbox.");
-			if(this.textarea.size() != 1)
-				throw new Error("There has to be exactly one textarea in the logbox.");
 		}
 	},
 
@@ -57,9 +47,6 @@ LogBox.prototype = {
 
 	initKeyDownHandler: function() {
 		this.setHtmlElem();
-
-		if(!this.textarea.exists())
-			throw new Error("The logbox lacks a textarea");
 
 		var logbox = this;
 
@@ -78,11 +65,6 @@ LogBox.prototype = {
 
 	initScrollHandlers: function() {
 		this.setHtmlElem();
-
-		if(!this.scrToBtm.exists())
-			throw new Error("The logbox lacks a scroll to bottom element");
-		if(!this.msgArea.exists())
-			throw new Error("The logbox lacks a message area");
 
 		var logbox = this;
 
@@ -125,15 +107,10 @@ LogBox.prototype = {
 	},
 
 	addMessage: function(msgHtml) {
-		if(!isString(msgHtml))
-			throw new TypeError("msgHtml has to be a string");
 		if($.trim(msgHtml).length === 0)
-			throw new Error("Tried to add empty message");
+			throw new Error("Tried to add empty message"); // just return; instead?
 
 		this.setHtmlElem();
-
-		if(!this.htmlElem.exists())
-			throw new Error("Tried to add a message to a non-existent log box");
 
 		$("<div class='logbox-msg'>" + msgHtml + "</div>").appendTo(this.msgArea);
 

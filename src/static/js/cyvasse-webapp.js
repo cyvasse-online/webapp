@@ -35,11 +35,6 @@ var Module = {
 	doNotCaptureKeyboard: true
 };
 
-// for type checks
-function isString(object) {
-	return typeof(object) === "string" || object instanceof String;
-}
-
 // tiny jQuery extension from somewhere off the net
 $.fn.exists = function () {
 	// int-to-bool conversion through twice applying the ! operator
@@ -65,18 +60,12 @@ function capitalizeEachWord(str) {
 // own stuff again
 
 function loadPage(url, success, pushState, replaceRoot, getData) {
-	if(!isString(url))
-		throw new TypeError("url has to be a string");
-
 	if(pushState === undefined)
 		pushState = true;
-	else if(typeof(pushState) !== "boolean")
-		throw new TypeError("pushState has to be a bool");
 
+	// I don't really know whether this is a good idea
 	if(replaceRoot === undefined)
 		replaceRoot = "#page-wrap";
-	else if(!isString(replaceRoot))
-		throw new TypeError("replaceRoot has to be a string");
 
 	var realUrl = url;
 	if(realUrl.substr(-1) == "/")
@@ -127,11 +116,7 @@ function loadRuleSetDoc(ruleSet) {
 }
 
 function initializeWSClient() {
-	if(wsClient) // already initialized
-		throw new Error("WebSocket client already initialized!");
-
-	wsClient = new CyvasseWSClient(new WebSocket("ws://" + window.location.hostname + ":2516/"), loadPage);
-	Module.wsClient = wsClient;
+	Module.wsClient = new CyvasseWSClient(new WebSocket("ws://" + window.location.hostname + ":2516/"), loadPage);
 	Module.gameMetaData = {};
 
 	Module.setStatus("Downloading<span class='ani-loading-dot'>.</span>");
@@ -144,35 +129,7 @@ function initializeWSClient() {
 }
 
 function createGameParamValid(metaData) {
-	return !!metaData.ruleSet
-		&& !!metaData.color
-		&& !!metaData.gameMode;
-}
-
-// TODO: Rename
-function setupSidePaneEventHandlers() {
-	$("input[name='ruleSet']").change(function() {
-		if($("input[name='create-join']:checked").val() == "create-game")
-			loadRuleSetDoc($("input[name='ruleSet']:checked").val());
-	});
-
-	$("#game-options input").change(function() {
-		switch($("input[name='create-join']:checked").val())
-		{
-			case "create-game":
-				$("#create-game-button").attr("disabled", !createGameParamValid({
-					ruleSet:  $("input:radio[name='ruleSet']:checked").val(),
-					color:    $("input:radio[name='color']:checked").val(),
-					gameMode: $("input:radio[name='gameMode']:checked").val()
-				}));
-				break;
-			case "join-game":
-				// TODO
-				break;
-			default:
-				throw new Error("Congratiulations! You found a bug. What you just clicked should not be visible...");
-		}
-	});
+	return !!metaData.ruleSet && !!metaData.color && !!metaData.gameMode;
 }
 
 function getMatchID(url) {
@@ -181,7 +138,6 @@ function getMatchID(url) {
 
 $(document).ready(function() {
 	statusElement = $("#status");
-	//progressElement = $("#progress");
 
 	/*$("a[href^='/']").click(function(event) {
 		if(event.button === 0) {
@@ -202,17 +158,15 @@ $(document).ready(function() {
 			gameMode: $("#select-game-mode").val()
 		};
 
-		if(!createGameParamValid(metaData))
-			throw new Error("#create-game-button should be disabled if the given parameters are not valid.");
-
-		$("#side-pane :input").attr("disabled", true);
+		// TODO: Change corresponding to the changes in creating a game
+		/*$("#side-pane :input").attr("disabled", true);
 		$("#create-game-button").attr("disabled", true);
 		$("#create-game-button").css("color", "#000");
-		$("#create-game-button").html("Creating game<span class='ani-loading-dot'>.</span>");
+		$("#create-game-button").html("Creating game<span class='ani-loading-dot'>.</span>");*/
 
+		// TODO: Rewrite so this makes more sense
 		initializeWSClient();
 
-		// TODO: might not be the best to overwrite conn.onopen
 		wsClient.conn.onopen = function() {
 			wsClient.createGame(metaData);
 		};
