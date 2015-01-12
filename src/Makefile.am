@@ -29,7 +29,7 @@ cyvasse_online_CXXFLAGS = \
 	$(JSONCPP_CFLAGS)
 
 cyvasse_online_LDADD = \
-	$(JSONCPP_CFLAGS) \
+	$(JSONCPP_LIBS) \
 	$(top_builddir)/cyvasse-common/libcyvdb.a \
 	$(top_builddir)/cyvasse-common/libcyvmath.a \
 	-lcxxtools \

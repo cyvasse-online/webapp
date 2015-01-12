@@ -167,8 +167,8 @@ $(document).ready(function() {
 		// TODO: Rewrite so this makes more sense
 		initializeWSClient();
 
-		wsClient.conn.onopen = function() {
+		/*wsClient.conn.onopen = function() {
 			wsClient.createGame(metaData);
-		};
+		};*/
 	});
 });

@@ -43,8 +43,8 @@
 				<td><strong>Play as</strong></td>
 				<td>
 					<select id='select-play-as'>
-						<option>White player</option>
-						<option>Black player</option>
+						<option value='white'>White player</option>
+						<option value='black'>Black player</option>
 					</select>
 				</td>
 			</tr>
@@ -52,10 +52,10 @@
 				<td><strong>Game mode</strong></td>
 				<td>
 					<select id='select-game-mode'>
-						<option>Online: Direct (send the match url to a friend)</option>
-						<option>Online: Random opponent from the internet</option>
-						<option>Local: Play against a bot</option>
-						<option>Local: Play against a friend on this computer</option>
+						<option value='online-private'>Online: Direct (send the match url to a friend)</option>
+						<option value='online-public'>Online: Random opponent from the internet</option>
+						<option value='local-bot' disabled>Local: Play against a bot</option>
+						<option value='local-private' disabled>Local: Play against a friend on this computer</option>
 					</select>
 				</td>
 			</tr>
