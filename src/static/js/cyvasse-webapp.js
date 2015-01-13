@@ -88,46 +88,6 @@ function loadPage(url, success, pushState, replaceRoot, getData) {
 	});
 }
 
-function loadRuleSetDoc(ruleSet) {
-	var pageContent = $("#page-content");
-
-	if(ruleSet) {
-		$("#option-extras").show();
-
-		pageContent.html("Loading<div class='ani-loading-dot'>.</div>");
-		// TODO: replace with loadPage
-		$.ajax("/rule_sets/" + ruleSet + ".html", {
-			cache: false,
-			success: function(reply) {
-				pageContent.html(reply);
-			}
-		});
-
-		$(".rule-set-new-tab-box").show();
-		$(".rule-set-new-tab").attr("href", "/rule_sets/" + ruleSet);
-	}
-	else {
-		$("#option-extras").hide();
-		pageContent.html("Click a rule set to get the corresponding documentation here.");
-
-		$(".rule-set-new-tab-box").show();
-		$(".rule-set-new-tab").attr("href", "#");
-	}
-}
-
-function initializeWSClient() {
-	Module.wsClient = new CyvasseWSClient(new WebSocket("ws://" + window.location.hostname + ":2516/"), loadPage);
-	Module.gameMetaData = {};
-
-	Module.setStatus("Downloading<span class='ani-loading-dot'>.</span>");
-	window.onerror = function() {
-		Module.setStatus("Exception thrown, see JavaScript console");
-		Module.setStatus = function(text) {
-			if(text) Module.printErr("[post-exception status] " + text);
-		};
-	};
-}
-
 function createGameParamValid(metaData) {
 	return !!metaData.ruleSet && !!metaData.color && !!metaData.gameMode;
 }
@@ -147,10 +107,6 @@ $(document).ready(function() {
 		}
 	});*/
 
-	window.onpopstate = function() {
-		loadPage(document.location.pathname, null, false);
-	};
-
 	$("#create-game-button").click(function() {
 		var metaData = {
 			ruleSet:  "mikelepage", // hardcoded for now
@@ -158,17 +114,21 @@ $(document).ready(function() {
 			gameMode: $("#select-game-mode").val()
 		};
 
-		// TODO: Change corresponding to the changes in creating a game
-		/*$("#side-pane :input").attr("disabled", true);
-		$("#create-game-button").attr("disabled", true);
-		$("#create-game-button").css("color", "#000");
-		$("#create-game-button").html("Creating game<span class='ani-loading-dot'>.</span>");*/
+		$("#create-game select").attr("disabled", true);
+		$("#create-game button").attr("disabled", true);
+		$("#create-game-button").html("Creating game<span class='ani-loading-dot'>.</span>");
 
-		// TODO: Rewrite so this makes more sense
-		initializeWSClient();
 
-		/*wsClient.conn.onopen = function() {
-			wsClient.createGame(metaData);
-		};*/
+		Module.wsClient = new CyvasseWSClient("ws://" + window.location.hostname + ":2516/", loadPage);
+
+		Module.setStatus("Downloading<span class='ani-loading-dot'>.</span>");
+
+		window.onerror = function() {
+			Module.setStatus("Exception thrown, see JavaScript console");
+			Module.setStatus = function(text) {
+				if(text)
+					Module.printErr("[post-exception status] " + text);
+			};
+		};
 	});
 });

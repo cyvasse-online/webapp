@@ -1,10 +1,19 @@
+var CyvasseWS_Protocol_Version = "1.0";
+
 function loadCyvasseJs() {
-	$.getScript("/cyvasse.js");
+	if (!loadCyvasseJs.alreadyLoaded) {
+		loadCyvasseJs.alreadyLoaded = true;
+
+		$.getScript("/cyvasse.js");
+	}
+	else
+	{
+		console.error("Tried to load cyvasse.js twice");
+	}
 }
 
-// TODO: Why are we letting the caller instatiate the WebSocket?
-function CyvasseWSClient(websockConn, loadNewPage) {
-	this.conn = websockConn;
+function CyvasseWSClient(websockAddr, onopen, loadNewPage) {
+	this.websock = new WebSocket(websockAddr);
 	this.loadNewPage = loadNewPage;
 	this.nextMessageID = 1;
 	this.awaitingReply = [];
@@ -12,7 +21,10 @@ function CyvasseWSClient(websockConn, loadNewPage) {
 
 	var self = this;
 
-	this.conn.onmessage = function(msg) {
+	if(typeof onopen === "function")
+		this.websock.onopen = onopen;
+
+	this.websock.onmessage = function(msg) {
 		if(self.debug === true) {
 			console.log("[onmessage]");
 			console.log(msg.data);
@@ -20,7 +32,15 @@ function CyvasseWSClient(websockConn, loadNewPage) {
 		self.handleMessage(msg.data);
 	};
 
-	this.conn.onclose = function() {
+	this.websock.onerror = function() {
+		Module.setStatus("WebSocket communication error, see JavaScript console");
+		Module.setStatus = function(text) {
+			if(text)
+				Module.printErr("[post-exception status] " + text);
+		};
+	};
+
+	this.websock.onclose = function() {
 		if(!Module.logbox)
 			console.log("The connection to the server was closed.");
 		else
@@ -131,22 +151,27 @@ CyvasseWSClient.prototype = {
 			console.log("[send]");
 			console.log(msgData);
 		}
-		this.conn.send(msgData);
+		this.websock.send(msgData);
 	},
 
-	sendRequest: function(msgObj) {
-		msgObj.messageType = "request";
-		msgObj.messageID = this.nextMessageID++;
+	sendRequest: function(requestData) {
+		var msgObj = {
+			"msgType": "serverRequest",
+			"msgID": this.nextMessageID++,
+			"requestData": requestData
+		};
 
 		this.send(msgObj);
 		this.awaitingReply.push(msgObj);
 	},
 
-	sendReply: function(request, msgObj) {
-		msgObj.messageType = "reply";
-		msgObj.messageID = request.messageID;
-
-		this.send(msgObj);
+	initComm: function() {
+		sendRequest({
+			"action": "initComm",
+			"param": {
+				"protocolVersion": CyvasseWS_Protocol_Version
+			}
+		});
 	},
 
 	createGame: function(metaData) {
