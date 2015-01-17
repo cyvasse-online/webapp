@@ -1,10 +1,19 @@
 var CyvasseWS_Protocol_Version = "1.0";
 
-function loadCyvasseJs() {
-	if (!loadCyvasseJs.alreadyLoaded) {
-		loadCyvasseJs.alreadyLoaded = true;
+function loadGame(matchID) {
+	if (!loadGame.alreadyLoaded) {
+		loadGame.alreadyLoaded = true;
 
-		$.getScript("/cyvasse.js");
+		// global function from cyvasse-webapp.js
+		// is there a good way to remove this kind of dependency in JS?
+		if(document.location.pathname.substr(0, 7) == "/match/") {
+			$.getScript("/cyvasse.js");
+		}
+		else {
+			loadPage("/match/" + matchID, function() {
+				$.getScript("/cyvasse.js");
+			});
+		}
 	}
 	else
 	{
@@ -12,9 +21,12 @@ function loadCyvasseJs() {
 	}
 }
 
-function CyvasseWSClient(websockAddr, onopen, loadNewPage) {
+// I don't want to repeat this all over again, but saving "console.log"
+// like any other function object doesn't seem to work
+function log(text) { console.log(text); }
+
+function CyvasseWSClient(websockAddr, onopen) {
 	this.websock = new WebSocket(websockAddr);
-	this.loadNewPage = loadNewPage;
 	this.nextMessageID = 1;
 	this.awaitingReply = [];
 	this.cachedIngameRequests = [];
@@ -34,17 +46,12 @@ function CyvasseWSClient(websockAddr, onopen, loadNewPage) {
 
 	this.websock.onerror = function() {
 		Module.setStatus("WebSocket communication error, see JavaScript console");
-		Module.setStatus = function(text) {
-			if(text)
-				Module.printErr("[post-exception status] " + text);
-		};
+		Module.setStatus = log;
 	};
 
 	this.websock.onclose = function() {
-		if(!Module.logbox)
-			console.log("The connection to the server was closed.");
-		else
-			Module.logbox.addStatusMessage("The connection to the server was closed.");
+		Module.setStatus("The connection to the server was closed.");
+		Module.setStatus = log;
 	};
 }
 
@@ -107,9 +114,7 @@ CyvasseWSClient.prototype = {
 				case "create game":
 					Module.gameMetaData.matchID  = msgObj.data.matchID;
 					Module.gameMetaData.playerID = msgObj.data.playerID;
-					this.loadNewPage("/match/" + msgObj.data.matchID, function() {
-						loadCyvasseJs();
-					});
+					loadGame(msgObj.data.matchID);
 					break;
 				case "join game":
 					Module.gameMetaData.color    = msgObj.data.color;
@@ -117,11 +122,9 @@ CyvasseWSClient.prototype = {
 					Module.gameMetaData.ruleSet  = msgObj.data.ruleSet;
 
 					if(document.location.pathname.substr(0, 7) == "/match/")
-						loadCyvasseJs();
-					else
-						this.loadNewPage("/match/" + Module.gameMetaData.matchID, function() {
-							loadCyvasseJs();
-						});
+						Module.gameMetaData.matchID = getMatchID(document.location.pathname);
+
+					loadGame(Module.gameMetaData.matchID);
 
 					if(this.afterJoinGame !== undefined)
 						this.afterJoinGame();
@@ -175,8 +178,6 @@ CyvasseWSClient.prototype = {
 	},
 
 	createGame: function(metaData) {
-		Module.gameMetaData = metaData;
-
 		this.sendRequest({
 			"action": "create game",
 			"param": metaData

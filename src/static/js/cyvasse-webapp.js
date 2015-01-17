@@ -108,10 +108,13 @@ $(document).ready(function() {
 	});*/
 
 	$("#create-game-button").click(function() {
-		var metaData = {
-			ruleSet:  "mikelepage", // hardcoded for now
-			color:    $("#select-play-as").val(),
-			gameMode: $("#select-game-mode").val()
+		Module.gameMetaData = {
+			"ruleSet": "mikelepage", // hardcoded for now
+			"color":   $("input:radio[name='play-as']:checked").val(),
+			"random":  $("#opt-random").prop("checked"),
+			"public":  $("#opt-public").prop("checked"),
+			"extraRules": [ ],
+			//"userInfo": { ... }
 		};
 
 		$("#create-game select").attr("disabled", true);
@@ -119,7 +122,9 @@ $(document).ready(function() {
 		$("#create-game-button").html("Creating game<span class='ani-loading-dot'>.</span>");
 
 
-		Module.wsClient = new CyvasseWSClient("ws://" + window.location.hostname + ":2516/", loadPage);
+		Module.wsClient = new CyvasseWSClient("ws://" + window.location.hostname + ":2516/", function() {
+			Module.wsClient.createGame(Module.gameMetaData);
+		});
 
 		Module.setStatus("Downloading<span class='ani-loading-dot'>.</span>");
 

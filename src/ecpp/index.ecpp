@@ -43,30 +43,22 @@
 				<tr>
 					<td><strong>Play as</strong></td>
 					<td>
-						<select id='select-play-as'>
-							<option value='white'>White player</option>
-							<option value='black'>Black player</option>
-						</select>
+						<input type='radio' name='play-as' value='white' id='play-as-white' />
+						<label for='play-as-white'>White player</label>
+						<input type='radio' name='play-as' value='black' id='play-as-black' />
+						<label for='play-as-black'>Black player</label>
 					</td>
 				</tr>
 				<tr>
-					<td><strong>Game mode</strong></td>
-					<td>
-						<select id='select-game-mode'>
-							<option value='online-private'>Online: Direct (send the match url to a friend)</option>
-							<option value='online-public'>Online: Random opponent from the internet</option>
-							<option value='local-bot' disabled>Local: Play against a bot</option>
-							<option value='local-private' disabled>Local: Play against a friend on this computer</option>
-						</select>
-					</td>
+					<td><strong>Random opponent</strong></td>
+					<td><input type='checkbox' name='random' id='opt-random' /></td>
 				</tr>
-				<#<tr>
-					<td><strong>Extra rules</strong></td>
-					<td>
-						<input type='checkbox' id='extra-rule-seaPorts' />
-						<label for='extra-rule-seaPorts'>Sea ports</label>
-					</td>
-				</tr>#>
+				<tr>
+					<td><strong>Public match</strong></td>
+					<td><input type='checkbox' name='public' id='opt-public' /></td>
+				</tr>
+				<# local or online #>
+				<# extra rules #>
 			</table>
 
 			<br />
