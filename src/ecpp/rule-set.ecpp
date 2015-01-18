@@ -17,9 +17,9 @@
 <%pre>
 	#include <fstream>
 </%pre>
-<div class='padded' id='page-content'>
+<div class='container' id='page-content'>
 <%cpp>
-	std::ifstream ifs("page-content/rule-sets/" + request.getArg("name") + ".html");
+	std::ifstream ifs("resources/rule-sets/" + request.getArg("name") + ".html");
 	if(!ifs)
 		reply.out() << "<h2>Rule set not found</h2>";
 	else
