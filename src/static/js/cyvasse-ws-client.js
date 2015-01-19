@@ -31,10 +31,13 @@ function CyvasseWSClient(websockAddr, onopen) {
 	this.awaitingReply = [];
 	this.cachedIngameRequests = [];
 
+	//this.debug = true;
+
 	var self = this;
 
-	if(typeof onopen === "function")
-		this.websock.onopen = onopen;
+	this.websock.onopen = function() {
+		self.initComm(onopen);
+	};
 
 	this.websock.onmessage = function(msg) {
 		if(self.debug === true) {
@@ -94,44 +97,51 @@ CyvasseWSClient.prototype = {
 
 		}
 		else if(msgObj.msgType === "serverReply") {
-			var answeredRequest;
+			var replyData = msgObj.replyData;
+			var answeredRequestData;
 
-			for(var request in this.awaitingReply) {
-				if(this.awaitingReply[request].messageID == msgObj.messageID) {
+			for(var reqDataIdx in this.awaitingReply) {
+				if(this.awaitingReply[reqDataIdx].messageID == msgObj.messageID) {
 					// remove the request from this.awaitingReply
 					// and save it to answeredRequests
-					answeredRequest = this.awaitingReply.splice(request, 1)[0];
+					answeredRequestData = this.awaitingReply.splice(reqDataIdx, 1)[0];
+					break;
 				}
 			}
 
-			if(answeredRequest === undefined)
+			if(answeredRequestData === undefined)
 				throw new Error("Got a reply to an unknown server request: " + JSON.stringify(msgObj));
-			if(msgObj.success === false)
+			if(replyData.success === false)
+			{
+				// TODO: Show meaningful error messages for all common errors
 				throw new Error("Got an error message from the server: " + msgObj.error + "\n" +
-					"as response to:\n\n" + JSON.stringify(answeredRequest));
+					"as response to:\n\n" + JSON.stringify(answeredRequestData));
+			}
 
-			switch(answeredRequest.action) {
-				case "create game":
-					Module.gameMetaData.matchID  = msgObj.data.matchID;
-					Module.gameMetaData.playerID = msgObj.data.playerID;
-					loadGame(msgObj.data.matchID);
+			switch(answeredRequestData.action) {
+				case "initComm":
+					if(this.afterInitComm)
+						this.afterInitComm();
+
 					break;
-				case "join game":
-					Module.gameMetaData.color    = msgObj.data.color;
-					Module.gameMetaData.playerID = msgObj.data.playerID;
-					Module.gameMetaData.ruleSet  = msgObj.data.ruleSet;
+				case "createGame":
+					Module.gameMetaData.matchID  = replyData.matchID;
+					Module.gameMetaData.playerID = replyData.playerID;
+					loadGame(replyData.matchID);
+					break;
+				case "joinGame":
+					Module.gameMetaData.color    = replyData.color;
+					Module.gameMetaData.playerID = replyData.playerID;
+					Module.gameMetaData.ruleSet  = replyData.ruleSet;
 
 					if(document.location.pathname.substr(0, 7) == "/match/")
 						Module.gameMetaData.matchID = getMatchID(document.location.pathname);
 
 					loadGame(Module.gameMetaData.matchID);
 
-					if(this.afterJoinGame !== undefined)
+					if(this.afterJoinGame)
 						this.afterJoinGame();
 
-					break;
-				case "chat message":
-					// TODO: Add "message successfully sent" tick somewhere
 					break;
 			}
 		}
@@ -158,28 +168,29 @@ CyvasseWSClient.prototype = {
 	},
 
 	sendRequest: function(requestData) {
-		var msgObj = {
+		this.send({
 			"msgType": "serverRequest",
 			"msgID": this.nextMessageID++,
 			"requestData": requestData
-		};
-
-		this.send(msgObj);
-		this.awaitingReply.push(msgObj);
+		});
+		this.awaitingReply.push(requestData);
 	},
 
-	initComm: function() {
-		sendRequest({
+	initComm: function(success) {
+		this.sendRequest({
 			"action": "initComm",
 			"param": {
 				"protocolVersion": CyvasseWS_Protocol_Version
 			}
 		});
+
+		if(typeof success === "function")
+			this.afterInitComm = success;
 	},
 
 	createGame: function(metaData) {
 		this.sendRequest({
-			"action": "create game",
+			"action": "createGame",
 			"param": metaData
 		});
 	},
@@ -188,22 +199,25 @@ CyvasseWSClient.prototype = {
 		Module.gameMetaData.matchID = matchID;
 
 		this.sendRequest({
-			"action": "join game",
+			"action": "joinGame",
 			"param": {
 				"matchID": matchID
 			}
 		});
 
-		if(typeof(success) === "function")
+		if(typeof success === "function")
 			this.afterJoinGame = success;
 	},
 
-	sendChatMsg: function(sender, message) {
-		this.sendRequest({
-			"action": "chat message",
-			"param": {
-				"sender": sender,
-				"message": message
+	sendChatMsg: function(content) {
+		this.send({
+			"msgType": "chatMsg",
+			"msgID": this.nextMessageID++,
+			"msgData": {
+				"userInfo": {
+					// TODO
+				},
+				"content": content
 			}
 		});
 	}
