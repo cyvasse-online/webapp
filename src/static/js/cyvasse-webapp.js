@@ -32,7 +32,9 @@ var Module = {
 	},
 	filePackagePrefixURL: "/",
 	memoryInitializerPrefixURL: "/",
-	doNotCaptureKeyboard: true
+	doNotCaptureKeyboard: true,
+
+	gameMetaData: {}
 };
 
 // tiny jQuery extension from somewhere off the net

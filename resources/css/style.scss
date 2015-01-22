@@ -144,6 +144,12 @@ canvas {
 	border: 0 none;
 }
 
+/* will be shown instead of the canvas in case the game can't be loaded / started */
+.content-missing-msg {
+    font-size: 5em;
+    color: #888;
+}
+
 .logbox {
 	/* not quite elegant */
 	position: absolute;

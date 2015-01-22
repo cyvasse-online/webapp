@@ -113,9 +113,31 @@ CyvasseWSClient.prototype = {
 				throw new Error("Got a reply to an unknown server request: " + JSON.stringify(msgObj));
 			if(replyData.success === false)
 			{
-				// TODO: Show meaningful error messages for all common errors
-				throw new Error("Got an error message from the server: " + msgObj.error + "\n" +
-					"as response to:\n\n" + JSON.stringify(answeredRequestData));
+				switch(replyData.error)
+				{
+					case "gameNotFound":
+						Module.setStatus("");
+
+						// assert that we're on the game page
+						$("#canvas").replaceWith("<div class='content-missing-msg'>Game not found</div>");
+						break;
+					//case "gameEmpty"
+					//case "gameFull":
+					// TODO: Show meaningful error messages for other common errors
+					default:
+						var answeredRequestJson = JSON.stringify(answeredRequestData);
+
+						if(!replyData.error)
+							throw new Error("Server request " + answeredRequestJson + " failed without error message");
+
+						var errMsg = "Server request " + answeredRequestJson + " failed, error: " + replyData.error;
+						if(replyData.errorDetail)
+							errMsg += " (errorDetail: " + replyData.errorDetail + ")";
+
+						throw new Error(errMsg);
+				}
+
+				return;
 			}
 
 			switch(answeredRequestData.action) {
