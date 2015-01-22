@@ -18,6 +18,8 @@ function LogBox(selector) {
 	this.initKeyDownHandler();
 	this.initScrollHandlers();
 
+	this.msgArea.attr("disabled", false);
+
 	var logbox = this;
 
 	$(document).on("visibilitychange", function() {
@@ -135,8 +137,7 @@ LogBox.prototype = {
 	addGameMessage: function(msgData) {
 		var msgStr = msgData.user;
 
-		switch(msgData.action)
-		{
+		switch(msgData.action) {
 			case "leave setup":
 				msgStr += " finished setting up.";
 				break;

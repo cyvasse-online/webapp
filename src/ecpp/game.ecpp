@@ -25,37 +25,8 @@
 	<div class='message-area'></div>
 	<div class='stick-to-bottom'>
 		<hr class='separator-h' />
-		<textarea class='chat-input' placeholder='Write a message...'></textarea>
+		<textarea class='chat-input' placeholder='Write a message...' disabled></textarea>
 	</div>
 </aside>
 
 <script src='/js/logbox.js'></script>
-<script>
-	function initLogBox() {
-		var playerStr;
-
-		switch(Module.gameMetaData.color)
-		{
-			case 'white': playerStr = SenderEnum.PLAYER_WHITE; break;
-			case 'black': playerStr = SenderEnum.PLAYER_BLACK; break;
-			default:      throw new Error('undefined player');
-		}
-
-		Module.logbox = new LogBox('#logbox', playerStr);
-	}
-</script>
-% const std::string& pathname = request.getPathInfo();
-% if(pathname.substr(pathname.length() - 5) == ".json")
-% {
-<script>initLogBox();</script>
-% }
-% else
-% {
-<script>
-	$(document).ready(function() {
-		Module.wsClient = new CyvasseWSClient("ws://" + window.location.hostname + ":2516/", function() {
-			Module.wsClient.joinGame(getMatchID(document.location.href), initLogBox);
-		});
-	})
-</script>
-% }

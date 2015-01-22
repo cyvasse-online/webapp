@@ -90,6 +90,18 @@ function loadPage(url, success, pushState, replaceRoot, getData) {
 	});
 }
 
+function initLogBox() {
+	var playerStr;
+
+	switch(Module.gameMetaData.color) {
+		case "white": playerStr = SenderEnum.PLAYER_WHITE; break;
+		case "black": playerStr = SenderEnum.PLAYER_BLACK; break;
+		default:      throw new Error("undefined player");
+	}
+
+	Module.logbox = new LogBox("#logbox", playerStr);
+}
+
 function createGameParamValid(metaData) {
 	return !!metaData.ruleSet && !!metaData.color && !!metaData.gameMode;
 }
@@ -108,6 +120,17 @@ $(document).ready(function() {
 			loadPage(this.href);
 		}
 	});*/
+
+	if(window.location.pathname == "/") {
+		Module.wsClient = new CyvasseWSClient(window.location.hostname, function() {
+			Module.wsClient.subscrGameListUpdates("mikelepage", ["openRandomGames", "runningPublicGames"]);
+		});
+	}
+	else if(window.location.pathname.substr(0, 7) == "/match/") {
+		Module.wsClient = new CyvasseWSClient(window.location.hostname, function() {
+			Module.wsClient.joinGame(getMatchID(window.location.href), initLogBox);
+		});
+	}
 
 	$("#create-game-button").click(function() {
 		Module.gameMetaData = {

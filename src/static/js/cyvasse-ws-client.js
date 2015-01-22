@@ -4,29 +4,29 @@ function loadGame(matchID) {
 	if (!loadGame.alreadyLoaded) {
 		loadGame.alreadyLoaded = true;
 
-		// global function from cyvasse-webapp.js
-		// is there a good way to remove this kind of dependency in JS?
-		if(document.location.pathname.substr(0, 7) == "/match/") {
+		var initGamePage = function() {
 			$.getScript("/cyvasse.js");
-		}
-		else {
-			loadPage("/match/" + matchID, function() {
-				$.getScript("/cyvasse.js");
-			});
-		}
+			initLogBox();
+		};
+
+		// loadPage() is a global function from cyvasse-webapp.js
+		// is there a way to explicitly handle this kind of dependency in JS?
+		if(window.location.pathname.substr(0, 7) == "/match/")
+			initGamePage();
+		else
+			loadPage("/match/" + matchID, initGamePage);
 	}
-	else
-	{
+	else {
 		console.error("Tried to load cyvasse.js twice");
 	}
 }
 
 // I don't want to repeat this all over again, but saving "console.log"
-// like any other function object doesn't seem to work
+// in an object like any other function doesn't seem to work
 function log(text) { console.log(text); }
 
-function CyvasseWSClient(websockAddr, onopen) {
-	this.websock = new WebSocket(websockAddr);
+function CyvasseWSClient(hostname, onopen) {
+	this.websock = new WebSocket("ws://" + hostname + ":2516/");
 	this.nextMessageID = 1;
 	this.awaitingReply = [];
 	this.cachedIngameRequests = [];
@@ -64,11 +64,10 @@ CyvasseWSClient.prototype = {
 
 		if(msgObj.msgType === "chatMsg") {
 			Module.logbox.addChatMessage(msgObj.msgData);
-
-			// TODO: reply
+			this.sendChatMsgAck(msgObj.msgID);
 		}
 		else if(msgObj.msgType === "chatMsgAck") {
-
+			// TODO: Show tick next to chat message or something similar
 		}
 		else if(msgObj.msgType === "gameMsg") {
 			if(this.handleMessageIngame === undefined) {
@@ -111,10 +110,8 @@ CyvasseWSClient.prototype = {
 
 			if(answeredRequestData === undefined)
 				throw new Error("Got a reply to an unknown server request: " + JSON.stringify(msgObj));
-			if(replyData.success === false)
-			{
-				switch(replyData.error)
-				{
+			if(replyData.success === false) {
+				switch(replyData.error) {
 					case "gameNotFound":
 						Module.setStatus("");
 
@@ -156,8 +153,8 @@ CyvasseWSClient.prototype = {
 					Module.gameMetaData.playerID = replyData.playerID;
 					Module.gameMetaData.ruleSet  = replyData.ruleSet;
 
-					if(document.location.pathname.substr(0, 7) == "/match/")
-						Module.gameMetaData.matchID = getMatchID(document.location.pathname);
+					if(window.location.pathname.substr(0, 7) == "/match/")
+						Module.gameMetaData.matchID = getMatchID(window.location.pathname);
 
 					loadGame(Module.gameMetaData.matchID);
 
@@ -165,6 +162,11 @@ CyvasseWSClient.prototype = {
 						this.afterJoinGame();
 
 					break;
+				case "subscrGameListUpdates":
+					// TODO
+					break;
+				//case "unsubscrGameListUpdates":
+				//	break;
 			}
 		}
 		else if(msgObj.msgType === "serverRequest") {
@@ -231,6 +233,26 @@ CyvasseWSClient.prototype = {
 			this.afterJoinGame = success;
 	},
 
+	subscrGameListUpdates: function(ruleSet, lists) {
+		this.sendRequest({
+			"action": "subscrGameListUpdates",
+			"param": {
+				"ruleSet": ruleSet,
+				"lists": lists
+			}
+		});
+	},
+
+	unsubscrGameListUpdates: function(ruleSet, lists) {
+		this.sendRequest({
+			"action": "unsubscrGameListUpdates",
+			"param": {
+				"ruleSet": ruleSet,
+				"lists": lists
+			}
+		});
+	},
+
 	sendChatMsg: function(content) {
 		this.send({
 			"msgType": "chatMsg",
@@ -241,6 +263,13 @@ CyvasseWSClient.prototype = {
 				},
 				"content": content
 			}
+		});
+	},
+
+	sendChatMsgAck: function(msgID) {
+		this.send({
+			"msgType": "chatMsgAck",
+			"msgID": msgID
 		});
 	}
 };
