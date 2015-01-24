@@ -61,32 +61,28 @@ function capitalizeEachWord(str) {
 
 // own stuff again
 
-function loadPage(url, success, pushState, replaceRoot, getData) {
+function loadPage(url, success, pushState) {
 	if(pushState === undefined)
 		pushState = true;
 
-	// I don't really know whether this is a good idea
-	if(replaceRoot === undefined)
-		replaceRoot = "#page-wrap";
+	replaceRoot = $("#page-wrap");
 
 	var realUrl = url;
 	if(realUrl.substr(-1) == "/")
 		realUrl = realUrl + "index";
 
-	$.getJSON(realUrl + ".json", getData, function(reply) {
+	$.getJSON(realUrl + ".json", function(reply) {
 		if(pushState) {
 			document.title = reply.title;
 			history.pushState(null, reply.title, url);
 		}
 
-		$(replaceRoot).fadeOut(300, function() {
-			$(replaceRoot).html(reply.content);
+		replaceRoot.hide();
+		replaceRoot.html(reply.content);
+		replaceRoot.show();
 
-			if(typeof(success) === "function")
-				success();
-
-			$(replaceRoot).fadeIn(300);
-		});
+		if(typeof(success) === "function")
+			success();
 	});
 }
 
@@ -147,18 +143,17 @@ $(document).ready(function() {
 		$("#create-game-button").html("Creating game<span class='ani-loading-dot'>.</span>");
 
 
-		Module.wsClient = new CyvasseWSClient("ws://" + window.location.hostname + ":2516/", function() {
-			Module.wsClient.createGame(Module.gameMetaData);
-		});
+		//if(Module.wsClient.websock.readyState != 1)
+		//	TODO: Error message
 
-		Module.setStatus("Downloading<span class='ani-loading-dot'>.</span>");
-
-		window.onerror = function() {
-			Module.setStatus("Exception thrown, see JavaScript console");
-			Module.setStatus = function(text) {
-				if(text)
-					Module.printErr("[post-exception status] " + text);
-			};
-		};
+		Module.wsClient.createGame(Module.gameMetaData);
 	});
+
+	window.onerror = function() {
+		Module.setStatus("Exception thrown, see JavaScript console");
+		Module.setStatus = function(text) {
+			if(text)
+				Module.printErr("[post-exception status] " + text);
+		};
+	};
 });

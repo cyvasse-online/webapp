@@ -4,6 +4,8 @@ function loadGame(matchID) {
 	if (!loadGame.alreadyLoaded) {
 		loadGame.alreadyLoaded = true;
 
+		Module.setStatus("Downloading<span class='ani-loading-dot'>.</span>");
+
 		var initGamePage = function() {
 			$.getScript("/cyvasse.js");
 			initLogBox();
