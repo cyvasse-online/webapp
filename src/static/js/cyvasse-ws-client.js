@@ -33,11 +33,14 @@ function CyvasseWSClient(hostname, onopen) {
 	this.awaitingReply = [];
 	this.cachedIngameRequests = [];
 
+	this.connWasOpen = false;
+
 	//this.debug = true;
 
 	var self = this;
 
 	this.websock.onopen = function() {
+		self.connWasOpen = true;
 		self.initComm(onopen);
 	};
 
@@ -49,14 +52,35 @@ function CyvasseWSClient(hostname, onopen) {
 		self.handleMessage(msg.data);
 	};
 
-	this.websock.onerror = function() {
-		Module.setStatus("WebSocket communication error, see JavaScript console");
-		Module.setStatus = log;
+	this.websock.onerror = function(ev) {
+		if(self.connWasOpen) {
+			Module.setStatus("WebSocket communication error, see JavaScript console");
+			Module.setStatus = log;
+
+			console.error("WebSocket communication error:");
+			console.log(ev);
+		}
+		else {
+			Module.setStatus("Couldn't establish a WebSocket connection");
+		}
 	};
 
-	this.websock.onclose = function() {
-		Module.setStatus("The connection to the server was closed.");
-		Module.setStatus = log;
+	this.websock.onclose = function(ev) {
+		if(self.connWasOpen) {
+			if(ev.wasClean) {
+				// Don't error if the disconnect was expected,
+				// e.g. when the page is reloaded
+				console.log("WebSocket connection closed:");
+				console.log(ev);
+			}
+			else {
+				Module.setStatus("The connection to the server was closed, see JavaScript console");
+				Module.setStatus = log;
+
+				console.error("WebSocket connection closed:");
+				console.error(ev);
+			}
+		}
 	};
 }
 
