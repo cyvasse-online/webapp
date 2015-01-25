@@ -17,15 +17,17 @@
 <%pre>
 	#include <fstream>
 </%pre>
-<div class='container' id='page-content'>
-<%cpp>
-	std::ifstream ifs("resources/rule-sets/" + request.getArg("name") + ".html");
-	if(!ifs)
-		reply.out() << "<h2>Rule set not found</h2>";
-	else
-	{
-		reply.out() << ifs.rdbuf();
-		ifs.close();
-	}
-</%cpp>
+<div class='page-content'>
+	<div class='first-child-without-margin'>
+	<%cpp>
+		std::ifstream ifs("resources/rule-sets/" + request.getArg("name") + ".html");
+		if(!ifs)
+			reply.out() << "<h2>Rule set not found</h2>";
+		else
+		{
+			reply.out() << ifs.rdbuf();
+			ifs.close();
+		}
+	</%cpp>
+	</div>
 </div>

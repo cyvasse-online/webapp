@@ -15,8 +15,7 @@
 	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
 <footer class='page-footer'>
-	<div class='container'>
-		<a href='https://github.com/cyvasse-online'>GitHub</a>
+	<div class='container<?? (request.getArg("content") == "game") ? " full-width" ?>'>
 		<a href='/disclaimer' target='_blank'>Disclaimer</a>
 	</div>
 </footer>

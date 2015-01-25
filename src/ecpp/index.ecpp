@@ -19,55 +19,62 @@
 	#include <tnt/savepoint.h>
 	#include <yaml-cpp/yaml.h>
 </%pre>
-<main class='page-content container'>
-	<%include>what-is-cyvasse.html</%include>
+<main class='page-content'>
+	<div class='first-child-without-margin'>
+		<%include>what-is-cyvasse.html</%include>
+	</div>
+	<div> <# ruleset-specific part #>
+		<# TODO: Has to be rewritten when there are more rule sets #>
+		<p><strong>Looking for the rules?</strong> <a href='/rule_sets/mikelepage'>Click here!</a></p>
 
-	<# TODO: Has to be rewritten when there are more rule sets #>
-	<p><strong>Looking for the rules?</strong> <a href='/rule_sets/mikelepage'>Click here!</a></p>
+		<section class='interactive-content'>
+			<h2>Join a random game</h2>
+			<div class='random-games'>
 
-	<section class='interactive-content'>
-		<h2>Join a random game</h2>
-		<div class='random-games'>
+			</div> <!-- .random-games -->
 
-		</div> <!-- .random-games -->
+			<h2>Spectate a public game</h2>
+			<div class='public-games'>
 
-		<h2>Spectate a public game</h2>
-		<div class='public-games'>
+			</div> <!-- .public-games -->
 
-		</div> <!-- .public-games -->
+			<div id='create-game'>
+				<h2>Create a new game</h2>
 
-		<div id='create-game'>
-			<h2>Create a new game</h2>
+				<table>
+					<tr>
+						<td><strong>Play as</strong></td>
+						<td>
+							<input type='radio' name='play-as' value='white' id='play-as-white' />
+							<label for='play-as-white'>White player</label>
+							<input type='radio' name='play-as' value='black' id='play-as-black' />
+							<label for='play-as-black'>Black player</label>
+						</td>
+					</tr>
+					<tr>
+						<td><strong>Random opponent</strong></td>
+						<td>
+							<input type='checkbox' name='random' id='opt-random' />
+							<label for='opt-random'><i class="fa fa-fw fa-check"></i></label>
+						</td>
+					</tr>
+					<tr>
+						<td><strong>Public match</strong></td>
+						<td>
+							<input type='checkbox' name='public' id='opt-public' />
+							<label for='opt-public'><i class="fa fa-fw fa-check"></i></label>
+						</td>
+					</tr>
+					<# local or online #>
+					<# extra rules #>
+				</table>
 
-			<table>
-				<tr>
-					<td><strong>Play as</strong></td>
-					<td>
-						<input type='radio' name='play-as' value='white' id='play-as-white' />
-						<label for='play-as-white'>White player</label>
-						<input type='radio' name='play-as' value='black' id='play-as-black' />
-						<label for='play-as-black'>Black player</label>
-					</td>
-				</tr>
-				<tr>
-					<td><strong>Random opponent</strong></td>
-					<td><input type='checkbox' name='random' id='opt-random' /></td>
-				</tr>
-				<tr>
-					<td><strong>Public match</strong></td>
-					<td><input type='checkbox' name='public' id='opt-public' /></td>
-				</tr>
-				<# local or online #>
-				<# extra rules #>
-			</table>
+				<p><button id='create-game-button'>Create game</button></p>
+			</div>
 
-			<br />
-
-			<button id='create-game-button'>Create game</button>
-		</div>
-
-	</section> <!-- .interactive-content -->
-	<noscript>
-		<# TODO: Error message or something like that #>
-	</noscript>
+		</section> <!-- .interactive-content -->
+		<noscript>
+			<# TODO: Error message or something like that #>
+		</noscript>
+	</div>
 </main>

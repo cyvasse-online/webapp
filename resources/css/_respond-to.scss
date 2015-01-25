@@ -1,0 +1,42 @@
+// Idea from http://thesassway.com/intermediate/responsive-web-design-in-sass-using-media-queries-in-sass-32
+
+// tiny: Playing around with the responsive design mode
+// yielded 550px as the best break for hiding the external
+// page icons to be hidden into one or shown individually.
+// If there'll ever be another part of the website where
+// differentiating between tiny and small might be of use,
+// it would be a good idea to revise this.
+$break-tiny:   550px;
+$break-small:  768px;
+$break-medium: 1280px;
+$break-large:  1440px;
+
+@mixin respond-to-max($break) {
+	@media only screen and (max-width: $break) { @content; }
+}
+
+@mixin respond-to-more-than($break) {
+	@media only screen and (min-width: $break + 1) { @content; }
+}
+
+@mixin respond-to-between($lowerBreak, $upperBreak) {
+	@media only screen and (min-width: $lowerBreak + 1) and (max-width: $upperBreak) { @content; }
+}
+
+@mixin respond-to($media) {
+	@if $media == tiny-screens {
+		@include respond-to-max($break-tiny) { @content; }
+	}
+	@else if $media == small-screens {
+		@include respond-to-between($break-tiny, $break-small) { @content; }
+	}
+	@else if $media == medium-screens {
+		@include respond-to-between($break-small, $break-medium) { @content; }
+	}
+	@else if $media == wide-screens {
+		@include respond-to-between($break-medium, $break-large) { @content; }
+	}
+	@else if $media == very-wide-screens {
+		@include respond-to-more-than($break-large) { @content; }
+	}
+}

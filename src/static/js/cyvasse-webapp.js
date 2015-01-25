@@ -40,7 +40,7 @@ var Module = {
 // tiny jQuery extension from somewhere off the net
 $.fn.exists = function () {
 	// int-to-bool conversion through twice applying the ! operator
-    return !!this.length;
+	return !!this.length;
 };
 
 // another thingy from teh internetz, which is quite ugly...
@@ -56,7 +56,7 @@ function htmlDecode(value) {
 }
 
 function capitalizeEachWord(str) {
-    return str.replace(/\w\S*/g, function(txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
+	return str.replace(/\w\S*/g, function(txt) { return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase(); });
 }
 
 // own stuff again
@@ -138,7 +138,7 @@ $(document).ready(function() {
 			//"userInfo": { ... }
 		};
 
-		$("#create-game select").attr("disabled", true);
+		$("#create-game input").attr("disabled", true);
 		$("#create-game button").attr("disabled", true);
 		$("#create-game-button").html("Creating game<span class='ani-loading-dot'>.</span>");
 
@@ -147,6 +147,19 @@ $(document).ready(function() {
 		//	TODO: Error message
 
 		Module.wsClient.createGame(Module.gameMetaData);
+	});
+
+	var externalSitesCheckbox = $("#external-sites-dd");
+
+	$(document).click(function() {
+		// deactivate external sites dropdown if it's active
+		externalSitesCheckbox.prop("checked", false);
+	});
+
+	$(".external-sites-icons-v").click(function(ev) {
+		// without this the external-sites-dd checkbox would
+		// deactive itself through the above click handler
+		ev.stopPropagation();
 	});
 
 	window.onerror = function() {

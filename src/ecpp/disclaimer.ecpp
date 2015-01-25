@@ -14,14 +14,14 @@
 	You should have received a copy of the GNU Affero General Public License along with this program.
 	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
-<div class='padded' id='page-content'>
+<div class='page-content'>
 	<h3>Disclaimer</h3>
 
 	The game presented on this website takes inspiration from<br />
 	George R. R. Martin's <em>A Song of Ice and Fire</em> books,<br />
 	but is in no way associated with George R. R. Martin.
 </div>
-<# Only have a close button when js is enabled, because it's useless else #>
+<# Only have a close button when js is enabled, because it's useless otherwise #>
 <script>
 	$("<br /><br /><button id='closetab'>Close</button>").appendTo("#page-content");
 	$("#closetab").click(function() { window.close(); });

@@ -1,116 +1,288 @@
+@import "animation";
+@import "respond-to";
+
+/* colors */
+$borderGrey: #aaa;
+
 /* font */
 @font-face {
-  font-family: 'Morpheus';
-  src: url('/morpheus.woff');
+	font-family: 'Morpheus';
+	src: url('/fonts/morpheus.woff');
 }
 
 /* border-box fix */
 *, *:before, *:after {
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+/* general styling */
+a {
+	color: #000;
+	transition: color .2s;
+
+	&:hover {
+		color: #666;
+	}
+}
+
+th {
+	text-align: left;
+}
+
+th, td {
+	padding: {
+		right: 1em;
+		bottom: .5em;
+	}
+}
+
+/** form styling **/
+%restyled-form-element {
+	display: inline-block;
+	border: 1px solid #888;
+	transition: background-color .2s;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+	display: none;
+}
+
+label {
+	@extend %restyled-form-element;
+
+	input:not(:disabled) + &:hover {
+		background-color: #eee;
+	}
+
+	input:disabled + & {
+		background-color: #efefef;
+	}
+
+	input[type='radio'] + & {
+		padding: .4em;
+	}
+
+	input[type='checkbox'] + & {
+		padding: .3em;
+	}
+
+	input[type='radio']:checked + & {
+		background-color: #00a7ff;
+	}
+
+	input[type='radio']:disabled:checked + & {
+		background-color: #00b7ff;
+	}
+
+	input[type='checkbox'] + & i {
+		visibility: hidden;
+	}
+
+	input[type='checkbox']:checked + & i {
+		visibility: visible;
+	}
+}
+
+button {
+	@extend %restyled-form-element;
+
+	padding: .6em;
+
+	background-color: #f4f4f4;
+	transition: background-color .2s;
+
+	&:hover {
+		background-color: #e8e8e8;
+	}
+
+	&:disabled {
+		color: #888;
+		background-color: #fff;
+	}
+}
+
+/** works in chromium, probably the worst way to do this **/
+hr {
+	border-style: solid;
+	border-top: none;
+}
+
+// shitty fix for too much margin on text elements
+.first-child-without-margin > :first-child {
+	margin-top: 0;
+}
+
+.vcenter-content {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 /* page layout */
-$footerHeight: 2em;
+html {
+	height: 100%;
+	width: 100%;
+}
 
-html, body {
-    height: 100%;
-    width: 100%;
+body {
+	display: flex;
+	flex-direction: column;
+
+	min-height: 100%;
 }
 
 .page-wrap {
-	width: 100%;
-    min-height: 100%;
-	margin-bottom: -$footerHeight;
-
-    &:after {
-        content: "";
-        display: block;
-    }
-}
-
-.page-footer,
-.page-wrap:after {
-    height: $footerHeight;
-}
-
-.page-footer {
-    // probably quite ugly but I'm lazy right now
-    .container {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    width: 100%;
-
-	position: relative;
-	line-height: 1.9em;
-	line-height: calc(2em - 1px);
-
-    border-top: 2px solid #aaa;
+	flex-grow: 1;
 }
 
 .page-header {
-    padding: .2em 0;
+	padding: .2em 0;
+	border-bottom: 2px solid $borderGrey;
 
-    background-color: #fff;
-    border-bottom: 2px solid #aaa;
+	// let the "scroll to bottom" button hide "behind" the header
+	background-color: #fff;
+	z-index: 2;
+
+	@include respond-to-max($break-small) {
+		font-size: 75%;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	.container {
+		justify-content: space-between;
+		align-items: center;
+	}
+}
+
+.page-footer {
+	padding: .2em 0;
+	border-top: 2px solid $borderGrey;
 }
 
 .container {
-    width: 80%;
-    margin: 0 auto;
+	display: flex;
+	margin: 0 auto;
+
+	width: 100%;
+	padding: 0 1em;
+
+	@include respond-to(wide-screens) { width: 90%; }
+	@include respond-to(very-wide-screens) { width: 80%; }
+
+	&.full-width {
+		width: 100%;
+		padding: 0 1em;
+	}
 }
 
 /** inside .page-header **/
 .logo {
 	font-family: Morpheus;
-	font-size: 2.2em;
+	font-size: 2.4em;
 	color: #000;
+
+	&:hover .badge {
+		background-color: #666;
+	}
 }
 
 .badge {
-    background: #000;
-    border-radius: .2em;
-    color: #fff;
-    padding: 0 .2em;
-    font-size: .8em;
-    margin-left: .2em;
+	background-color: #000;
+	transition: background-color .2s; // match link transition
+
+	border-radius: .2em;
+	color: #fff;
+	padding: 0 .2em;
+	font-size: .8em;
+	margin-left: .2em;
 }
 
 #status {
-	margin-left: 18%;
-	line-height: 2.5em;
 	font-weight: bold;
 	color: #888;
 }
 
+.external-sites-icons {
+	font-size: 3em;
+
+	// my best go on making the external sites icons
+	// align with the heading's "beta" bagde
+	position: relative;
+	top: 0.07em;
+}
+
+.external-sites-icons-h {
+	@include respond-to(tiny-screens) {
+		display: none;
+	}
+}
+
+.external-sites-icons-v {
+	display: none;
+
+	@include respond-to(tiny-screens) {
+		display: block;
+	}
+}
+
+#external-sites-dd + label {
+	padding: 0;
+	border: 0 none;
+	cursor: pointer;
+
+	transition: color .2s;
+
+	&:hover {
+		color: #666;
+		background-color: transparent;
+	}
+
+	// overwrite non-checked checkbox default visibility
+	i {
+		visibility: visible;
+	}
+}
+
+#external-sites-dd-items {
+	position: absolute;
+	top: 122%; // just a value that made it look good
+
+	background-color: #fff;
+	border: 1px solid $borderGrey;
+	border-radius: 5px;
+	opacity: 0;
+
+	transition: opacity .4s;
+
+	#external-sites-dd:checked ~ & {
+		opacity: 1;
+	}
+}
+
 /** inside .page-wrap **/
-.padded {
-	padding: 1em;
-}
-
-.boxed + .boxed {
-	border-left: 1px solid #333;
-}
-
 .side-pane {
 	width: 450px;
 }
 
 .page-content {
-    margin: 1em auto;
+	@extend .container;
+
+	flex-direction: column;
+	margin: 1em auto;
 }
 
-.page-content > h1:first-child {
-	margin-top: 0;
-}
+.game-wrap {
+	@extend .container;
 
-.rule-set-new-tab-box {
-	position: absolute;
-	top: 1em;
-	right: 1em;
+	width: 100%;
+	height: 100%;
+	padding: 0;
 }
 
 .random-matches-wrap {
@@ -128,14 +300,12 @@ html, body {
 }
 
 .random-match:hover {
-	background: #ddd;
+	background-color: #ddd;
 }
 
-.game-wrap {
-	width: 75%;
-	overflow: auto;
+.canvas-wrap {
+	flex-grow: 1;
 	text-align: center;
-	vertical-align: middle !important;
 }
 
 /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
@@ -146,16 +316,17 @@ canvas {
 
 /* will be shown instead of the canvas in case the game can't be loaded / started */
 .content-missing-msg {
-    font-size: 5em;
-    color: #888;
+	font-size: 5em;
+	color: #888;
 }
 
 .logbox {
-	/* not quite elegant */
-	position: absolute;
-	top: 2.5em;
-	bottom: 2em;
 	width: 25%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	border-left: 2px solid $borderGrey;
 }
 
 /* I am normally the kind of person to care about code style and performance,
@@ -166,13 +337,13 @@ canvas {
 }
 
 .scroll-to-bottom {
-	position: absolute;
+	position: relative;
 	top: -2em;
 	height: 2em;
 	line-height: 2em;
 
 	border: 0 none;
-	border-bottom: 1px solid #000;
+	border-bottom: 2px solid $borderGrey;
 	background-color: #eee;
 	cursor: pointer;
 	transition: background-color .2s;
@@ -191,7 +362,6 @@ canvas {
 }
 
 .message-area {
-	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 3.95em;
@@ -209,58 +379,18 @@ canvas {
 }
 
 .chat-input {
-	resize: none;
 	height: 3.95em;
 	width: 100%;
-	border: 0 none;
-	display: block;
 	padding: .2em .3em;
+
+	border: {
+		style: solid;
+		width: 2px 0 0 0;
+		color: $borderGrey;
+	}
+
+	resize: none;
+	display: block;
 	outline: none;
 	box-shadow: none;
 }
-
-/* general styling */
-a {
-	text-decoration: none;
-}
-
-button {
-	padding: .6em;
-	border: 1px solid #888;
-	background-color: #eee;
-	transition: background-color .2s;
-}
-
-button:hover {
-	background-color: #ddd;
-}
-
-button:disabled {
-	color: #888;
-	background-color: #fff;
-}
-
-td {
-    padding-right: 1em;
-}
-
-/** works in chromium, probably the worst way to do this **/
-hr {
-	border-style: solid;
-	border-top: none;
-}
-
-/* general-purpose css classes */
-.stick-to-bottom {
-	position: absolute;
-	bottom: 0;
-}
-
-.separator-h {
-	height: 0;
-	margin: 0;
-	padding: 0;
-	border-bottom: 1px solid #000;
-}
-
-@import "animation";
