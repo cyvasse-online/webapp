@@ -1,0 +1,92 @@
+@import "respond-to.scss";
+@import "variables.scss";
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+
+figure {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+
+	max-width: 100%;
+	width: -moz-min-content;
+	width: -webkit-min-content;
+	width: min-content;
+
+	height: auto;
+
+	margin: .5em .5em 1.5em;
+}
+
+figcaption {
+	// can this be simplified?
+	//display: flex;
+	//align-items: center;
+}
+
+ul, ol {
+	padding-left: 22px;
+}
+
+.piece-list {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+
+	& img {
+		width: 60px;
+		height: auto;
+	}
+
+	& > div {
+		display: flex;
+		align-items: center;
+
+		width: 230px;
+		margin: 0 1em 1em 0;
+		padding: .2em .2em .2em .6em;
+
+		font-size: 1.05em;
+		border: 2px solid $borderGrey;
+
+		& > :first-child {
+			padding-right: .5em;
+		}
+
+		& > :nth-child(2) {
+			flex-grow: 1;
+		}
+	}
+}
+
+.picture-grid {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-items: flex-stretch;
+
+	text-align: center;
+
+	@include respond-to-max($break-small) {
+		flex-direction: column;
+		align-items: center;
+	}
+}
+
+.movement-interference-grid {
+	@extend .picture-grid;
+}
+
+@include respond-to-more-than($break-medium) {
+	.movement-interference-grid {
+		& img:nth-child(1) { order: 1; }
+		& img:nth-child(2) { order: 4; }
+		& img:nth-child(3) { order: 2; }
+		& img:nth-child(4) { order: 5; }
+		& img:nth-child(5) { order: 3; }
+		& img:nth-child(6) { order: 6; }
+	}
+}

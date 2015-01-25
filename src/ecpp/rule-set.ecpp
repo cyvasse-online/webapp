@@ -18,7 +18,7 @@
 	#include <fstream>
 </%pre>
 <div class='page-content'>
-	<div class='first-child-without-margin'>
+	<div class='first-last-child-without-margin'>
 	<%cpp>
 		std::ifstream ifs("resources/rule-sets/" + request.getArg("name") + ".html");
 		if(!ifs)

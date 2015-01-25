@@ -9,101 +9,107 @@ You win by capturing your opponent's king and preventing them from replacing it 
 Gameplay
 --------
 
-For the initial setup you have 40 "home" squares on the lower part of the board in which you have to place your
-king and dragon, plus 6x rabble (your tier 1 pieces), 6x tier 2 pieces, 6x tier 3 pieces as well as 6x mountains.
+For the initial setup you have 40 "home" squares on the lower part
+of the board in which you have to place all of your 26 pieces.
 
-Each player also has a fortress and 6x terrain tiles that are placed automatically when you place the pieces.
-Tiles are different from pieces: while no two pieces can occupy the same space, tiles have an effect on the pieces
-standing on them. The fortress is always located at the king's starting position, and each of the terrain tiles are
-located at the starting positions of specific tier 2 pieces.
+Each player also has a fortress and 6 terrain tiles which are placed automatically when placing the pieces.
+These tiles are different from the pieces: while no two pieces can occupy the same space, pieces can stand
+on tiles, which can have an effect on the piece. The fortress is always located at the king's starting position,
+and each terrain tile is located at the starting position of a specific tier 2 piece.
 
 White starts. Players take turns making moves.
 
 Pieces
 ------
 
+
 There are 10 types of piece in the game. All pieces except the mountains have a
 tier level which is used to determine whether a piece can capture another piece.
 
 Each player has
 
-* 6 Mountains
-* 6 Rabble
-* 1 King
-* 2 Crossbows
-* 2 Spears
-* 2 Light Horses
-* 2 Trebuchets
-* 2 Elephants
-* 2 Heavy Horses
-* 1 Dragon
-
-![All pieces](/img/rule_sets/mikelepage/all_pieces.png)
+<div class='piece-list'>
+	<div> <div>6</div> <div>Mountains</div>    <img src='/img/icons/black/mountains.png' />   </div>
+	<div> <div>6</div> <div>Rabble</div>       <img src='/img/icons/black/rabble.png' />      </div>
+	<div> <div>1</div> <div>King</div>         <img src='/img/icons/black/king.png' />        </div>
+	<div> <div>2</div> <div>Crossbows</div>    <img src='/img/icons/black/crossbows.png' />   </div>
+	<div> <div>2</div> <div>Spears</div>       <img src='/img/icons/black/spears.png' />      </div>
+	<div> <div>2</div> <div>Light Horses</div> <img src='/img/icons/black/light_horse.png' /> </div>
+	<div> <div>2</div> <div>Trebuchets</div>   <img src='/img/icons/black/trebuchet.png' />   </div>
+	<div> <div>2</div> <div>Elephants</div>    <img src='/img/icons/black/elephant.png' />    </div>
+	<div> <div>2</div> <div>Heavy Horses</div> <img src='/img/icons/black/heavy_horse.png' /> </div>
+	<div> <div>1</div> <div>Dragon</div>       <img src='/img/icons/black/dragon.png' />      </div>
+</div>
 
 Piece movement
 --------------
 
-### Mountains (passive)
+<div class='picture-grid'>
+	<figure>
+		<figcaption>Rabble move 1 square orthogonally</figcaption>
+		<img src='/img/rule_sets/mikelepage/rabble.png' alt='Rabble' />
+	</figure>
 
-![Mountains](/img/rule_sets/mikelepage/mountains.png)
+	<figure>
+		<figcaption>The king also moves 1 square orthogonally</figcaption>
+		<img src='/img/rule_sets/mikelepage/king.png' alt='King' />
+	</figure>
+
+	<figure>
+		<figcaption>Crossbows move up to 3 squares orthogonally</figcaption>
+		<img src='/img/rule_sets/mikelepage/crossbows.png' alt='Crossbows' />
+	</figure>
+
+	<figure>
+		<figcaption>Spears move up to 2 squares diagonally</figcaption>
+		<img src='/img/rule_sets/mikelepage/spears.png' alt='Spears' />
+	</figure>
+
+	<figure>
+		<figcaption>Light Horses move up to 3 squares hexagonally around either fortress</figcaption>
+		<img src='/img/rule_sets/mikelepage/light_horse.png' alt='Light Horse' />
+	</figure>
+
+	<figure>
+		<figcaption>Trebuchets move orthogonally as far as possible</figcaption>
+		<img src='/img/rule_sets/mikelepage/trebuchet.png' alt='Trebuchet' />
+	</figure>
+
+	<figure>
+		<figcaption>Elephants move diagonally as far as possible</figcaption>
+		<img src='/img/rule_sets/mikelepage/elephant.png' alt='Elephant' />
+	</figure>
+
+	<figure>
+		<figcaption>Heavy Horses move as far as possible hexagonally around either fortress</figcaption>
+		<img src='/img/rule_sets/mikelepage/heavy_horse.png' alt='Heavy Horse' />
+	</figure>
+
+	<figure>
+		<figcaption>The dragon moves up to a range of 4 spaces (must be contiguous, no "jumping" of other pieces)</figcaption>
+		<img src='/img/rule_sets/mikelepage/dragon.png' alt='Dragon' />
+	</figure>
+</div>
+
+### Mountains
 
 Mountains are completely passive. They can't be captured and don't belong to either player.
-They are placed during setup and are used to block the movement of opponent's pieces.
+They are placed during setup and are used to block the movement of other pieces.
 Dragons can fly over mountains, but no piece can be on the same tile as one.
 
-### Active pieces
-
-#### Tier 1
-
-**Rabble pieces move 1 square orthogonally:**
-
-![Rabble](/img/rule_sets/mikelepage/rabble.png)
-
-**The King piece also moves one square orthogonally:**
-
-![King](/img/rule_sets/mikelepage/king.png)
-
-#### Tier 2
-
-**Crossbows pieces move up to 3 squares orthogonally:**
-
-![Crossbows](/img/rule_sets/mikelepage/crossbows.png)
-
-**Spears pieces move up to 2 squares diagonally:**
-
-![Spears](/img/rule_sets/mikelepage/spears.png)
-
-**Light Horse pieces move up to 3 squares hexagonally (around either fortress):**
-
-![Light Horse](/img/rule_sets/mikelepage/light_horse.png)
-
-#### Tier 3
-
-**Trebuchet pieces move orthogonally as far as possible:**
-
-![Trebuchet](/img/rule_sets/mikelepage/trebuchet.png)
-
-**Elephant pieces move diagonally as far as possible:**
-
-![Elephant](/img/rule_sets/mikelepage/elephant.png)
-
-**Heavy Horse pieces move as far as possible hexagonally (around either fortress):**
-
-![Heavy Horse](/img/rule_sets/mikelepage/heavy_horse.png)
-
-#### Tier 4
-
-**The Dragon moves up to a range of 4 spaces (must be contiguous, no "jumping" of other pieces):**
-
-![Dragon](/img/rule_sets/mikelepage/dragon.png)
-
-### Interference
+Movement interference
+---------------------
 
 The following graphics illustrate the basic movement possibilites when other pieces are in the way.
 
-![Movement interference example: Trebuchet](/img/rule_sets/mikelepage/movement_interference_1.png)
-![Movement interference example: Elephant](/img/rule_sets/mikelepage/movement_interference_2.png)
-![Movement interference example: Dragon](/img/rule_sets/mikelepage/movement_interference_3.png)
+<div class='movement-interference-grid'>
+	<img src='/img/rule_sets/mikelepage/movement_interference_1.png' />
+	<img src='/img/rule_sets/mikelepage/movement_interference_1x.png' />
+	<img src='/img/rule_sets/mikelepage/movement_interference_2.png' />
+	<img src='/img/rule_sets/mikelepage/movement_interference_2x.png' />
+	<img src='/img/rule_sets/mikelepage/movement_interference_3.png' />
+	<img src='/img/rule_sets/mikelepage/movement_interference_3x.png' />
+</div>
 
 Capturing
 ---------
@@ -149,15 +155,15 @@ and is being attacked. During setup, the terrain tiles are automatically placed 
 positions, so that at the beginning the match, all tier 2 and tier 3 pieces are equally hard to capture.
 Terrain, as well as Mountains, does not belong to either player.
 
-| Type      | Placed via  | "Home terrain" for       |
+| Type      | Placed via  | Home terrain for         |
 |-----------|-------------|--------------------------|
 | Hill      | Crossbows   | Crossbows, Trebuchet     |
 | Forest    | Spears      | Spears, Elephant         |
 | Grassland | Light Horse | Light Horse, Heavy Horse |
 
-**All tier 2 and 3 pieces on their home terrain**
+All tier 2 and 3 pieces on their home terrain
 
-![Terrain Tiles](/img/rule_sets/mikelepage/terrain.png)
+<img src='/img/rule_sets/mikelepage/terrain.png' alt='Terrain Tiles' />
 
 Fortresses
 ----------

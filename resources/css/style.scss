@@ -1,8 +1,6 @@
 @import "animation";
 @import "respond-to";
-
-/* colors */
-$borderGrey: #aaa;
+@import "variables";
 
 /* font */
 @font-face {
@@ -104,15 +102,14 @@ button {
 	}
 }
 
-/** works in chromium, probably the worst way to do this **/
-hr {
-	border-style: solid;
-	border-top: none;
-}
-
 // shitty fix for too much margin on text elements
-.first-child-without-margin > :first-child {
-	margin-top: 0;
+.first-last-child-without-margin {
+	& > :first-child {
+		margin-top: 0;
+	}
+	& > :last-child {
+		margin-bottom: 0;
+	}
 }
 
 .vcenter-content {
@@ -146,8 +143,9 @@ body {
 	background-color: #fff;
 	z-index: 2;
 
+	font-size: 40px;
 	@include respond-to-max($break-small) {
-		font-size: 75%;
+		font-size: 30px;
 	}
 
 	a {
@@ -170,51 +168,29 @@ body {
 	margin: 0 auto;
 
 	width: 100%;
-	padding: 0 1em;
+	padding: 0 16px;
 
-	@include respond-to(wide-screens) { width: 90%; }
-	@include respond-to(very-wide-screens) { width: 80%; }
-
-	&.full-width {
-		width: 100%;
-		padding: 0 1em;
-	}
+	@include respond-to(very-wide-screens) { width: 1440px; }
 }
 
 /** inside .page-header **/
 .logo {
 	font-family: Morpheus;
-	font-size: 2.4em;
+	margin-top: -5px; // fix this fonts weird height
 	color: #000;
-
-	&:hover .badge {
-		background-color: #666;
-	}
-}
-
-.badge {
-	background-color: #000;
-	transition: background-color .2s; // match link transition
-
-	border-radius: .2em;
-	color: #fff;
-	padding: 0 .2em;
-	font-size: .8em;
-	margin-left: .2em;
 }
 
 #status {
-	font-weight: bold;
+	font: {
+		size: .4em;
+		weight: bold;
+	}
 	color: #888;
 }
 
 .external-sites-icons {
-	font-size: 3em;
-
-	// my best go on making the external sites icons
-	// align with the heading's "beta" bagde
+	font-size: 1.2em;
 	position: relative;
-	top: 0.07em;
 }
 
 .external-sites-icons-h {
@@ -251,7 +227,7 @@ body {
 
 #external-sites-dd-items {
 	position: absolute;
-	top: 122%; // just a value that made it look good
+	top: 146%; // just a value that made it look good
 
 	background-color: #fff;
 	border: 1px solid $borderGrey;
@@ -324,16 +300,8 @@ canvas {
 	width: 25%;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 
 	border-left: 2px solid $borderGrey;
-}
-
-/* I am normally the kind of person to care about code style and performance,
-   even for CSS selectors... But I'm generally only doing what works for me with
-   the CSS at the moment so I don't give a F about the awfulness of this rule! */
-.logbox > * {
-	width: 100%;
 }
 
 .scroll-to-bottom {
@@ -362,9 +330,7 @@ canvas {
 }
 
 .message-area {
-	top: 0;
-	right: 0;
-	bottom: 3.95em;
+	flex-grow: 1;
 	padding: .3em;
 	overflow-y: auto;
 }

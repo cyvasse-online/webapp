@@ -20,7 +20,7 @@
 	#include <yaml-cpp/yaml.h>
 </%pre>
 <main class='page-content'>
-	<div class='first-child-without-margin'>
+	<div class='first-last-child-without-margin'>
 		<%include>what-is-cyvasse.html</%include>
 	</div>
 	<div> <# ruleset-specific part #>

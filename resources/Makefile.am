@@ -1,4 +1,5 @@
 all: \
+	css/rule-set.css \
 	css/style.css \
 	\
 	rule-sets/mikelepage.html \
