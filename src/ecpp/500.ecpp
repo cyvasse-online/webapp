@@ -19,7 +19,9 @@
 </%args>
 %	if(errorMessage.empty()) errorMessage = "Internal Server Error";
 <div class='page-content'>
-	<h2><$ errorMessage $></h2>
+	<div class='first-last-child-without-margin'>
+		<h2><$ errorMessage $></h2>
+	</div>
 </div>
 
 %	return HTTP_INTERNAL_SERVER_ERROR;

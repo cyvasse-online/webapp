@@ -5,11 +5,10 @@ bin_PROGRAMS = cyvasse-online
 cyvasse_online_ecpp_sources = \
 	ecpp/404.ecpp \
 	ecpp/500.ecpp \
-	ecpp/disclaimer.ecpp \
 	ecpp/game.ecpp \
 	ecpp/index.ecpp \
+	ecpp/legal.ecpp \
 	ecpp/page.ecpp \
-	ecpp/random-game-view.ecpp \
 	ecpp/rule-set.ecpp
 
 BUILT_SOURCES = \
@@ -30,7 +29,6 @@ cyvasse_online_CXXFLAGS = \
 
 cyvasse_online_LDADD = \
 	$(JSONCPP_LIBS) \
-	$(top_builddir)/cyvasse-common/libcyvdb.a \
 	$(top_builddir)/cyvasse-common/libcyvmath.a \
 	-lcxxtools \
 	-ltntdb \

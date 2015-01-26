@@ -15,14 +15,12 @@
 	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
 <div class='page-content'>
-	<h3>Disclaimer</h3>
-
-	The game presented on this website takes inspiration from<br />
-	George R. R. Martin's <em>A Song of Ice and Fire</em> books,<br />
-	but is in no way associated with George R. R. Martin.
+	<div class='first-last-child-without-margin'>
+		<%include>legal-information.html</%include>
+	</div>
 </div>
 <# Only have a close button when js is enabled, because it's useless otherwise #>
 <script>
-	$("<br /><br /><button id='closetab'>Close</button>").appendTo("#page-content");
+	$("<button id='closetab'>Close</button>").appendTo(".page-content > div");
 	$("#closetab").click(function() { window.close(); });
 </script>

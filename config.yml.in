@@ -1,2 +1,2 @@
 listenPort: 2517
-matchDataUrl: ""
+staticDir: "@top_srcdir@/src/static"

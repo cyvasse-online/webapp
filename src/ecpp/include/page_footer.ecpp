@@ -16,6 +16,6 @@
 </%doc>
 <footer class='page-footer'>
 	<div class='container<?? (request.getArg("content") == "game") ? " full-width" ?>'>
-		<a href='/disclaimer' target='_blank'>Disclaimer</a>
+		<a href='/legal' target='_blank'>Legal information</a>
 	</div>
 </footer>

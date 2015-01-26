@@ -15,7 +15,9 @@
 	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
 <div class='page-content'>
-	<h2>Page not found</h2>
+	<div class='first-last-child-without-margin'>
+		<h2>Page not found</h2>
+	</div>
 </div>
 
 %	return HTTP_NOT_FOUND;

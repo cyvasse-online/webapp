@@ -21,31 +21,31 @@
 #include <tnt/tntnet.h>
 #include <cxxtools/log.h>
 #include <yaml-cpp/yaml.h>
-#include <cyvdb/config.hpp>
+//#include <cyvdb/config.hpp>
+
+using namespace std;
 
 int main()
 {
 	log_init("log.xml");
 
 	auto config = YAML::LoadFile("config.yml");
-	auto listenPort   = config["listenPort"].as<int>();
-	auto matchDataUrl = config["matchDataUrl"].as<std::string>();
+	auto listenPort = config["listenPort"].as<int>();
+	auto staticDir  = config["staticDir"].as<string>();
+	/*auto matchDataUrl = config["matchDataUrl"].as<string>();
 
 	if(matchDataUrl.empty())
 	{
-		std::cerr << "Error: No database url set!" << std::endl;
+		cerr << "Error: No database url set!" << endl;
 		return 1;
 	}
 
-	cyvdb::DBConfig::glob().setMatchDataUrl(matchDataUrl);
+	cyvdb::DBConfig::glob().setMatchDataUrl(matchDataUrl);*/
 
 	try
 	{
 		tnt::Tntnet app;
 		tnt::TntConfig& tntConfig = tnt::TntConfig::it();
-
-		// still relying on the webapp being executed from top_builddir
-		tntConfig.documentRoot = "static";
 
 		app.listen(listenPort);
 		app.setAppName("cyvasse-online");
@@ -54,26 +54,19 @@ int main()
 		// mapping require the git version of tntnet
 
 		// static files
-
-		// ttf mime-type isn't autodetected
-		app.mapUrl("^/([^.]+)\\.(o|t)tf",        "static@tntnet").setPathInfo("$1")
-			.setArg("contentType", "application/font-sfnt");
-		app.mapUrl("^/(.+)$",                    "static@tntnet").setPathInfo("$1");
+		app.mapUrl("^/(.+)$",                    "static@tntnet").setPathInfo("$1")
+			.setArg("documentRoot", staticDir);
 		app.mapUrl("^/css/(.+)$",                "static@tntnet").setPathInfo("$1")
 			.setArg("documentRoot", "resources/css");
-		app.mapUrl("^/rule_sets/([^.]+\\.html)", "static@tntnet").setPathInfo("$1")
-			.setArg("documentRoot", "resources/rule-sets");
 
 		// non-page dynamic content
 		app.mapUrl("^/random-matches$", "random-game-view");
 
 		// pages
-		app.mapUrl("^/$",                      	     "page"  ).setArg("content", "index");
-		app.mapUrl("^/index(\\.json)?$",       	     "page$1").setArg("content", "index");
+		app.mapUrl("^/$",                            "page"  ).setArg("content", "index");
+		app.mapUrl("^/index(\\.json)?$",             "page$1").setArg("content", "index");
 		app.mapUrl("^/index\\.htm(l)?$",             "page"  ).setArg("content", "index");
-		app.mapUrl("^/disclaimer$",                  "page"  ).setArg("content", "disclaimer");
-		app.mapUrl("^/create-game(\\.json)?$", 	     "page$1").setArg("content", "create-game");
-		app.mapUrl("^/join-game(\\.json)?$",         "page$1").setArg("content", "join-game");
+		app.mapUrl("^/legal$",                       "page"  ).setArg("content", "legal");
 		app.mapUrl("^/match/.{4}(\\.json)?$",        "page$1").setArg("content", "game");
 		app.mapUrl("^/rule_sets/([^.]+)(\\.json)?$", "page$2").setArg("content", "rule-set").setArg("name", "$1");
 		// 404 if nothing matched
@@ -81,9 +74,9 @@ int main()
 
 		app.run();
 	}
-	catch(std::exception& e)
+	catch(exception& e)
 	{
-		std::cerr << e.what() << std::endl;
+		cerr << e.what() << endl;
 		return 1;
 	}
 

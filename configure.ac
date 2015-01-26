@@ -40,7 +40,6 @@ AC_CONFIG_FILES([
 	src/Makefile
 ])
 AC_CONFIG_LINKS([
-	static:$srcdir/src/static
 	pagemeta.yml:$srcdir/src/pagemeta.yml
 ])
 
