@@ -16,6 +16,10 @@
 </%doc>
 <footer class='page-footer'>
 	<div class='container<?? (request.getArg("content") == "game") ? " full-width" ?>'>
-		<a href='/legal' target='_blank'>Legal information</a>
+		<span>
+			(en) <a href='/legal?lang=en' target='_blank'>Legal notice</a>
+			&nbsp;/&nbsp;
+			(de) <a href='/legal?lang=de' target='_blank'>Impressum</a>
+		</span>
 	</div>
 </footer>

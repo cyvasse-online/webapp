@@ -14,13 +14,18 @@
 	You should have received a copy of the GNU Affero General Public License along with this program.
 	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
+<%args>
+	std::string lang;
+</%args>
 <div class='page-content'>
 	<div class='first-last-child-without-margin'>
-		<%include>legal-information.html</%include>
+%		if(lang == "de")
+%		{
+			<%include>legal-notice-de.html</%include>
+%		}
+%		else // lang == "en", lang == "", or any other value
+%		{
+			<%include>legal-notice-en.html</%include>
+%		}
 	</div>
 </div>
-<# Only have a close button when js is enabled, because it's useless otherwise #>
-<script>
-	$("<button id='closetab'>Close</button>").appendTo(".page-content > div");
-	$("#closetab").click(function() { window.close(); });
-</script>

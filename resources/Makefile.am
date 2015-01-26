@@ -4,7 +4,8 @@ all: \
 	\
 	rule-sets/mikelepage.html \
 	\
-	static-text/legal-information.html \
+	static-text/legal-notice-de.html \
+	static-text/legal-notice-en.html \
 	static-text/what-is-cyvasse.html
 
 %.html : %.md
