@@ -12,6 +12,10 @@ figure {
 	justify-content: space-around;
 
 	max-width: 100%;
+
+	// IE doesn't support min-content, not even with prefix.
+	// This works too, as long as the images are all 420px wide.
+	width: 420px;
 	width: -moz-min-content;
 	width: -webkit-min-content;
 	width: min-content;
