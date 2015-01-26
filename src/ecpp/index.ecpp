@@ -43,7 +43,7 @@
 
 				<table>
 					<tr>
-						<td><strong>Play as</strong></td>
+						<th>Play as</th>
 						<td>
 							<input type='radio' name='play-as' value='white' id='play-as-white' />
 							<label for='play-as-white'>White player</label>
@@ -52,14 +52,14 @@
 						</td>
 					</tr>
 					<tr>
-						<td><strong>Random opponent</strong></td>
+						<th>Random opponent</th>
 						<td>
 							<input type='checkbox' name='random' id='opt-random' />
 							<label for='opt-random'><i class="fa fa-fw fa-check"></i></label>
 						</td>
 					</tr>
 					<tr>
-						<td><strong>Public match</strong></td>
+						<th>Public match</th>
 						<td>
 							<input type='checkbox' name='public' id='opt-public' />
 							<label for='opt-public'><i class="fa fa-fw fa-check"></i></label>

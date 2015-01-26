@@ -29,16 +29,16 @@ tier level which is used to determine whether a piece can capture another piece.
 Each player has
 
 <div class='piece-list'>
-	<div> <div>6</div> <div>Mountains</div>    <img src='/img/icons/black/mountains.png' />   </div>
-	<div> <div>6</div> <div>Rabble</div>       <img src='/img/icons/black/rabble.png' />      </div>
-	<div> <div>1</div> <div>King</div>         <img src='/img/icons/black/king.png' />        </div>
-	<div> <div>2</div> <div>Crossbows</div>    <img src='/img/icons/black/crossbows.png' />   </div>
-	<div> <div>2</div> <div>Spears</div>       <img src='/img/icons/black/spears.png' />      </div>
-	<div> <div>2</div> <div>Light Horses</div> <img src='/img/icons/black/light_horse.png' /> </div>
-	<div> <div>2</div> <div>Trebuchets</div>   <img src='/img/icons/black/trebuchet.png' />   </div>
-	<div> <div>2</div> <div>Elephants</div>    <img src='/img/icons/black/elephant.png' />    </div>
-	<div> <div>2</div> <div>Heavy Horses</div> <img src='/img/icons/black/heavy_horse.png' /> </div>
-	<div> <div>1</div> <div>Dragon</div>       <img src='/img/icons/black/dragon.png' />      </div>
+	<div> <div>6</div> <div>Mountains</div>    <img alt='' src='/img/icons/black/mountains.png' />   </div>
+	<div> <div>6</div> <div>Rabble</div>       <img alt='' src='/img/icons/black/rabble.png' />      </div>
+	<div> <div>1</div> <div>King</div>         <img alt='' src='/img/icons/black/king.png' />        </div>
+	<div> <div>2</div> <div>Crossbows</div>    <img alt='' src='/img/icons/black/crossbows.png' />   </div>
+	<div> <div>2</div> <div>Spears</div>       <img alt='' src='/img/icons/black/spears.png' />      </div>
+	<div> <div>2</div> <div>Light Horses</div> <img alt='' src='/img/icons/black/light_horse.png' /> </div>
+	<div> <div>2</div> <div>Trebuchets</div>   <img alt='' src='/img/icons/black/trebuchet.png' />   </div>
+	<div> <div>2</div> <div>Elephants</div>    <img alt='' src='/img/icons/black/elephant.png' />    </div>
+	<div> <div>2</div> <div>Heavy Horses</div> <img alt='' src='/img/icons/black/heavy_horse.png' /> </div>
+	<div> <div>1</div> <div>Dragon</div>       <img alt='' src='/img/icons/black/dragon.png' />      </div>
 </div>
 
 Piece movement
@@ -103,12 +103,12 @@ Movement interference
 The following graphics illustrate the basic movement possibilites when other pieces are in the way.
 
 <div class='movement-interference-grid'>
-	<img src='/img/rule_sets/mikelepage/movement_interference_1.png' />
-	<img src='/img/rule_sets/mikelepage/movement_interference_1x.png' />
-	<img src='/img/rule_sets/mikelepage/movement_interference_2.png' />
-	<img src='/img/rule_sets/mikelepage/movement_interference_2x.png' />
-	<img src='/img/rule_sets/mikelepage/movement_interference_3.png' />
-	<img src='/img/rule_sets/mikelepage/movement_interference_3x.png' />
+	<img alt='' src='/img/rule_sets/mikelepage/movement_interference_1.png' />
+	<img alt='' src='/img/rule_sets/mikelepage/movement_interference_1x.png' />
+	<img alt='' src='/img/rule_sets/mikelepage/movement_interference_2.png' />
+	<img alt='' src='/img/rule_sets/mikelepage/movement_interference_2x.png' />
+	<img alt='' src='/img/rule_sets/mikelepage/movement_interference_3.png' />
+	<img alt='' src='/img/rule_sets/mikelepage/movement_interference_3x.png' />
 </div>
 
 Capturing
@@ -148,22 +148,36 @@ your tier 2 piece or capture it with one of your tier 1 pieces through flanking.
 Terrain
 -------
 
-Tier 2 and tier 3 pieces that have the same movement style are also advantaged on the same kind of terrain.
+Each tier 2 or tier 3 piece has a "home terrain" type that gives them an increased defense tier, meaning a tier 2
+piece – while on its home terrain – can't be taken by another tier 2 piece but only by a tier 3 or 4 piece, or by
+flanking pieces with an equally high combined tier.
 
-Terrain increases the effective tier of those pieces by 1, but only when one of those pieces stands on them
-and is being attacked. During setup, the terrain tiles are automatically placed at the tier 2 piece starting
-positions, so that at the beginning the match, all tier 2 and tier 3 pieces are equally hard to capture.
+Each terrain type is the home terrain for one tier 2 and one tier 3 piece type. Pieces with the same movement
+style also have the same home terrain. The following list shows which terrain belongs to which pieces:
+
+<div class='terrain-list'>
+	<div>
+		<div class='icon'><img alt='' src='/img/icons/hill.png' /><img alt='' class='piece' src='/img/icons/black/crossbows.png' /></div>
+		<div><strong>Hill:</strong><br /> Crossbows,<br /> Trebuchets</div>
+		<div class='icon'><img alt='' src='/img/icons/hill.png' /><img alt='' class='piece' src='/img/icons/black/trebuchet.png' /></div>
+	</div>
+
+	<div>
+		<div class='icon'><img alt='' src='/img/icons/forest.png' /><img alt='' class='piece' src='/img/icons/black/spears.png' /></div>
+		<div><strong>Forest:</strong><br /> Spears,<br /> Elephants</div>
+		<div class='icon'><img alt='' src='/img/icons/forest.png' /><img alt='' class='piece' src='/img/icons/black/elephant.png' /></div>
+	</div>
+
+	<div>
+		<div class='icon'><img alt='' src='/img/icons/grassland.png' /><img alt='' class='piece' src='/img/icons/black/light_horse.png' /></div>
+		<div><strong>Grassland:</strong><br /> Light Horses,<br /> Heavy Horses</div>
+		<div class='icon'><img alt='' src='/img/icons/grassland.png' /><img alt='' class='piece' src='/img/icons/black/heavy_horse.png' /></div>
+	</div>
+</div>
+
+During setup, the terrain tiles are automatically placed under the tier 2 pieces they give an advantage
+to, meaning that when beginning the match, all tier 2 and tier 3 pieces are equally hard to capture.
 Terrain, as well as Mountains, does not belong to either player.
-
-| Type      | Placed via  | Home terrain for         |
-|-----------|-------------|--------------------------|
-| Hill      | Crossbows   | Crossbows, Trebuchet     |
-| Forest    | Spears      | Spears, Elephant         |
-| Grassland | Light Horse | Light Horse, Heavy Horse |
-
-All tier 2 and 3 pieces on their home terrain
-
-<img src='/img/rule_sets/mikelepage/terrain.png' alt='Terrain Tiles' />
 
 Fortresses
 ----------

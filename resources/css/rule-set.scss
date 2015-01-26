@@ -2,6 +2,10 @@
 @import "variables.scss";
 
 img {
+	// Thanks to http://stackoverflow.com/a/22604736/1592377
+	// without this, one gets additional whitespace in some places
+	display: block;
+
 	max-width: 100%;
 	height: auto;
 }
@@ -25,20 +29,24 @@ figure {
 	margin: .5em .5em 1.5em;
 }
 
-figcaption {
-	// can this be simplified?
-	//display: flex;
-	//align-items: center;
-}
-
 ul, ol {
 	padding-left: 22px;
 }
 
-.piece-list {
+%flow-list {
 	display: flex;
 	flex-wrap: wrap;
-	align-items: center;
+
+	& > div {
+		margin: .4em;
+		padding: .2em;
+
+		border: 2px solid $borderGrey;
+	}
+}
+
+.piece-list {
+	@extend %flow-list;
 
 	& img {
 		width: 60px;
@@ -50,11 +58,8 @@ ul, ol {
 		align-items: center;
 
 		width: 230px;
-		margin: 0 1em 1em 0;
-		padding: .2em .2em .2em .6em;
-
+		padding-left: .6em;
 		font-size: 1.05em;
-		border: 2px solid $borderGrey;
 
 		& > :first-child {
 			padding-right: .5em;
@@ -66,11 +71,48 @@ ul, ol {
 	}
 }
 
+.terrain-list {
+	@extend %flow-list;
+
+	justify-content: space-around;
+	text-align: center;
+
+	& img {
+		width: 60px;
+		height: auto;
+	}
+
+	& .icon {
+		// to make the abolute positioning of the pieces works
+		position: relative;
+	}
+
+	& img.piece {
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+
+	& > div {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		// 320px (lowest supported resolution)
+		// - 2 * 16px (site padding)
+		// - 2 * 5px (margin)
+		width: 278px;
+
+		& > :nth-child(2) {
+			flex-grow: 1;
+		}
+	}
+}
+
 .picture-grid {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
-	align-items: flex-stretch;
 
 	text-align: center;
 
