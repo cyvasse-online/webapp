@@ -18,7 +18,7 @@ function LogBox(selector) {
 	this.initKeyDownHandler();
 	this.initScrollHandlers();
 
-	this.msgArea.attr("disabled", false);
+	this.textarea.attr("disabled", false);
 
 	var logbox = this;
 
@@ -58,7 +58,7 @@ LogBox.prototype = {
 
 				if($.trim(this.value).length > 0) {
 					Module.wsClient.sendChatMsg(logbox.player, this.value);
-					logbox.addChatMessage(this.value, true);
+					logbox.addChatMessage("You", this.value, true);
 					this.value = "";
 				}
 			}
@@ -157,12 +157,12 @@ LogBox.prototype = {
 		this.addStatusMessage(msgStr);
 	},
 
-	addChatMessage: function(msgData, doNotScroll) {
+	addChatMessage: function(userName, msg, doNotScroll) {
 		if(doNotScroll === undefined)
 			doNotScroll = false;
 
 		// might allow basic html somewhen
-		this.addMessage("<strong>" + msgData.user + ":</strong> " + htmlEncode(msgData.content));
+		this.addMessage("<strong>" + userName + ":</strong> " + htmlEncode(msg));
 
 		if(!doNotScroll && this.scrToBtmVisible) {
 			this.msgArea.scrollTop(this.msgArea.prop("scrollHeight"));

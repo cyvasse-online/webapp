@@ -65,7 +65,7 @@ function loadPage(url, success, pushState) {
 	if(pushState === undefined)
 		pushState = true;
 
-	replaceRoot = $("#page-wrap");
+	replaceRoot = $(".page-wrap");
 
 	var realUrl = url;
 	if(realUrl.substr(-1) == "/")
@@ -84,18 +84,6 @@ function loadPage(url, success, pushState) {
 		if(typeof(success) === "function")
 			success();
 	});
-}
-
-function initLogBox() {
-	var playerStr;
-
-	switch(Module.gameMetaData.color) {
-		case "white": playerStr = SenderEnum.PLAYER_WHITE; break;
-		case "black": playerStr = SenderEnum.PLAYER_BLACK; break;
-		default:      throw new Error("undefined player");
-	}
-
-	Module.logbox = new LogBox("#logbox", playerStr);
 }
 
 function createGameParamValid(metaData) {
@@ -124,7 +112,10 @@ $(document).ready(function() {
 	}
 	else if(window.location.pathname.substr(0, 7) == "/match/") {
 		Module.wsClient = new CyvasseWSClient(window.location.hostname, function() {
-			Module.wsClient.joinGame(getMatchID(window.location.href), initLogBox);
+			Module.wsClient.joinGame(getMatchID(window.location.href), function() {
+				// initialize logbox
+				Module.logbox = new LogBox("#logbox");
+			});
 		});
 	}
 

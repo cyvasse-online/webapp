@@ -16,8 +16,8 @@
 </%doc>
 
 <div class='game-wrap'>
-	<div class='canvas-wrap vcenter-content'>
-		<canvas class='emscripten' id='canvas' oncontextmenu='event.preventDefault()'></canvas>
+	<div class='canvas-wrap'>
+		<canvas id='canvas' oncontextmenu='event.preventDefault()'></canvas>
 	</div>
 	<aside class='logbox' id='logbox'>
 		<div class='scroll-to-bottom'>

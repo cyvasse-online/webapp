@@ -8,7 +8,9 @@ function loadGame(matchID) {
 
 		var initGamePage = function() {
 			$.getScript("/cyvasse.js");
-			initLogBox();
+
+			// initialize logbox
+			Module.logbox = new LogBox("#logbox");
 		};
 
 		// loadPage() is a global function from cyvasse-webapp.js
@@ -30,7 +32,7 @@ function log(text) { console.log(text); }
 function CyvasseWSClient(hostname, onopen) {
 	this.websock = new WebSocket("ws://" + hostname + ":2516/");
 	this.nextMessageID = 1;
-	this.awaitingReply = [];
+	this.outMsgs = [];
 	this.cachedIngameRequests = [];
 
 	this.connWasOpen = false;
@@ -123,18 +125,9 @@ CyvasseWSClient.prototype = {
 		}
 		else if(msgObj.msgType === "serverReply") {
 			var replyData = msgObj.replyData;
-			var answeredRequestData;
+			var requestData = this.outMsgs[msgObj.msgID];
 
-			for(var reqDataIdx in this.awaitingReply) {
-				if(this.awaitingReply[reqDataIdx].messageID == msgObj.messageID) {
-					// remove the request from this.awaitingReply
-					// and save it to answeredRequests
-					answeredRequestData = this.awaitingReply.splice(reqDataIdx, 1)[0];
-					break;
-				}
-			}
-
-			if(answeredRequestData === undefined)
+			if(requestData === undefined)
 				throw new Error("Got a reply to an unknown server request: " + JSON.stringify(msgObj));
 			if(replyData.success === false) {
 				switch(replyData.error) {
@@ -148,12 +141,12 @@ CyvasseWSClient.prototype = {
 					//case "gameFull":
 					// TODO: Show meaningful error messages for other common errors
 					default:
-						var answeredRequestJson = JSON.stringify(answeredRequestData);
+						var requestJson = JSON.stringify(requestData);
 
 						if(!replyData.error)
-							throw new Error("Server request " + answeredRequestJson + " failed without error message");
+							throw new Error("Server request " + requestJson + " failed without error message");
 
-						var errMsg = "Server request " + answeredRequestJson + " failed, error: " + replyData.error;
+						var errMsg = "Server request " + requestJson + " failed, error: " + replyData.error;
 						if(replyData.errorDetail)
 							errMsg += " (errorDetail: " + replyData.errorDetail + ")";
 
@@ -163,7 +156,7 @@ CyvasseWSClient.prototype = {
 				return;
 			}
 
-			switch(answeredRequestData.action) {
+			switch(requestData.action) {
 				case "initComm":
 					if(this.afterInitComm)
 						this.afterInitComm();
@@ -220,10 +213,12 @@ CyvasseWSClient.prototype = {
 	sendRequest: function(requestData) {
 		this.send({
 			"msgType": "serverRequest",
-			"msgID": this.nextMessageID++,
+			"msgID": this.nextMessageID,
 			"requestData": requestData
 		});
-		this.awaitingReply.push(requestData);
+		this.outMsgs[this.nextMessageID] = requestData;
+
+		this.nextMessageID++;
 	},
 
 	initComm: function(success) {

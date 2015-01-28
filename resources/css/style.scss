@@ -167,7 +167,9 @@ body {
 	width: 100%;
 	padding: 0 16px;
 
-	@include respond-to(very-wide-screens) { width: 1440px; }
+	@include respond-to(very-wide-screens) {
+		&:not(.full-width) { width: 1440px; }
+	}
 }
 
 /** inside .page-header **/
@@ -253,7 +255,7 @@ body {
 .game-wrap {
 	@extend .container;
 
-	width: 100%;
+	width: 100% !important;
 	height: 100%;
 	padding: 0;
 }
@@ -277,8 +279,10 @@ body {
 }
 
 .canvas-wrap {
+	@extend .vcenter-content;
+
 	flex-grow: 1;
-	text-align: center;
+	align-items: center;
 }
 
 /* the canvas *must not* have any border or padding, or mouse coords will be wrong */
