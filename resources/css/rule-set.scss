@@ -115,11 +115,6 @@ ul, ol {
 	justify-content: space-around;
 
 	text-align: center;
-
-	@include respond-to-max($break-small) {
-		flex-direction: column;
-		align-items: center;
-	}
 }
 
 .movement-interference-grid {
