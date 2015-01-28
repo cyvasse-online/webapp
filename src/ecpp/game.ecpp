@@ -23,7 +23,10 @@
 		<div class='scroll-to-bottom'>
 			<div>Scroll to bottom</div>
 		</div>
-		<div class='message-area'></div>
+		<div class='message-area'>
+			<div class='message-viewport'>
+			</div>
+		</div>
 		<textarea class='chat-input' placeholder='Write a message...' disabled></textarea>
 	</aside>
 </div>

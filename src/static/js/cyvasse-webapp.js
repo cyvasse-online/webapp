@@ -109,10 +109,17 @@ $(document).ready(function() {
 		Module.wsClient = new CyvasseWSClient(window.location.hostname, function() {
 			Module.wsClient.subscrGameListUpdates("mikelepage", ["openRandomGames", "runningPublicGames"]);
 		});
-	}
-	else if(window.location.pathname.substr(0, 7) == "/match/") {
+	} else if(window.location.pathname.substr(0, 7) == "/match/") {
 		Module.wsClient = new CyvasseWSClient(window.location.hostname, function() {
-			Module.wsClient.joinGame(getMatchID(window.location.href), function() {
+			Module.gameMetaData = {
+				"matchID": getMatchID(window.location.href),
+				"userInfo": {
+					"registered": false, // not implemented yet
+					"screenName": "User" // TODO
+				}
+			};
+
+			Module.wsClient.joinGame(Module.gameMetaData, function() {
 				// initialize logbox
 				Module.logbox = new LogBox("#logbox");
 			});
@@ -126,7 +133,10 @@ $(document).ready(function() {
 			"random":  $("#opt-random").prop("checked"),
 			"public":  $("#opt-public").prop("checked"),
 			"extraRules": [ ],
-			//"userInfo": { ... }
+			"userInfo": {
+				"registered": false, // not implemented yet
+				"screenName": "User" // TODO
+			}
 		};
 
 		$("#create-game input").attr("disabled", true);

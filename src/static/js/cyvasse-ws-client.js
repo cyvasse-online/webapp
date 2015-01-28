@@ -19,8 +19,7 @@ function loadGame(matchID) {
 			initGamePage();
 		else
 			loadPage("/match/" + matchID, initGamePage);
-	}
-	else {
+	} else {
 		console.error("Tried to load cyvasse.js twice");
 	}
 }
@@ -37,7 +36,7 @@ function CyvasseWSClient(hostname, onopen) {
 
 	this.connWasOpen = false;
 
-	//this.debug = true;
+	this.debug = true;
 
 	var self = this;
 
@@ -61,8 +60,7 @@ function CyvasseWSClient(hostname, onopen) {
 
 			console.error("WebSocket communication error:");
 			console.log(ev);
-		}
-		else {
+		} else {
 			Module.setStatus("Couldn't establish a WebSocket connection");
 		}
 	};
@@ -74,8 +72,7 @@ function CyvasseWSClient(hostname, onopen) {
 				// e.g. when the page is reloaded
 				console.log("WebSocket connection closed:");
 				console.log(ev);
-			}
-			else {
+			} else {
 				Module.setStatus("The connection to the server was closed, see JavaScript console");
 				Module.setStatus = log;
 
@@ -91,18 +88,15 @@ CyvasseWSClient.prototype = {
 		var msgObj = JSON.parse(msgStr);
 
 		if(msgObj.msgType === "chatMsg") {
-			Module.logbox.addChatMessage(msgObj.msgData);
+			Module.logbox.addChatMessage(msgObj.msgData.user, msgObj.msgData.content);
 			this.sendChatMsgAck(msgObj.msgID);
-		}
-		else if(msgObj.msgType === "chatMsgAck") {
+		} else if(msgObj.msgType === "chatMsgAck") {
 			// TODO: Show tick next to chat message or something similar
-		}
-		else if(msgObj.msgType === "gameMsg") {
+		} else if(msgObj.msgType === "gameMsg") {
 			if(this.handleMessageIngame === undefined) {
 				console.log("Got a message for the game before it was loaded, caching.");
 				this.cachedIngameRequests.push(msgData);
-			}
-			else {
+			} else {
 					this.handleMessageIngame(msgData);
 			}
 
@@ -113,17 +107,13 @@ CyvasseWSClient.prototype = {
 				sender = SenderEnum.PLAYER_WHITE;
 
 			Module.logbox.addGameMessage(sender, msgObj);
-		}
-		else if(msgObj.msgType === "gameMsgAck") {
+		} else if(msgObj.msgType === "gameMsgAck") {
 
-		}
-		else if(msgObj.msgType === "gameMsgErr") {
+		} else if(msgObj.msgType === "gameMsgErr") {
 
-		}
-		else if(msgObj.msgType === "notification") {
+		} else if(msgObj.msgType === "notification") {
 
-		}
-		else if(msgObj.msgType === "serverReply") {
+		} else if(msgObj.msgType === "serverReply") {
 			var replyData = msgObj.replyData;
 			var requestData = this.outMsgs[msgObj.msgID];
 
@@ -187,11 +177,9 @@ CyvasseWSClient.prototype = {
 				//case "unsubscrGameListUpdates":
 				//	break;
 			}
-		}
-		else if(msgObj.msgType === "serverRequest") {
+		} else if(msgObj.msgType === "serverRequest") {
 			// Do nothing, just assume this doesn't happen
-		}
-		else {
+		} else {
 			// Ignore the message
 			// TODO: Or maybe log an error somewhere?
 		}
@@ -233,21 +221,19 @@ CyvasseWSClient.prototype = {
 			this.afterInitComm = success;
 	},
 
-	createGame: function(metaData) {
+	createGame: function(param) {
 		this.sendRequest({
 			"action": "createGame",
-			"param": metaData
+			"param": param
 		});
 	},
 
-	joinGame: function(matchID, success) {
+	joinGame: function(param, success) {
 		Module.gameMetaData.matchID = matchID;
 
 		this.sendRequest({
 			"action": "joinGame",
-			"param": {
-				"matchID": matchID
-			}
+			"param": param
 		});
 
 		if(typeof success === "function")
@@ -279,9 +265,6 @@ CyvasseWSClient.prototype = {
 			"msgType": "chatMsg",
 			"msgID": this.nextMessageID++,
 			"msgData": {
-				"userInfo": {
-					// TODO
-				},
 				"content": content
 			}
 		});

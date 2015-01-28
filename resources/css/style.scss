@@ -269,7 +269,7 @@ body {
 .random-match {
 	padding: .5em;
 	margin: 0 1em 0 0;
-	border: 1px solid #333;
+	border: 2px solid $borderGrey;
 	cursor: pointer;
 	transition: background-color .2s;
 }
@@ -301,38 +301,52 @@ canvas {
 	width: 25%;
 	display: flex;
 	flex-direction: column;
+	position: relative;
 
 	border-left: 2px solid $borderGrey;
 }
 
 .scroll-to-bottom {
-	position: relative;
+	position: absolute;
 	top: -2em;
+	right: 0;
+	left: 0;
+
 	height: 2em;
 	line-height: 2em;
+	font-size: .9em;
+	text-align: center;
 
 	border: 0 none;
 	border-bottom: 2px solid $borderGrey;
 	background-color: #eee;
 	cursor: pointer;
-	transition: background-color .2s;
+	transition: background-color .2s, top .4s;
 
 	z-index: 1;
+
+	&.visible {
+		top: 0;
+	}
 }
 
 .scroll-to-bottom:hover {
 	background-color: #ddd;
 }
 
-
-.scroll-to-bottom > div {
-	font-size: .9em;
-	text-align: center;
-}
-
 .message-area {
 	flex-grow: 1;
 	padding: .3em;
+	position: relative;
+}
+
+.message-viewport {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
 	overflow-y: auto;
 }
 
