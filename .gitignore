@@ -47,7 +47,6 @@ cyvasse.js.mem
 
 *.deps
 *.html
-*.map
 *.o
 *.a
 
