@@ -12,8 +12,6 @@ static
 !/src/static
 pagemeta.yml
 !/src/pagemeta.yml
-news.yml
-!/resources/news.yml
 
 .deps
 config.log
