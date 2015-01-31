@@ -12,19 +12,28 @@ $break-medium: 1280px;
 $break-large:  1440px;
 
 @mixin respond-to-max($break) {
+	@if (type-of($break) != "number") {
+		@error "$break has to be a number";
+	}
 	@media only screen and (max-width: $break) { @content; }
 }
 
 @mixin respond-to-more-than($break) {
+	@if (type-of($break) != "number") {
+		@error "$break has to be a number";
+	}
 	@media only screen and (min-width: $break + 1) { @content; }
 }
 
 @mixin respond-to-between($lowerBreak, $upperBreak) {
+	@if (type-of($lowerBreak) != "number" or type-of($upperBreak) != "number") {
+		@error "$lowerBreak and $upperBreak have to be numbers";
+	}
 	@media only screen and (min-width: $lowerBreak + 1) and (max-width: $upperBreak) { @content; }
 }
 
 @mixin respond-to($media) {
-	@if $media == tiny-screens {
+	@if ($media == tiny-screens) {
 		@include respond-to-max($break-tiny) { @content; }
 	}
 	@else if $media == small-screens {

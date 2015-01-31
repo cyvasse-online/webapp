@@ -1,0 +1,125 @@
+/* Mixing to make flexbox work in all browsers that support it
+   The -ms-* properties look different sometimes because IE 10
+   uses an older syntax and IE 11 supports flexbox unprefixed */
+
+// --- flex container ---
+
+@mixin display-flex {
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+@mixin flex-direction($val) {
+  -ms-flex-direction: $val;
+  -webkit-flex-direction: $val;
+  flex-direction: $val;
+}
+
+@mixin flex-wrap($val) {
+  -ms-flex-wrap: $val;
+  -webkit-flex-wrap: $val;
+  flex-wrap: $val;
+}
+
+@mixin flex-flow($val) {
+  -ms-flex-flow: $val;
+  -webkit-flex-flow: $val;
+  flex-flow: $val;
+}
+
+@mixin justify-content($val) {
+  @if ($val == flex-start) {
+    -ms-flex-pack: start;
+  } @else if ($val == flex-end) {
+    -ms-flex-pack: end;
+  } @else if ($val == center) {
+    -ms-flex-pack: center;
+  } @else if ($val == space-between) {
+    -ms-flex-pack: justify;
+  } @else if ($val == space-around) {
+    -ms-flex-pack: distribute;
+  } @else {
+    @error "invalid value for justify-content given";
+  }
+
+  -webkit-justify-content: $val;
+  justify-content: $val;
+}
+
+@mixin align-items($val) {
+  @if ($val == flex-start) {
+    -ms-flex-align: start;
+  } @else if ($val == flex-end) {
+    -ms-flex-align: end;
+  } @else if ($val == center) {
+    -ms-flex-align: center;
+  } @else if ($val == baseline) {
+    -ms-flex-align: baseline;
+  } @else if ($val == stretch) {
+    -ms-flex-align: stretch;
+  } @else {
+    @error "invalid value for align-items given";
+  }
+
+  -webkit-align-items: $val;
+  align-items: $val;
+}
+
+@mixin align-content($val) {
+  @if ($val == flex-start) {
+    -ms-flex-line-pack: start;
+  } @else if ($val == flex-end) {
+    -ms-flex-line-pack: end;
+  } @else if ($val == center) {
+    -ms-flex-line-pack: center;
+  } @else if ($val == space-between) {
+    -ms-flex-line-pack: justify;
+  } @else if ($val == space-around) {
+    -ms-flex-line-pack: distribute;
+  } @else if ($val == stretch) {
+    -ms-flex-line-pack: stretch;
+  } @else {
+    @error "invalid value for justify-content given";
+  }
+
+  -webkit-align-content: $val;
+  align-content: $val;
+}
+
+// --- flex items ---
+
+@mixin order($val) {
+  -ms-flex-order: $val;
+  -webkit-order: $val;
+  order: $val;
+}
+
+/* flex-grow, flex-shrink and flex-basis are not supported in the
+   older flexbox syntax, can be set through the flex property */
+@mixin flex($val) {
+  -ms-flex: $val;
+  -webkit-flex: $val;
+  flex: $val;
+}
+
+@mixin align-self($val) {
+  @if ($val == flex-start) {
+    -ms-flex-item-align: start;
+  } @else if ($val == flex-end) {
+    -ms-flex-item-align: end;
+  } @else if ($val == center) {
+    -ms-flex-item-align: center;
+  } @else if ($val == baseline) {
+    -ms-flex-item-align: baseline;
+  } @else if ($val == stretch) {
+    -ms-flex-item-align: stretch;
+  } @else if ($val == auto) {
+    -ms-flex-item-align: auto;
+  } @else {
+    @error "invalid value for align-self given";
+  }
+
+  -webkit-align-self: $val;
+  align-self: $val;
+}

@@ -1,4 +1,4 @@
-@import "respond-to.scss";
+@import "flexbox", "respond-to.scss";
 @import "variables.scss";
 
 img {
@@ -11,9 +11,9 @@ img {
 }
 
 figure {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
+	@include display-flex;
+	@include flex-direction(column);
+	@include justify-content(space-around);
 
 	max-width: 100%;
 
@@ -34,8 +34,8 @@ ul, ol {
 }
 
 %flow-list {
-	display: flex;
-	flex-wrap: wrap;
+	@include display-flex;
+	@include flex-wrap(wrap);
 
 	& > div {
 		margin: .4em;
@@ -54,8 +54,8 @@ ul, ol {
 	}
 
 	& > div {
-		display: flex;
-		align-items: center;
+		@include display-flex;
+		@include align-items(center);
 
 		width: 230px;
 		padding-left: .6em;
@@ -66,7 +66,7 @@ ul, ol {
 		}
 
 		& > :nth-child(2) {
-			flex-grow: 1;
+			@include flex(1);
 		}
 	}
 }
@@ -74,7 +74,7 @@ ul, ol {
 .terrain-list {
 	@extend %flow-list;
 
-	justify-content: space-around;
+	@include justify-content(space-around);
 	text-align: center;
 
 	& img {
@@ -94,9 +94,9 @@ ul, ol {
 	}
 
 	& > div {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+		@include display-flex;
+		@include align-items(center);
+		@include justify-content(space-between);
 
 		// 320px (lowest supported resolution)
 		// - 2 * 16px (site padding)
@@ -104,15 +104,15 @@ ul, ol {
 		width: 278px;
 
 		& > :nth-child(2) {
-			flex-grow: 1;
+			@include flex(1);
 		}
 	}
 }
 
 .picture-grid {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-around;
+	@include display-flex;
+	@include flex-wrap(wrap);
+	@include justify-content(space-around);
 
 	text-align: center;
 }
@@ -123,11 +123,11 @@ ul, ol {
 
 @include respond-to-more-than($break-medium) {
 	.movement-interference-grid {
-		& img:nth-child(1) { order: 1; }
-		& img:nth-child(2) { order: 4; }
-		& img:nth-child(3) { order: 2; }
-		& img:nth-child(4) { order: 5; }
-		& img:nth-child(5) { order: 3; }
-		& img:nth-child(6) { order: 6; }
+		& img:nth-child(1) { @include order(1); }
+		& img:nth-child(2) { @include order(4); }
+		& img:nth-child(3) { @include order(2); }
+		& img:nth-child(4) { @include order(5); }
+		& img:nth-child(5) { @include order(3); }
+		& img:nth-child(6) { @include order(6); }
 	}
 }

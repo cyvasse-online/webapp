@@ -1,0 +1,74 @@
+/* font */
+@font-face {
+	font-family: 'Morpheus';
+	src: url('/fonts/morpheus.woff');
+}
+
+/* border-box fix */
+*, *:before, *:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+html {
+	height: 100%;
+	width: 100%;
+
+	background: #fff;
+	color: #000;
+}
+
+a {
+	color: #000;
+	transition: color .2s;
+
+	&:hover {
+		color: #666;
+	}
+}
+
+th {
+	text-align: left;
+}
+
+th, td {
+	padding: .25em .75em;
+}
+
+/* CSS classes to be applied to various elements */
+.first-last-child-without-margin {
+	& > :first-child {
+		margin-top: 0;
+	}
+	& > :last-child {
+		margin-bottom: 0;
+	}
+}
+
+.vcenter-content {
+	@include display-flex;
+	@include flex-direction(column);
+	@include justify-content(center);
+}
+
+/* animations */
+.ani-loading-dot {
+	position: relative;
+	padding-right: .6em;
+	animation: {
+		name: loading;
+		duration: 1s;
+		timing-function: linear;
+		iteration-count: infinite;
+	}
+}
+
+@keyframes loading {
+	0%   { left: 0 }
+	33%  { left: 0 }
+	34%  { left: .3em }
+	66%  { left: .3em }
+	67%  { left: .6em }
+	100% { left: .6em }
+}

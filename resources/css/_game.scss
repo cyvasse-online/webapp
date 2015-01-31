@@ -1,0 +1,105 @@
+.game-wrap {
+	@extend .container;
+
+	width: 100% !important;
+	height: 100%;
+	padding: 0;
+}
+
+.canvas-wrap {
+	@extend .vcenter-content;
+
+	@include flex(1);
+	@include align-items(center);
+}
+
+/* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+canvas {
+	padding: 0;
+	border: 0 none;
+}
+
+/* will be shown instead of the canvas in case the game can't be loaded / started */
+.content-missing-msg {
+	font-size: 5em;
+	color: #888;
+}
+
+.logbox {
+	width: 25%;
+	@include display-flex;
+	@include flex-direction(column);
+	position: relative;
+
+	border-left: 2px solid $borderGrey;
+}
+
+.scroll-to-bottom {
+	position: absolute;
+	top: -2em;
+	right: 0;
+	left: 0;
+
+	height: 2em;
+	line-height: 2em;
+	font-size: .9em;
+	text-align: center;
+
+	border: 0 none;
+	border-bottom: 2px solid $borderGrey;
+	background-color: #eee;
+	cursor: pointer;
+	transition: background-color .2s, top .4s;
+
+	z-index: 1;
+
+	&.visible {
+		top: 0;
+	}
+}
+
+.scroll-to-bottom:hover {
+	background-color: #ddd;
+}
+
+.message-area {
+	@include flex(1);
+	padding: .3em;
+	position: relative;
+}
+
+.message-viewport {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+
+	overflow-y: auto;
+}
+
+.logbox-msg {
+	word-wrap: break-word;
+	margin: .2em .3em;
+}
+
+.status-msg {
+	color: #666;
+}
+
+.chat-input {
+	height: 3.95em;
+	width: 100%;
+	padding: .2em .3em;
+
+	border: {
+		style: solid;
+		width: 2px 0 0 0;
+		color: $borderGrey;
+	}
+
+	resize: none;
+	display: block;
+	outline: none;
+	box-shadow: none;
+}

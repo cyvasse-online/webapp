@@ -1,0 +1,60 @@
+.logo {
+	font-family: Morpheus;
+	margin-top: -5px; // fix this fonts weird height
+	color: #000;
+}
+
+#status {
+	font: {
+		size: .4em;
+		weight: bold;
+	}
+	color: #888;
+}
+
+.external-sites-icons {
+	font-size: 1.2em;
+	position: relative;
+}
+
+@include respond-to(tiny-screens) {
+	.external-sites-icons-h { display: none; }
+}
+
+@include respond-to-more-than($break-tiny) {
+	.external-sites-icons-v { display: none; }
+}
+
+#external-sites-dd + label {
+	padding: 0;
+	border: 0 none;
+	cursor: pointer;
+
+	transition: color .2s;
+
+	&:hover {
+		color: #666;
+		background-color: transparent;
+	}
+
+	// overwrite non-checked checkbox default visibility
+	i {
+		visibility: visible;
+	}
+}
+
+#external-sites-dd-items {
+	position: absolute;
+	top: 146%; // just a value that made it look good
+
+	background-color: #fff;
+	border: 1px solid $borderGrey;
+	border-radius: 5px;
+	opacity: 0;
+
+	transition: opacity .4s;
+
+	#external-sites-dd:checked ~ & {
+		opacity: 1;
+	}
+}

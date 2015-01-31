@@ -1,0 +1,55 @@
+body {
+	@include display-flex;
+	@include flex-direction(column);
+
+	min-height: 100%;
+}
+
+.page-header {
+	padding: .2em 0;
+	border-bottom: 2px solid $borderGrey;
+
+	// let the "scroll to bottom" button hide "behind" the header
+	background-color: #fff;
+	z-index: 2;
+
+	font-size: 40px;
+	@include respond-to-max($break-small) {
+		font-size: 30px;
+	}
+
+	a {
+		text-decoration: none;
+	}
+
+	.container {
+		justify-content: space-between;
+		align-items: center;
+	}
+}
+
+.page-wrap {
+	@include flex(1);
+}
+
+.page-footer {
+	padding: .2em 0;
+	border-top: 2px solid $borderGrey;
+}
+
+.container {
+	@include display-flex;
+	margin: 0 auto;
+
+	width: 100%;
+	padding: 0 16px;
+
+	&:not(.full-width) { max-width: 1440px; }
+}
+
+.page-content {
+	@extend .container;
+
+	@include flex-direction(column);
+	padding: 16px;
+}
