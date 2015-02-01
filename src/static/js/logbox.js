@@ -109,16 +109,29 @@ LogBox.prototype = {
 					throw new Error("Communication error!");
 				break;
 			case "move":
-				msgStr += "moved his " + capitalizeEachWord(msgData.param.pieceType) +
+				msgStr += "moved his " + capitalizeEachWord(msgData.param.type) +
 					" from " + msgData.param.oldPos +
 					" to " + msgData.param.newPos + ".";
+				break;
+			case "moveCapture":
+				msgStr += "moved his " + capitalizeEachWord(msgData.param.type) +
+					" from " + msgData.param.atkPiece.oldPos +
+					" to " + msgData.param.atkPiece.newPos + ", " +
+					" taking your " + capitalizeEachWord(msgData.param.defPiece.type) + ".";
 				break;
 			case "promote":
 				msgStr += "promoted his " + capitalizeEachWord(msgData.param.origType) +
 					" to a " + capitalizeEachWord(msgData.param.newType) + ".";
 				break;
+			case "resign":
+				msgStr += "resigned";
+				break;
+			case "endTurn":
+			case "setOpeningArray":
+				// don't log anything
+				return;
 			default:
-				throw new Error("Unknown game update received.");
+				throw new Error("Unknown game update received: " + msgData.action);
 		}
 
 		this.addStatusMessage(msgStr);
