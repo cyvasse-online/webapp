@@ -100,7 +100,7 @@ CyvasseWSClient.prototype = {
 				this.handleMessageIngame(msgStr);
 			}
 
-			Module.logbox.addGameMessage(sender, msgObj);
+			Module.logbox.addGameMessage(msgObj);
 		} else if(msgObj.msgType === "gameMsgAck") {
 
 		} else if(msgObj.msgType === "gameMsgErr") {
