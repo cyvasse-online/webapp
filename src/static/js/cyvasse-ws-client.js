@@ -95,16 +95,10 @@ CyvasseWSClient.prototype = {
 		} else if(msgObj.msgType === "gameMsg") {
 			if(this.handleMessageIngame === undefined) {
 				console.log("Got a message for the game before it was loaded, caching.");
-				this.cachedIngameRequests.push(msgData);
+				this.cachedIngameRequests.push(msgStr);
 			} else {
-					this.handleMessageIngame(msgData);
+				this.handleMessageIngame(msgStr);
 			}
-
-			var sender;
-			if(playersColorToSenderEnum(Module.gameMetaData.color) == SenderEnum.PLAYER_WHITE)
-				sender = SenderEnum.PLAYER_BLACK;
-			else
-				sender = SenderEnum.PLAYER_WHITE;
 
 			Module.logbox.addGameMessage(sender, msgObj);
 		} else if(msgObj.msgType === "gameMsgAck") {
@@ -229,8 +223,6 @@ CyvasseWSClient.prototype = {
 	},
 
 	joinGame: function(param, success) {
-		Module.gameMetaData.matchID = matchID;
-
 		this.sendRequest({
 			"action": "joinGame",
 			"param": param

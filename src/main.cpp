@@ -45,7 +45,6 @@ int main()
 	try
 	{
 		tnt::Tntnet app;
-		tnt::TntConfig& tntConfig = tnt::TntConfig::it();
 
 		app.listen(listenPort);
 		app.setAppName("cyvasse-online");

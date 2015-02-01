@@ -6,7 +6,7 @@ function scrolledToBottom(elem) {
 function LogBox(selector) {
 	this.selector = selector;
 
-	this.unreadMessages = 0;
+	this.unreadMsgs = 0;
 	this.origDocTitle = document.title;
 
 	this.viewport = $(this.selector + " .message-viewport");
@@ -19,8 +19,8 @@ function LogBox(selector) {
 
 	// event handlers
 	$(document).on("visibilitychange", function() {
-		if(!document.hidden && scrolledToBottom($(this.viewport)))
-			logbox.resetUnreadMessages();
+		if(!document.hidden && logbox.unreadMsgs > 0 && scrolledToBottom($(logbox.viewport)))
+			logbox.resetUnreadMsgs();
 	});
 
 	this.textarea.keydown(function(event) {
@@ -29,19 +29,27 @@ function LogBox(selector) {
 
 			if($.trim(this.value).length > 0) {
 				Module.wsClient.sendChatMsg(this.value);
-				logbox.addChatMessage("You", this.value, false);
+				logbox.addChatMessage("You", this.value, true);
 				this.value = "";
 			}
 		}
 	});
 
 	this.scrToBtm.click(function() {
-		logbox.resetUnreadMessages();
+		if(logbox.unreadMsgs > 0)
+			logbox.resetUnreadMsgs();
+		else
+			logbox.scrollDown();
 	});
 
 	this.viewport.scroll(function() {
 		if(scrolledToBottom($(this)))
-			logbox.resetUnreadMessages();
+		{
+			logbox.hideScrToBtm();
+
+			if(logbox.unreadMsgs > 0)
+				logbox.resetUnreadMsgs();
+		}
 		else
 			logbox.showScrToBtm();
 	});
@@ -56,18 +64,17 @@ LogBox.prototype = {
 	hideScrToBtm: function() { this.scrToBtm.removeClass("visible"); },
 
 	incUnreadMsgs: function() {
-		this.unreadMessages++;
-		document.title = "(" + this.unreadMessages + ") " + this.origDocTitle;
-		this.scrToBtm.find("div").html("(" + this.unreadMessages + ") Scroll to bottom");
+		this.unreadMsgs++;
+		document.title = "(" + this.unreadMsgs + ") " + this.origDocTitle;
+		this.scrToBtm.find("div").html("(" + this.unreadMsgs + ") Scroll to bottom");
 	},
 
-	resetUnreadMessages: function() {
-		this.unreadMessages = 0;
+	resetUnreadMsgs: function() {
+		this.unreadMsgs = 0;
 		this.scrToBtm.find("div").html("Scroll to bottom");
 		document.title = this.origDocTitle;
 
 		this.scrollDown();
-		this.hideScrToBtm();
 	},
 
 	addMessage: function(msgHtml) {
@@ -78,14 +85,11 @@ LogBox.prototype = {
 
 		$("<div class='logbox-msg'>" + msgHtml + "</div>").appendTo(this.viewport);
 
-		if(atBottom) {
+		if(atBottom)
 			this.scrollDown();
 
-			if(document.hidden)
-				this.incUnreadMsgs();
-		} else {
+		if(!atBottom || document.hidden)
 			this.incUnreadMsgs();
-		}
 	},
 
 	addStatusMessage: function(msgHtml) {
@@ -93,20 +97,25 @@ LogBox.prototype = {
 	},
 
 	addGameMessage: function(msgData) {
-		var msgStr = msgData.user;
+		var msgStr = "The opponent ";
 
 		switch(msgData.action) {
-			case "leave setup":
-				msgStr += " finished setting up.";
+			case "setIsReady":
+				if(msgData.param === true)
+					msgStr += "finished setting up.";
+				else if(msgData.param === false)
+					msgStr += "???"; // TODO
+				else
+					throw new Error("Communication error!");
 				break;
-			case "move piece":
-				msgStr += " moved his " + capitalizeEachWord(msgObj.data["piece type"]) +
-					" from " + msgObj.data["old position"] +
-					" to " + msgObj.data["new position"] + ".";
+			case "move":
+				msgStr += "moved his " + capitalizeEachWord(msgData.param.pieceType) +
+					" from " + msgData.param.oldPos +
+					" to " + msgData.param.newPos + ".";
 				break;
-			case "promote piece":
-				msgStr += " promoted his " + capitalizeEachWord(msgObj.data.from) +
-					" to a " + capitalizeEachWord(msgObj.data.to) + ".";
+			case "promote":
+				msgStr += "promoted his " + capitalizeEachWord(msgData.param.origType) +
+					" to a " + capitalizeEachWord(msgData.param.newType) + ".";
 				break;
 			default:
 				throw new Error("Unknown game update received.");
@@ -115,14 +124,14 @@ LogBox.prototype = {
 		this.addStatusMessage(msgStr);
 	},
 
-	addChatMessage: function(userName, msg, doNotScroll) {
-		if(doNotScroll === undefined)
-			doNotScroll = true;
+	addChatMessage: function(userName, msg, ownMessage) {
+		if(ownMessage === undefined)
+			ownMessage = false;
 
 		// might allow basic html somewhen
 		this.addMessage("<strong>" + userName + ":</strong> " + htmlEncode(msg));
 
-		if(!doNotScroll)
-			this.resetUnreadMessages();
+		if(ownMessage)
+			this.resetUnreadMsgs();
 	}
 };
