@@ -114,7 +114,6 @@ $(document).ready(function() {
 			Module.gameMetaData = {
 				"matchID": getMatchID(window.location.href),
 				"userInfo": {
-					"registered": false, // not implemented yet
 					"screenName": "User" // TODO
 				}
 			};

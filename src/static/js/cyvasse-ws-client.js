@@ -100,13 +100,38 @@ CyvasseWSClient.prototype = {
 				this.handleMessageIngame(msgStr);
 			}
 
-			Module.logbox.addGameMessage(msgObj);
+			Module.logbox.addGameMessage(msgObj.msgData);
 		} else if(msgObj.msgType === "gameMsgAck") {
 
 		} else if(msgObj.msgType === "gameMsgErr") {
 
 		} else if(msgObj.msgType === "notification") {
+			var data = msgObj.notificationData;
 
+			switch(data.type) {
+				case "commError":
+					setStatus("Server communication error! (see JavaScript console)");
+					throw new Error("Server communication error: " + data.errMsg);
+				case "listUpdate":
+					// TODO
+					break;
+				case "userJoined":
+					if(data.role == "player") {
+						Module.gameMetaData.opponentInfo = {
+							"registered": data.registered,
+							"screenName": data.screenName
+						};
+						Module.logbox.addStatusMessage("<em>" + data.screenName + "</em> joined.");
+					}
+					// TODO: Also add a message when a spectator joins?
+					break;
+				case "userLeft":
+					if(data.screenName == Module.gameMetaData.opponentInfo.screenName) {
+						Module.logbox.addStatusMessage("<em>" + data.screenName + "</em> left.");
+					}
+					// TODO: Also add a message when a spectator leaves?
+					break;
+			}
 		} else if(msgObj.msgType === "serverReply") {
 			var replyData = msgObj.replyData;
 			var requestData = this.outMsgs[msgObj.msgID];
