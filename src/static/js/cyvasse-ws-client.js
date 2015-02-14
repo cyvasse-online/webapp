@@ -126,9 +126,9 @@ CyvasseWSClient.prototype = {
 					// TODO: Also add a message when a spectator joins?
 					break;
 				case "userLeft":
-					if(data.screenName == Module.gameMetaData.opponentInfo.screenName) {
-						Module.logbox.addStatusMessage("<em>" + data.screenName + "</em> left.");
-					}
+					//if(data.screenName == Module.gameMetaData.opponentInfo.screenName) {
+					//	Module.logbox.addStatusMessage("<em>" + data.screenName + "</em> left.");
+					//}
 					// TODO: Also add a message when a spectator leaves?
 					break;
 			}
@@ -139,7 +139,7 @@ CyvasseWSClient.prototype = {
 			if(requestData === undefined)
 				throw new Error("Got a reply to an unknown server request: " + JSON.stringify(msgObj));
 			if(replyData.success === false) {
-				switch(replyData.error) {
+				switch(replyData.errMsg) {
 					case "gameNotFound":
 						Module.setStatus("");
 
@@ -152,12 +152,12 @@ CyvasseWSClient.prototype = {
 					default:
 						var requestJson = JSON.stringify(requestData);
 
-						if(!replyData.error)
+						if(!replyData.errMsg)
 							throw new Error("Server request " + requestJson + " failed without error message");
 
-						var errMsg = "Server request " + requestJson + " failed, error: " + replyData.error;
-						if(replyData.errorDetail)
-							errMsg += " (errorDetail: " + replyData.errorDetail + ")";
+						var errMsg = "Server request " + requestJson + " failed, error: " + replyData.errMsg;
+						if(replyData.errDetail)
+							errMsg += " (errorDetail: " + replyData.errDetail + ")";
 
 						throw new Error(errMsg);
 				}

@@ -30,6 +30,7 @@ body {
 
 .page-wrap {
 	@include flex(1);
+	@include display-flex;
 }
 
 .page-footer {

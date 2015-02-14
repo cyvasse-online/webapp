@@ -15,20 +15,18 @@
 	If not, see <http://www.gnu.org/licenses/>.
 </%doc>
 
-<div class='game-wrap'>
-	<div class='canvas-wrap'>
-		<canvas id='canvas' oncontextmenu='event.preventDefault()'></canvas>
-	</div>
-	<aside class='logbox' id='logbox'>
-		<div class='scroll-to-bottom'>
-			<div>Scroll to bottom</div>
-		</div>
-		<div class='message-area'>
-			<div class='message-viewport'>
-			</div>
-		</div>
-		<textarea class='chat-input' placeholder='Write a message...' disabled></textarea>
-	</aside>
+<div class='canvas-wrap'>
+	<canvas id='canvas' oncontextmenu='event.preventDefault()'></canvas>
 </div>
+<aside class='logbox' id='logbox'>
+	<div class='scroll-to-bottom'>
+		<div>Scroll to bottom</div>
+	</div>
+	<div class='message-area'>
+		<div class='message-viewport'>
+		</div>
+	</div>
+	<textarea class='chat-input' placeholder='Write a message...' disabled></textarea>
+</aside>
 
 <script src='/js/logbox.js'></script>
