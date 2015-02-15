@@ -101,23 +101,18 @@ LogBox.prototype = {
 
 		switch(msgData.action) {
 			case "setIsReady":
-				if(msgData.param === true)
-					msgStr += "finished setting up.";
-				else if(msgData.param === false)
-					msgStr += "???"; // TODO
-				else
-					throw new Error("Communication error!");
+				msgStr += "finished setting up.";
 				break;
 			case "move":
-				msgStr += "moved his " + capitalizeEachWord(msgData.param.type) +
+				msgStr += "moved his " + capitalizeEachWord(msgData.param.pieceType) +
 					" from " + msgData.param.oldPos +
 					" to " + msgData.param.newPos + ".";
 				break;
 			case "moveCapture":
-				msgStr += "moved his " + capitalizeEachWord(msgData.param.type) +
+				msgStr += "moved his " + capitalizeEachWord(msgData.param.atkPiece.pieceType) +
 					" from " + msgData.param.atkPiece.oldPos +
 					" to " + msgData.param.atkPiece.newPos + ", " +
-					" taking your " + capitalizeEachWord(msgData.param.defPiece.type) + ".";
+					" taking your " + capitalizeEachWord(msgData.param.defPiece.pieceType) + ".";
 				break;
 			case "promote":
 				msgStr += "promoted his " + capitalizeEachWord(msgData.param.origType) +

@@ -9,6 +9,8 @@ function loadGame(matchID) {
 		var initGamePage = function() {
 			$.getScript("/cyvasse.js");
 
+			$(".page-header .container, .page-footer .container").addClass("full-width");
+
 			// initialize logbox
 			Module.logbox = new LogBox("#logbox");
 		};
