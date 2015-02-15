@@ -118,13 +118,13 @@ CyvasseWSClient.prototype = {
 					// TODO
 					break;
 				case "userJoined":
-					if(data.role == "player") {
+					//if(data.role == "player") {
 						Module.gameMetaData.opponentInfo = {
 							"registered": data.registered,
 							"screenName": data.screenName
 						};
 						Module.logbox.addStatusMessage("<em>" + data.screenName + "</em> joined.");
-					}
+					//}
 					// TODO: Also add a message when a spectator joins?
 					break;
 				case "userLeft":
