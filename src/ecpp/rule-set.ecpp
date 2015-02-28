@@ -20,6 +20,7 @@
 <div class='page-content'>
 	<div class='first-last-child-without-margin'>
 	<%cpp>
+		// TODO: Check whether request.getArg("name") contains ".."
 		std::ifstream ifs("resources/rule-sets/" + request.getArg("name") + ".html");
 		if(!ifs)
 			reply.out() << "<h2>Rule set not found</h2>";

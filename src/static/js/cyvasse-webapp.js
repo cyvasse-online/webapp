@@ -109,6 +109,30 @@ $(document).ready(function() {
 		Module.wsClient = new CyvasseWSClient(window.location.hostname, function() {
 			Module.wsClient.subscrGameListUpdates("mikelepage", ["openRandomGames", "runningPublicGames"]);
 		});
+
+		$("#create-game-button").click(function() {
+			Module.gameMetaData = {
+				"ruleSet": "mikelepage", // hardcoded for now
+				"color":   $("input:radio[name='play-as']:checked").val(),
+				"random":  $("#opt-random").prop("checked"),
+				"public":  $("#opt-public").prop("checked"),
+				"extraRules": [ ],
+				"userInfo": {
+					"registered": false, // not implemented yet
+					"screenName": "User" // TODO
+				}
+			};
+
+			$("#create-game input").attr("disabled", true);
+			$("#create-game button").attr("disabled", true);
+			$("#create-game-button").html("Creating game<span class='ani-loading-dot'>.</span>");
+
+
+			//if(Module.wsClient.websock.readyState != 1)
+			//	TODO: Error message
+
+			Module.wsClient.createGame(Module.gameMetaData);
+		});
 	} else if(window.location.pathname.substr(0, 7) == "/match/") {
 		Module.wsClient = new CyvasseWSClient(window.location.hostname, function() {
 			Module.gameMetaData = {
@@ -124,30 +148,6 @@ $(document).ready(function() {
 			});
 		});
 	}
-
-	$("#create-game-button").click(function() {
-		Module.gameMetaData = {
-			"ruleSet": "mikelepage", // hardcoded for now
-			"color":   $("input:radio[name='play-as']:checked").val(),
-			"random":  $("#opt-random").prop("checked"),
-			"public":  $("#opt-public").prop("checked"),
-			"extraRules": [ ],
-			"userInfo": {
-				"registered": false, // not implemented yet
-				"screenName": "User" // TODO
-			}
-		};
-
-		$("#create-game input").attr("disabled", true);
-		$("#create-game button").attr("disabled", true);
-		$("#create-game-button").html("Creating game<span class='ani-loading-dot'>.</span>");
-
-
-		//if(Module.wsClient.websock.readyState != 1)
-		//	TODO: Error message
-
-		Module.wsClient.createGame(Module.gameMetaData);
-	});
 
 	var externalSitesCheckbox = $("#external-sites-dd");
 

@@ -23,8 +23,8 @@ body {
 	}
 
 	.container {
-		justify-content: space-between;
-		align-items: center;
+		@include justify-content(space-between);
+		@include align-items(center);
 	}
 }
 
