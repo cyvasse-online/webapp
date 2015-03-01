@@ -18,15 +18,25 @@
 <div class='canvas-wrap'>
 	<canvas id='canvas' oncontextmenu='event.preventDefault()'></canvas>
 </div>
-<aside class='logbox' id='logbox'>
-	<div class='scroll-to-bottom'>
-		<div>Scroll to bottom</div>
-	</div>
-	<div class='message-area'>
-		<div class='message-viewport'>
+<aside class='side-wrap'>
+	<div class='logbox-header-bar'>
+		<div class='nickname-input-wrap'>
+			<span>Nickname: </span><input type='text' class='nickname-input' />
+		</div>
+		<div class='rules-link-box'>
+			<# TODO: set href dynamically when there are more rule sets #>
+			<a target='_blank' href='/rule_sets/mikelepage'>Rules</a>
 		</div>
 	</div>
-	<textarea class='chat-input' placeholder='Write a message...' disabled></textarea>
+	<div class='logbox' id='logbox'>
+		<div class='scroll-to-bottom'>
+			<div>Scroll to bottom</div>
+		</div>
+		<div class='message-area'>
+			<div class='message-viewport'></div>
+		</div>
+		<textarea class='chat-input' placeholder='Write a message...' disabled></textarea>
+	</div>
 </aside>
 
 <script src='/js/logbox.js'></script>

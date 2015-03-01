@@ -9,10 +9,6 @@ body {
 	padding: .2em 0;
 	border-bottom: 2px solid $borderGrey;
 
-	// let the "scroll to bottom" button hide "behind" the header
-	background-color: #fff;
-	z-index: 2;
-
 	font-size: 40px;
 	@include respond-to-max($break-small) {
 		font-size: 30px;

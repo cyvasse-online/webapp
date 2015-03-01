@@ -17,13 +17,48 @@ canvas {
 	color: #888;
 }
 
-.logbox {
+.side-wrap {
 	width: 25%;
 	@include display-flex;
 	@include flex-direction(column);
-	position: relative;
 
 	border-left: 2px solid $borderGrey;
+}
+
+.logbox-header-bar {
+	@include display-flex;
+
+	z-index: 2;
+	background-color: #fff;
+	border-bottom: 2px solid $borderGrey;
+}
+
+.nickname-input-wrap {
+	@include flex(1);
+	@include display-flex;
+	@include align-items(center);
+	padding: 0 .2em 0 .6em;
+}
+
+.nickname-input {
+	@include flex(1);
+	border: 0 none;
+	padding: .4em;
+	text-align: center;
+	font-weight: bold;
+}
+
+.rules-link-box {
+	padding: .4em .8em;
+
+	border-left: 2px solid $borderGrey;
+}
+
+.logbox {
+	@include flex(1);
+	@include display-flex;
+	@include flex-direction(column);
+	position: relative;
 }
 
 .scroll-to-bottom {
