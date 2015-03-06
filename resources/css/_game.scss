@@ -33,14 +33,14 @@ canvas {
 	border-bottom: 2px solid $borderGrey;
 }
 
-.nickname-input-wrap {
+.username-input-wrap {
 	@include flex(1);
 	@include display-flex;
 	@include align-items(center);
 	padding: 0 .2em 0 .6em;
 }
 
-.nickname-input {
+.username-input {
 	@include flex(1);
 	border: 0 none;
 	padding: .4em;

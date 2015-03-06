@@ -20,8 +20,8 @@
 </div>
 <aside class='side-wrap'>
 	<div class='logbox-header-bar'>
-		<div class='nickname-input-wrap'>
-			<span>Nickname: </span><input type='text' class='nickname-input' />
+		<div class='username-input-wrap'>
+			<span>Username: </span><input type='text' class='username-input' />
 		</div>
 		<div class='rules-link-box'>
 			<# TODO: set href dynamically when there are more rule sets #>
