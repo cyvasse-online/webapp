@@ -21,15 +21,11 @@ cyvasse_online_SOURCES = \
 	pagemeta_reader.hpp \
 	$(cyvasse_online_ecpp_sources)
 
-cyvasse_online_CPPFLAGS = \
-	-I$(top_srcdir)/cyvasse-common/include
-
 cyvasse_online_CXXFLAGS = \
 	$(JSONCPP_CFLAGS)
 
 cyvasse_online_LDADD = \
 	$(JSONCPP_LIBS) \
-	$(top_builddir)/cyvasse-common/libcyvmath.a \
 	-lcxxtools \
 	-ltntdb \
 	-ltntnet \

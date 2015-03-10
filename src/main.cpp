@@ -21,7 +21,6 @@
 #include <tnt/tntnet.h>
 #include <cxxtools/log.h>
 #include <yaml-cpp/yaml.h>
-//#include <cyvdb/config.hpp>
 
 using namespace std;
 
@@ -32,15 +31,6 @@ int main()
 	auto config = YAML::LoadFile("config.yml");
 	auto listenPort = config["listenPort"].as<int>();
 	auto staticDir  = config["staticDir"].as<string>();
-	/*auto matchDataUrl = config["matchDataUrl"].as<string>();
-
-	if(matchDataUrl.empty())
-	{
-		cerr << "Error: No database url set!" << endl;
-		return 1;
-	}
-
-	cyvdb::DBConfig::glob().setMatchDataUrl(matchDataUrl);*/
 
 	try
 	{

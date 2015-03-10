@@ -31,7 +31,6 @@ AS_IF([test -z "$SASS"], [
 	AC_MSG_ERROR([sass not found])
 ])
 
-AC_CONFIG_SUBDIRS([cyvasse-common])
 AC_CONFIG_FILES([
 	Makefile
 	config.yml
