@@ -17,6 +17,10 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <csignal>
+#include <cstdio>
+
+#include <unistd.h>
 #include <tnt/tntconfig.h>
 #include <tnt/tntnet.h>
 #include <cxxtools/log.h>
@@ -24,16 +28,28 @@
 
 using namespace std;
 
+static constexpr const char* pidFileName = "cyvasse-online.pid";
+
+void createPidFile();
+void removePidFile();
+void setupSignals();
+
 int main()
 {
+	setupSignals();
+
 	log_init("log.xml");
 
 	auto config = YAML::LoadFile("config.yml");
 	auto listenPort = config["listenPort"].as<int>();
 	auto staticDir  = config["staticDir"].as<string>();
 
+	int retVal = 0;
+
 	try
 	{
+		createPidFile();
+
 		tnt::Tntnet app;
 
 		app.listen(listenPort);
@@ -66,8 +82,63 @@ int main()
 	catch(exception& e)
 	{
 		cerr << e.what() << endl;
-		return 1;
+		retVal = 1;
 	}
 
-	return 0;
+	removePidFile();
+	return retVal;
+}
+
+void createPidFile()
+{
+	ofstream pidFile(pidFileName);
+	if(pidFile)
+	{
+		pidFile << getpid();
+		pidFile.close();
+	}
+}
+
+void removePidFile()
+{
+	remove(pidFileName);
+}
+
+extern "C" void stopWebapp(int /* signal */)
+{
+	removePidFile();
+	exit(0);
+}
+
+void setupSignals()
+{
+#ifdef HAVE_SIGACTION
+	struct sigaction newAction, oldAction;
+
+	// setup sigaction struct for stopWebapp
+	newAction.sa_handler = stopWebapp;
+	sigemptyset(&newAction.sa_mask);
+	newAction.sa_flags = 0;
+
+	sigaction(SIGHUP, nullptr, &oldAction);
+	if(oldAction.sa_handler != SIG_IGN)
+		sigaction(SIGHUP, &newAction, nullptr);
+
+	sigaction(SIGINT, nullptr, &oldAction);
+	if(oldAction.sa_handler != SIG_IGN)
+		sigaction(SIGINT, &newAction, nullptr);
+
+	sigaction(SIGTERM, nullptr, &oldAction);
+	if(oldAction.sa_handler != SIG_IGN)
+		sigaction(SIGTERM, &newAction, nullptr);
+#else
+	if(signal(SIGHUP, stopWebapp) == SIG_IGN)
+		signal(SIGHUP, SIG_IGN);
+
+	if(signal(SIGINT, stopWebapp) == SIG_IGN)
+		signal(SIGINT, SIG_IGN);
+
+	if(signal(SIGTERM, stopWebapp) == SIG_IGN)
+		signal(SIGTERM, SIG_IGN);
+#endif
 }
