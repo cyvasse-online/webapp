@@ -1,0 +1,45 @@
+@import "flexbox", "variables.scss";
+
+.game-list {
+	@include display-flex;
+	@include flex-wrap(wrap);
+
+	margin: 0 .35em;
+
+	.inactive {
+		color: #444;
+		cursor: default;
+	}
+
+	> div {
+		@include flex(1);
+
+		padding: .4em;
+		margin: 0 .4em;
+		min-width: 230px;
+		border: 2px solid $borderGrey;
+
+		&:empty {
+			padding: 0;
+			margin: 0 .8em;
+			border: {
+				width: 0 2px;
+				color: transparent;
+			}
+		}
+	}
+}
+
+.match {
+	cursor: pointer;
+	transition: background-color .2s;
+
+	&:hover {
+		background-color: #ddd;
+	}
+}
+
+.match-title {
+	font-size: 125%;
+	margin-bottom: .4em;
+}

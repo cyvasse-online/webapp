@@ -29,14 +29,20 @@
 
 		<section class='interactive-content'>
 			<h2>Join a random game</h2>
-			<div class='random-games'>
+			<div id='random-games' class='game-list'>
+				<div class='inactive empty-list-notice'>No random games are waiting for a player currently.</div>
+				<div class='inactive'></div>
+				<div class='inactive'></div>
+				<div class='inactive'></div>
+				<div class='inactive'></div>
+			</div> <!-- #random-games -->
 
-			</div> <!-- .random-games -->
-
+			<%doc>
 			<h2>Spectate a public game</h2>
-			<div class='public-games'>
+			<div id='public-games' class='game-list'>
 
-			</div> <!-- .public-games -->
+			</div> <!-- #public-games -->
+			</%doc>
 
 			<div id='create-game'>
 				<h2>Create a new game</h2>
@@ -69,7 +75,7 @@
 					<# extra rules #>
 				</table>
 
-				<p><button id='create-game-button'>Create game</button></p>
+				<p class='indented'><button id='create-game-button'>Create game</button></p>
 			</div>
 
 		</section> <!-- .interactive-content -->

@@ -115,7 +115,40 @@ CyvasseWSClient.prototype = {
 					setStatus("Server communication error! (see JavaScript console)");
 					throw new Error("Server communication error: " + data.errMsg);
 				case "listUpdate":
-					// TODO
+					var gameGridSelector;
+					switch(data.listName) {
+						case "openRandomGames":    gameGridSelector = "#random-games"; break;
+						case "runningPublicGames": gameGridSelector = "#public-games"; break;
+						default:                   throw new Error("Unknown list referenced!");
+					}
+					var gameGridElement = $(gameGridSelector);
+
+					$(gameGridSelector + " .match").remove();
+
+					if (data.listContent.length > 0) {
+						$(gameGridSelector + " > :first-child").hide();
+
+						for (var i = 0; i < data.listContent.length; i++) {
+							var match = data.listContent[i];
+							var playerStr;
+							switch(match.playAs) {
+								case "white": playerStr = "White player"; break;
+								case "black": playerStr = "Black player"; break;
+								default:      throw new Error("Unknown players color referenced!");
+							}
+
+							$(gameGridSelector + " .empty-list-notice").before(
+								"<div class='match' data-id='" + match.matchID + "'>" +
+									"<div class='match-title'>Match against someone</div>" +
+									"<strong>Play as:</strong> " + playerStr +
+								"</div>"
+							);
+						}
+
+						setupMatchClick();
+					} else {
+						$(gameGridSelector + " > :first-child").show();
+					}
 					break;
 				case "userJoined":
 					//if(data.role == "player") {

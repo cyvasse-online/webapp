@@ -86,6 +86,27 @@ function loadPage(url, success, pushState) {
 	});
 }
 
+function joinGame(matchID) {
+	Module.gameMetaData = {
+		"matchID": getMatchID(matchID),
+		"userInfo": {
+			"screenName": "User" // TODO
+		}
+	};
+
+	Module.wsClient.joinGame(Module.gameMetaData);
+}
+
+function setupMatchClick() {
+	$(".match").click(function() {
+		// prevents this function from getting called on consecutive clicks
+		// TODO: in the future, fade out the whole page and show a loading animation instead.
+		$(".match").off("click");
+		joinGame($(this).data("id"));
+	});
+}
+
+
 function createGameParamValid(metaData) {
 	return !!metaData.ruleSet && !!metaData.color && !!metaData.gameMode;
 }
@@ -135,17 +156,7 @@ $(document).ready(function() {
 		});
 	} else if(window.location.pathname.substr(0, 7) == "/match/") {
 		Module.wsClient = new CyvasseWSClient(window.location.hostname, function() {
-			Module.gameMetaData = {
-				"matchID": getMatchID(window.location.href),
-				"userInfo": {
-					"screenName": "User" // TODO
-				}
-			};
-
-			Module.wsClient.joinGame(Module.gameMetaData, function() {
-				// initialize logbox
-				Module.logbox = new LogBox("#logbox");
-			});
+			joinGame(getMatchID(window.location.href));
 		});
 	}
 

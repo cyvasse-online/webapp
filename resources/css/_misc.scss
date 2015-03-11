@@ -37,6 +37,10 @@ th, td {
 }
 
 /* CSS classes to be applied to various elements */
+.indented {
+	margin-left: .75em;
+}
+
 .first-last-child-without-margin {
 	& > :first-child {
 		margin-top: 0;

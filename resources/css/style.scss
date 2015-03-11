@@ -8,26 +8,7 @@
 @import
 	"layout",
 	"header",
+	"frontpage",
 	"game",
 	"input",
 	"misc";
-
-/*
-.random-matches-wrap {
-	@include display-flex;
-	@include flex-wrap(wrap);
-	margin-bottom: 1em;
-}
-
-.random-match {
-	padding: .5em;
-	margin: 0 1em 0 0;
-	border: 2px solid $borderGrey;
-	cursor: pointer;
-	transition: background-color .2s;
-}
-
-.random-match:hover {
-	background-color: #ddd;
-}
-*/

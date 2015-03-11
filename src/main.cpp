@@ -94,7 +94,7 @@ void createPidFile()
 	ofstream pidFile(pidFileName);
 	if(pidFile)
 	{
-		pidFile << getpid();
+		pidFile << getpid() << endl;
 		pidFile.close();
 	}
 }
