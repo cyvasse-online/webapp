@@ -12,7 +12,7 @@ function loadGame(matchID) {
 			$(".page-header .container, .page-footer .container").addClass("full-width");
 
 			// initialize logbox
-			Module.logbox = new LogBox("#logbox");
+			logbox = new LogBox("#logbox");
 		};
 
 		// loadPage() is a global function from cyvasse-webapp.js
@@ -90,7 +90,7 @@ CyvasseWSClient.prototype = {
 		var msgObj = JSON.parse(msgStr);
 
 		if(msgObj.msgType === "chatMsg") {
-			Module.logbox.addChatMessage(msgObj.msgData.user, msgObj.msgData.content);
+			logbox.addChatMessage(msgObj.msgData.user, msgObj.msgData.content);
 			this.sendChatMsgAck(msgObj.msgID);
 		} else if(msgObj.msgType === "chatMsgAck") {
 			// TODO: Show tick next to chat message or something similar
@@ -102,7 +102,7 @@ CyvasseWSClient.prototype = {
 				this.handleMessageIngame(msgStr);
 			}
 
-			Module.logbox.addGameMessage(msgObj.msgData);
+			logbox.addGameMessage(msgObj.msgData);
 		} else if(msgObj.msgType === "gameMsgAck") {
 
 		} else if(msgObj.msgType === "gameMsgErr") {
@@ -152,17 +152,17 @@ CyvasseWSClient.prototype = {
 					break;
 				case "userJoined":
 					//if(data.role == "player") {
-						Module.gameMetaData.opponentInfo = {
+						gameMetaData.opponentInfo = {
 							"registered": data.registered,
 							"screenName": data.screenName
 						};
-						Module.logbox.addStatusMessage("<em>" + data.screenName + "</em> joined.");
+						logbox.addStatusMessage("<em>" + data.screenName + "</em> joined.");
 					//}
 					// TODO: Also add a message when a spectator joins?
 					break;
 				case "userLeft":
-					//if(data.screenName == Module.gameMetaData.opponentInfo.screenName) {
-					//	Module.logbox.addStatusMessage("<em>" + data.screenName + "</em> left.");
+					//if(data.screenName == gameMetaData.opponentInfo.screenName) {
+					//	logbox.addStatusMessage("<em>" + data.screenName + "</em> left.");
 					//}
 					// TODO: Also add a message when a spectator leaves?
 					break;
@@ -207,19 +207,19 @@ CyvasseWSClient.prototype = {
 
 					break;
 				case "createGame":
-					Module.gameMetaData.matchID  = replyData.matchID;
-					Module.gameMetaData.playerID = replyData.playerID;
+					gameMetaData.matchID  = replyData.matchID;
+					gameMetaData.playerID = replyData.playerID;
 					loadGame(replyData.matchID);
 					break;
 				case "joinGame":
-					Module.gameMetaData.color    = replyData.color;
-					Module.gameMetaData.playerID = replyData.playerID;
-					Module.gameMetaData.ruleSet  = replyData.ruleSet;
+					gameMetaData.color    = replyData.color;
+					gameMetaData.playerID = replyData.playerID;
+					gameMetaData.ruleSet  = replyData.ruleSet;
 
 					if(window.location.pathname.substr(0, 7) == "/match/")
-						Module.gameMetaData.matchID = getMatchID(window.location.pathname);
+						gameMetaData.matchID = getMatchID(window.location.pathname);
 
-					loadGame(Module.gameMetaData.matchID);
+					loadGame(gameMetaData.matchID);
 
 					if(this.afterJoinGame)
 						this.afterJoinGame();
@@ -228,8 +228,9 @@ CyvasseWSClient.prototype = {
 				case "subscrGameListUpdates":
 					// TODO
 					break;
-				//case "unsubscrGameListUpdates":
-				//	break;
+				case "unsubscrGameListUpdates":
+					// TODO
+					break;
 			}
 		} else if(msgObj.msgType === "serverRequest") {
 			// Do nothing, just assume this doesn't happen

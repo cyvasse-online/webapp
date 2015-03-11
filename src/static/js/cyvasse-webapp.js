@@ -1,6 +1,8 @@
 var statusElement;
 
+var logbox;
 var wsClient;
+var gameMetaData = {};
 
 var Module = {
 	preRun: [function() {
@@ -24,17 +26,9 @@ var Module = {
 
 		statusElement.html(text);
 	},
-	totalDependencies: 0,
-	monitorRunDependencies: function(left) {
-		this.totalDependencies = Math.max(this.totalDependencies, left);
-		Module.setStatus(left ? "Preparing... (" + (this.totalDependencies-left) + "/" + this.totalDependencies + ")"
-			: "All downloads complete.");
-	},
 	filePackagePrefixURL: "/",
 	memoryInitializerPrefixURL: "/",
-	doNotCaptureKeyboard: true,
-
-	gameMetaData: {}
+	doNotCaptureKeyboard: true
 };
 
 // tiny jQuery extension from somewhere off the net
@@ -87,14 +81,14 @@ function loadPage(url, success, pushState) {
 }
 
 function joinGame(matchID) {
-	Module.gameMetaData = {
+	gameMetaData = {
 		"matchID": getMatchID(matchID),
 		"userInfo": {
 			"screenName": "User" // TODO
 		}
 	};
 
-	Module.wsClient.joinGame(Module.gameMetaData);
+	wsClient.joinGame(gameMetaData);
 }
 
 function setupMatchClick() {
@@ -127,12 +121,12 @@ $(document).ready(function() {
 	});*/
 
 	if(window.location.pathname == "/") {
-		Module.wsClient = new CyvasseWSClient(window.location.hostname, function() {
-			Module.wsClient.subscrGameListUpdates("mikelepage", ["openRandomGames", "runningPublicGames"]);
+		wsClient = new CyvasseWSClient(window.location.hostname, function() {
+			wsClient.subscrGameListUpdates("mikelepage", ["openRandomGames", "runningPublicGames"]);
 		});
 
 		$("#create-game-button").click(function() {
-			Module.gameMetaData = {
+			gameMetaData = {
 				"ruleSet": "mikelepage", // hardcoded for now
 				"color":   $("input:radio[name='play-as']:checked").val(),
 				"random":  $("#opt-random").prop("checked"),
@@ -149,13 +143,13 @@ $(document).ready(function() {
 			$("#create-game-button").html("Creating game<span class='ani-loading-dot'>.</span>");
 
 
-			//if(Module.wsClient.websock.readyState != 1)
+			//if(wsClient.websock.readyState != 1)
 			//	TODO: Error message
 
-			Module.wsClient.createGame(Module.gameMetaData);
+			wsClient.createGame(gameMetaData);
 		});
 	} else if(window.location.pathname.substr(0, 7) == "/match/") {
-		Module.wsClient = new CyvasseWSClient(window.location.hostname, function() {
+		wsClient = new CyvasseWSClient(window.location.hostname, function() {
 			joinGame(getMatchID(window.location.href));
 		});
 	}

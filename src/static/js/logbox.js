@@ -28,7 +28,7 @@ function LogBox(selector) {
 			event.preventDefault();
 
 			if($.trim(this.value).length > 0) {
-				Module.wsClient.sendChatMsg(this.value);
+				wsClient.sendChatMsg(this.value);
 				logbox.addChatMessage("You", this.value, true);
 				this.value = "";
 			}
