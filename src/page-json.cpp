@@ -24,7 +24,7 @@
 #include <tnt/httperror.h>
 #include <tnt/httprequest.h>
 #include <tnt/httpreply.h>
-#include "pagemeta_reader.hpp"
+#include "page-title.hpp"
 
 class PageAsJson : public tnt::EcppComponent
 {
@@ -78,13 +78,11 @@ unsigned PageAsJson::operator() (tnt::HttpRequest& request, tnt::HttpReply& repl
 		}
 	}
 
-	PagemetaData metadata = (PagemetaReader()).getData(content);
-
 	Json::Value replyContent;
 	Json::FastWriter jsonWriter;
 
 	replyContent["content"] = contentOutput;
-	replyContent["title"] = metadata.title;
+	replyContent["title"] = getPageTitle(request);
 
 	reply.out() << jsonWriter.write(replyContent);
 

@@ -7,12 +7,6 @@ depcomp
 install-sh
 missing
 
-# symlinks
-static
-!/src/static
-pagemeta.yml
-!/src/pagemeta.yml
-
 .deps
 config.log
 config.status
@@ -39,6 +33,7 @@ cyvasse.data
 cyvasse.js
 cyvasse.js.mem
 
+## compiled ecpp
 **/src/ecpp/*.cpp
 ## compiled scss
 **/resources/css/*.css

@@ -17,8 +17,7 @@ BUILT_SOURCES = \
 cyvasse_online_SOURCES = \
 	main.cpp \
 	page-json.cpp \
-	pagemeta_reader.cpp \
-	pagemeta_reader.hpp \
+	page-title.cpp \
 	$(cyvasse_online_ecpp_sources)
 
 cyvasse_online_CXXFLAGS = \

@@ -1,4 +1,4 @@
-/* Copyright 2014 Jonas Platte
+/* Copyright 2015 Jonas Platte
  *
  * This file is part of Cyvasse Online.
  *
@@ -14,23 +14,12 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "pagemeta_reader.hpp"
+#ifndef _PAGETITLE_HPP_
+#define _PAGETITLE_HPP_
 
-PagemetaReader::PagemetaReader()
-{
-	root = YAML::LoadFile("pagemeta.yml");
-}
+#include <string>
+#include <tnt/httprequest.h>
 
-PagemetaData PagemetaReader::getData(const std::string& page)
-{
-	PagemetaData ret;
+std::string getPageTitle(const tnt::HttpRequest& request);
 
-	if(root[page])
-	{
-		ret.title = root[page]["title"].as<std::string>() + " | ";
-	}
-
-	ret.title += "Cyvasse Online";
-
-	return ret;
-}
+#endif // _PAGETITLE_HPP_

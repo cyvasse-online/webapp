@@ -38,8 +38,5 @@ AC_CONFIG_FILES([
 	resources/Makefile
 	src/Makefile
 ])
-AC_CONFIG_LINKS([
-	pagemeta.yml:$srcdir/src/pagemeta.yml
-])
 
 AC_OUTPUT
