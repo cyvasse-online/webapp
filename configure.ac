@@ -1,7 +1,7 @@
 AC_INIT([cyvasse-online-webapp],[0.1],[mail@jonasplatte.de])
 AC_CONFIG_AUX_DIR([.])
 AC_CONFIG_MACRO_DIRS([m4])
-AM_INIT_AUTOMAKE([1.11 foreign])
+AM_INIT_AUTOMAKE([foreign])
 AM_SILENT_RULES([yes])
 
 AC_PROG_CXX
