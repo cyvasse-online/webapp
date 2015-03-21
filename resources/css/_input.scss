@@ -43,6 +43,10 @@ label {
 	input[type='checkbox']:checked + & i {
 		visibility: visible;
 	}
+
+	&:not(:last-of-type) {
+		margin: 0 6px 4px 0;
+	}
 }
 
 button {

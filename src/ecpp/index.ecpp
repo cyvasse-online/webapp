@@ -64,13 +64,13 @@
 							<label for='opt-random'><i class="fa fa-fw fa-check"></i></label>
 						</td>
 					</tr>
-					<tr>
+					<#<tr>
 						<th>Public match</th>
 						<td>
 							<input type='checkbox' name='public' id='opt-public' />
 							<label for='opt-public'><i class="fa fa-fw fa-check"></i></label>
 						</td>
-					</tr>
+					</tr>#>
 					<# local or online #>
 					<# extra rules #>
 				</table>
