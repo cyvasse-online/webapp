@@ -11,12 +11,12 @@ AX_CHECK_COMPILE_FLAG([-Wall], [CXXFLAGS="$CXXFLAGS -Wall"])
 AX_CHECK_COMPILE_FLAG([-Wextra], [CXXFLAGS="$CXXFLAGS -Wextra"])
 AX_CHECK_COMPILE_FLAG([-pedantic], [CXXFLAGS="$CXXFLAGS -pedantic"])
 
-AC_CHECK_HEADER([tnt/tntnet.h], [], AC_MSG_ERROR([tntnet headers not found]))
-AC_CHECK_HEADER([tntdb/connection.h], [], AC_MSG_ERROR([tntdb headers not found]))
+PKG_CHECK_MODULES([CXXTOOLS], [cxxtools])
+PKG_CHECK_MODULES([TNTNET], [tntnet >= 2.3])
+PKG_CHECK_MODULES([JSONCPP], [jsoncpp])
+
 AC_CHECK_HEADER([yaml-cpp/yaml.h], [], AC_MSG_ERROR([yaml-cpp headers not found]))
 AC_PROG_SED
-
-PKG_CHECK_MODULES([JSONCPP], [jsoncpp])
 
 # simply a markdown implementation available in the
 # arch linux community repo which I had installed

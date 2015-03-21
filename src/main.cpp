@@ -55,9 +55,6 @@ int main()
 		app.listen(listenPort);
 		app.setAppName("cyvasse-online");
 
-		// setArg() and setting the documentRoot per
-		// mapping require the git version of tntnet
-
 		// static files
 		app.mapUrl("^/(.+)$",                    "static@tntnet").setPathInfo("$1")
 			.setArg("documentRoot", staticDir);

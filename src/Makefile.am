@@ -21,13 +21,14 @@ cyvasse_online_SOURCES = \
 	$(cyvasse_online_ecpp_sources)
 
 cyvasse_online_CXXFLAGS = \
+	$(CXXTOOLS_CFLAGS) \
+	$(TNTNET_CFLAGS) \
 	$(JSONCPP_CFLAGS)
 
 cyvasse_online_LDADD = \
+	$(CXXTOOLS_LIBS) \
+	$(TNTNET_LIBS) \
 	$(JSONCPP_LIBS) \
-	-lcxxtools \
-	-ltntdb \
-	-ltntnet \
 	-lyaml-cpp
 
 nodist_cyvasse_online_SOURCES = \
