@@ -96,10 +96,10 @@ function setupMatchClick() {
 		// prevents this function from getting called on consecutive clicks
 		// TODO: in the future, fade out the whole page and show a loading animation instead.
 		$(".match").off("click");
+		wsClient.unsubscrGameListUpdates("mikelepage", ["openRandomGames", "runningPublicGames"]);
 		joinGame($(this).data("id"));
 	});
 }
-
 
 function createGameParamValid(metaData) {
 	return !!metaData.ruleSet && !!metaData.color && !!metaData.gameMode;
@@ -142,10 +142,10 @@ $(document).ready(function() {
 			$("#create-game button").attr("disabled", true);
 			$("#create-game-button").html("Creating game<span class='ani-loading-dot'>.</span>");
 
-
 			//if(wsClient.websock.readyState != 1)
 			//	TODO: Error message
 
+			wsClient.unsubscrGameListUpdates("mikelepage", ["openRandomGames", "runningPublicGames"]);
 			wsClient.createGame(gameMetaData);
 		});
 	} else if(window.location.pathname.substr(0, 7) == "/match/") {
