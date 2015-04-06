@@ -3,6 +3,7 @@ var statusElement;
 var logbox;
 var wsClient;
 var gameMetaData = {};
+var initGameStatus = {};
 
 var Module = {
 	preRun: [function() {

@@ -215,6 +215,7 @@ CyvasseWSClient.prototype = {
 					gameMetaData.color    = replyData.color;
 					gameMetaData.playerID = replyData.playerID;
 					gameMetaData.ruleSet  = replyData.ruleSet;
+					initGameStatus        = replyData.gameStatus;
 
 					if(window.location.pathname.substr(0, 7) == "/match/")
 						gameMetaData.matchID = getMatchID(window.location.pathname);
