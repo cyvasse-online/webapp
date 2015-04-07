@@ -47,35 +47,37 @@
 			<div id='create-game'>
 				<h2>Create a new game</h2>
 
-				<table>
-					<tr>
-						<th>Play as</th>
-						<td>
-							<input type='radio' name='play-as' value='white' id='play-as-white' />
-							<label for='play-as-white'>White player</label>
-							<input type='radio' name='play-as' value='black' id='play-as-black' />
-							<label for='play-as-black'>Black player</label>
-						</td>
-					</tr>
-					<tr>
-						<th>Random opponent</th>
-						<td>
-							<input type='checkbox' name='random' id='opt-random' />
-							<label for='opt-random'><i class="fa fa-fw fa-check"></i></label>
-						</td>
-					</tr>
-					<#<tr>
-						<th>Public match</th>
-						<td>
-							<input type='checkbox' name='public' id='opt-public' />
-							<label for='opt-public'><i class="fa fa-fw fa-check"></i></label>
-						</td>
-					</tr>#>
-					<# local or online #>
-					<# extra rules #>
-				</table>
+				<form autocomplete="off">
+					<table>
+						<tr>
+							<th>Play as</th>
+							<td>
+								<input type='radio' name='play-as' value='white' id='play-as-white' />
+								<label for='play-as-white'>White player</label>
+								<input type='radio' name='play-as' value='black' id='play-as-black' />
+								<label for='play-as-black'>Black player</label>
+							</td>
+						</tr>
+						<tr>
+							<th>Random opponent</th>
+							<td>
+								<input type='checkbox' name='random' id='opt-random' />
+								<label for='opt-random'><i class="fa fa-fw fa-check"></i></label>
+							</td>
+						</tr>
+						<#<tr>
+							<th>Public match</th>
+							<td>
+								<input type='checkbox' name='public' id='opt-public' />
+								<label for='opt-public'><i class="fa fa-fw fa-check"></i></label>
+							</td>
+						</tr>#>
+						<# local or online #>
+						<# extra rules #>
+					</table>
 
-				<p class='indented'><button id='create-game-button'>Create game</button></p>
+					<p class='indented'><button type="button" id='create-game-button' disabled>Create game</button></p>
+				</form>
 			</div>
 
 		</section> <!-- .interactive-content -->
