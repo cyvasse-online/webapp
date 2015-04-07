@@ -127,6 +127,10 @@ $(document).ready(function() {
 			wsClient.subscrGameListUpdates("mikelepage", ["openRandomGames", "runningPublicGames"]);
 		});
 
+		$("[name='play-as']").click(function() {
+			$("#create-game-button").attr("disabled", false);
+		});
+
 		$("#create-game-button").click(function() {
 			gameMetaData = {
 				"ruleSet": "mikelepage", // hardcoded for now
