@@ -31,12 +31,14 @@ figure {
 }
 
 ul, ol {
-	padding-left: 22px;
+	padding-left: 2em;
 }
 
 %flow-list {
 	@include display-flex;
 	@include flex-wrap(wrap);
+
+	margin: 0 .35em;
 
 	& > div {
 		margin: .4em;

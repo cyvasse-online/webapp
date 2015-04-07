@@ -1,0 +1,34 @@
+@font-face {
+	font-family: "Morpheus";
+	src: url("/fonts/morpheus.woff");
+}
+
+@font-face {
+    font: {
+        family: "Encode Sans";
+        weight: 300;
+        style: normal;
+    }
+
+    src: url("/fonts/EncodeSans-Light.woff") format("woff");
+}
+
+@font-face {
+    font: {
+        family: "Encode Sans";
+        weight: 400;
+        style: normal;
+    }
+
+    src: url("/fonts/EncodeSans-Regular.woff") format("woff");
+}
+
+@font-face {
+    font: {
+        family: "Encode Sans";
+        weight: 600;
+        style: normal;
+    }
+
+    src: url("/fonts/EncodeSans-SemiBold.woff") format("woff");
+}

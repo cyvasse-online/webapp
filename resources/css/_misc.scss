@@ -1,8 +1,4 @@
-/* font */
-@font-face {
-	font-family: 'Morpheus';
-	src: url('/fonts/morpheus.woff');
-}
+@import "font-face";
 
 /* border-box fix */
 *, *:before, *:after {
@@ -17,6 +13,19 @@ html {
 
 	background: #fff;
 	color: #000;
+	font-family: "Encode Sans";
+}
+
+h1, h2, h3 {
+	font-weight: 300;
+}
+
+p {
+	margin-left: .75em;
+}
+
+strong, th {
+	font-weight: 600;
 }
 
 a {

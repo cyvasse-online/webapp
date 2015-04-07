@@ -156,13 +156,13 @@ CyvasseWSClient.prototype = {
 							//"registered": data.registered,
 							"username": data.username
 						};
-						logbox.addStatusMessage("<em>" + data.username + "</em> joined.");
+						logbox.addStatusMessage("<strong>" + data.username + "</strong> joined.");
 					//}
 					// TODO: Also add a message when a spectator joins?
 					break;
 				case "userLeft":
 					//if(data.username == gameMetaData.opponentInfo.username) {
-						logbox.addStatusMessage("<em>" + data.username + "</em> left.");
+						logbox.addStatusMessage("<strong>" + data.username + "</strong> left.");
 					//}
 					// TODO: Also add a message when a spectator leaves?
 					break;
