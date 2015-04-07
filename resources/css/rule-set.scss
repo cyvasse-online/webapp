@@ -34,6 +34,11 @@ ul, ol {
 	padding-left: 2em;
 }
 
+table {
+	border: 2px solid $borderGrey;
+	margin-left: 0.75em;
+}
+
 %flow-list {
 	@include display-flex;
 	@include flex-wrap(wrap);
