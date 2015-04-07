@@ -20,9 +20,8 @@
 </div>
 <aside class='side-wrap'>
 	<div class='logbox-header-bar'>
-		<div class='username-input-wrap'>
-			<span>Username: </span><input type='text' class='username-input' />
-		</div>
+		<span>Username:</span>
+		<div class='username-input-wrap'><input type='text' class='username-input' value='' /></div>
 		<div class='rules-link-box'>
 			<# TODO: set href dynamically when there are more rule sets #>
 			<a target='_blank' href='/rule_sets/mikelepage'>Rules</a>
