@@ -84,9 +84,10 @@ function loadPage(url, success, pushState) {
 function joinGame(matchID) {
 	gameMetaData = {
 		"matchID": getMatchID(matchID),
-		"userInfo": {
-			"screenName": "User" // TODO
-		}
+		// TODO
+		//"userInfo": {
+		//	"username": "User"
+		//}
 	};
 
 	wsClient.joinGame(gameMetaData);
@@ -135,7 +136,7 @@ $(document).ready(function() {
 				"extraRules": [ ],
 				"userInfo": {
 					"registered": false, // not implemented yet
-					"screenName": "User" // TODO
+					"username": "User" // TODO
 				}
 			};
 

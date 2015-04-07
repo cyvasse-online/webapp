@@ -132,12 +132,12 @@ LogBox.prototype = {
 		this.addStatusMessage(msgStr);
 	},
 
-	addChatMessage: function(userName, msg, ownMessage) {
+	addChatMessage: function(username, msg, ownMessage) {
 		if(ownMessage === undefined)
 			ownMessage = false;
 
 		// might allow basic html somewhen
-		this.addMessage("<strong>" + userName + ":</strong> " + htmlEncode(msg));
+		this.addMessage("<strong>" + username + ":</strong> " + htmlEncode(msg));
 
 		if(ownMessage)
 			this.resetUnreadMsgs();

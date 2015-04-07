@@ -153,16 +153,16 @@ CyvasseWSClient.prototype = {
 				case "userJoined":
 					//if(data.role == "player") {
 						gameMetaData.opponentInfo = {
-							"registered": data.registered,
-							"screenName": data.screenName
+							//"registered": data.registered,
+							"username": data.username
 						};
-						logbox.addStatusMessage("<em>" + data.screenName + "</em> joined.");
+						logbox.addStatusMessage("<em>" + data.username + "</em> joined.");
 					//}
 					// TODO: Also add a message when a spectator joins?
 					break;
 				case "userLeft":
-					//if(data.screenName == gameMetaData.opponentInfo.screenName) {
-					//	logbox.addStatusMessage("<em>" + data.screenName + "</em> left.");
+					//if(data.username == gameMetaData.opponentInfo.username) {
+						logbox.addStatusMessage("<em>" + data.username + "</em> left.");
 					//}
 					// TODO: Also add a message when a spectator leaves?
 					break;

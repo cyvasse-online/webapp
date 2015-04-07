@@ -22,7 +22,6 @@ White starts. Players take turns making moves.
 Pieces
 ------
 
-
 There are 10 types of piece in the game. All pieces except the mountains have a
 tier level which is used to determine whether a piece can capture another piece.
 
