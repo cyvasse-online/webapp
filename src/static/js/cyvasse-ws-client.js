@@ -258,6 +258,11 @@ CyvasseWSClient.prototype = {
 					loadGame(replyData.matchID);
 					break;
 				case "joinGame":
+					if (replyData.gameStatus.setup === false) {
+						$("#canvas").replaceWith("<div class='content-missing-msg'>Pausing / resuming games after the setup isn't supported yet.</div>");
+						return;
+					}
+
 					gameMetaData.color        = replyData.color;
 					gameMetaData.playerID     = replyData.playerID;
 					gameMetaData.ruleSet      = replyData.ruleSet;
