@@ -42,6 +42,13 @@ function loadGame(matchID) {
 
 			// initialize logbox
 			logbox = new LogBox("#logbox");
+
+			if (gameMetaData.opponentInfo)
+			{
+				var opUsername = gameMetaData.opponentInfo.username;
+				if (opUsername && opUsername != "Black player" && opUsername != "White player")
+					logbox.addStatusMessage("Playing against <strong>" + htmlEncode(opUsername) + "</strong>.");
+			}
 		};
 
 		// loadPage() is a global function from cyvasse-webapp.js
@@ -196,8 +203,14 @@ CyvasseWSClient.prototype = {
 					// TODO: Also add a message when a spectator leaves?
 					break;
 				case "usernameUpdate":
-					logbox.addStatusMessage("<strong>" + htmlEncode(data.oldUsername) + "</strong>" +
-						" changed his username to <strong>" + htmlEncode(data.newUsername) + "</strong>.");
+					var statusStrHead;
+					if (data.oldUsername == "Black player" || data.oldUsername == "White player")
+						statusStrHead = "Your opponent";
+					else
+						statusStrHead = data.oldUsername;
+
+					logbox.addStatusMessage(statusStrHead + " changed their username to <strong>" +
+						htmlEncode(data.newUsername) + "</strong>.");
 					break;
 			}
 		} else if(msgObj.msgType === "serverReply") {
@@ -245,10 +258,11 @@ CyvasseWSClient.prototype = {
 					loadGame(replyData.matchID);
 					break;
 				case "joinGame":
-					gameMetaData.color    = replyData.color;
-					gameMetaData.playerID = replyData.playerID;
-					gameMetaData.ruleSet  = replyData.ruleSet;
-					initGameStatus        = replyData.gameStatus;
+					gameMetaData.color        = replyData.color;
+					gameMetaData.playerID     = replyData.playerID;
+					gameMetaData.ruleSet      = replyData.ruleSet;
+					gameMetaData.opponentInfo = replyData.opponent;
+					initGameStatus            = replyData.gameStatus;
 
 					if(window.location.pathname.substr(0, 7) == "/match/")
 						gameMetaData.matchID = getMatchID(window.location.pathname);
