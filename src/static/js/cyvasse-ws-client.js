@@ -1,5 +1,7 @@
 var CyvasseWS_Protocol_Version = "1.0";
 
+var username;
+
 function loadGame(matchID) {
 	if (!loadGame.alreadyLoaded) {
 		loadGame.alreadyLoaded = true;
@@ -13,8 +15,30 @@ function loadGame(matchID) {
 
 			// set start username – always 'Black player' or 'White player' because
 			// we don't save usernames yet (and they can't be registered yet either)
-			var username = gameMetaData.color == "white" ? "White player" : "Black player";
-			$(".username-input").val(username);
+			var usernameInput = $(".username-input");
+
+			username = gameMetaData.color == "white" ? "White player" : "Black player";
+			usernameInput.val(username);
+
+			usernameInput.blur(function() {
+				var newUsername = $(".username-input").val();
+
+				if (newUsername == username || $.trim(newUsername).length === 0)
+				{
+					// restore the old username if the input was left empty
+					this.value = username;
+					return;
+				}
+
+				logbox.addStatusMessage("You changed your username to <strong>" + htmlEncode(newUsername) + "</strong>.");
+				wsClient.setUsername(newUsername);
+
+				username = newUsername;
+			});
+			usernameInput.keydown(function(event) {
+				if (event.keyCode == 13) // Enter
+					usernameInput.blur();
+			});
 
 			// initialize logbox
 			logbox = new LogBox("#logbox");
@@ -117,7 +141,7 @@ CyvasseWSClient.prototype = {
 
 			switch(data.type) {
 				case "commError":
-					setStatus("Server communication error! (see JavaScript console)");
+					Module.setStatus("Server communication error! (see JavaScript console)");
 					throw new Error("Server communication error: " + data.errMsg);
 				case "listUpdate":
 					var gameGridSelector;
@@ -161,15 +185,19 @@ CyvasseWSClient.prototype = {
 							//"registered": data.registered,
 							"username": data.username
 						};
-						logbox.addStatusMessage("<strong>" + data.username + "</strong> joined.");
+						logbox.addStatusMessage("<strong>" + htmlEncode(data.username) + "</strong> joined.");
 					//}
 					// TODO: Also add a message when a spectator joins?
 					break;
 				case "userLeft":
 					//if(data.username == gameMetaData.opponentInfo.username) {
-						logbox.addStatusMessage("<strong>" + data.username + "</strong> left.");
+						logbox.addStatusMessage("<strong>" + htmlEncode(data.username) + "</strong> left.");
 					//}
 					// TODO: Also add a message when a spectator leaves?
+					break;
+				case "usernameUpdate":
+					logbox.addStatusMessage("<strong>" + htmlEncode(data.oldUsername) + "</strong>" +
+						" changed his username to <strong>" + htmlEncode(data.newUsername) + "</strong>.");
 					break;
 			}
 		} else if(msgObj.msgType === "serverReply") {
@@ -297,6 +325,13 @@ CyvasseWSClient.prototype = {
 
 		if(typeof success === "function")
 			this.afterJoinGame = success;
+	},
+
+	setUsername: function(username) {
+		this.sendRequest({
+			"action": "setUsername",
+			"param": username
+		});
 	},
 
 	subscrGameListUpdates: function(ruleSet, lists) {

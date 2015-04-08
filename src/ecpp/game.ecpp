@@ -21,7 +21,9 @@
 <aside class='side-wrap'>
 	<div class='logbox-header-bar'>
 		<span>Username:</span>
-		<div class='username-input-wrap'><input type='text' class='username-input' value='' /></div>
+		<div class='username-input-wrap'>
+			<input type='text' class='username-input' value='' title='Press Enter or click outside to confirm' />
+		</div>
 		<div class='rules-link-box'>
 			<# TODO: set href dynamically when there are more rule sets #>
 			<a target='_blank' href='/rule_sets/mikelepage'>Rules</a>

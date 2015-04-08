@@ -137,7 +137,7 @@ LogBox.prototype = {
 			ownMessage = false;
 
 		// might allow basic html somewhen
-		this.addMessage("<strong>" + username + ":</strong> " + htmlEncode(msg));
+		this.addMessage("<strong>" + htmlEncode(username) + ":</strong> " + htmlEncode(msg));
 
 		if(ownMessage)
 			this.resetUnreadMsgs();
