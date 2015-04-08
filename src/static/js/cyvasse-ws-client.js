@@ -11,6 +11,11 @@ function loadGame(matchID) {
 
 			$(".page-header .container, .page-footer .container").addClass("full-width");
 
+			// set start username – always 'Black player' or 'White player' because
+			// we don't save usernames yet (and they can't be registered yet either)
+			var username = gameMetaData.color == "white" ? "White player" : "Black player";
+			$(".username-input").val(username);
+
 			// initialize logbox
 			logbox = new LogBox("#logbox");
 		};
