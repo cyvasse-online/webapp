@@ -102,12 +102,12 @@ Movement interference
 The following graphics illustrate the basic movement possibilites when other pieces are in the way.
 
 <div class='movement-interference-grid'>
-	<img alt='' src='/img/rule_sets/mikelepage/movement_interference_1.png' />
-	<img alt='' src='/img/rule_sets/mikelepage/movement_interference_1x.png' />
-	<img alt='' src='/img/rule_sets/mikelepage/movement_interference_2.png' />
-	<img alt='' src='/img/rule_sets/mikelepage/movement_interference_2x.png' />
-	<img alt='' src='/img/rule_sets/mikelepage/movement_interference_3.png' />
-	<img alt='' src='/img/rule_sets/mikelepage/movement_interference_3x.png' />
+	<figure><img alt='' src='/img/rule_sets/mikelepage/movement_interference_1.png' /></figure>
+	<figure><img alt='' src='/img/rule_sets/mikelepage/movement_interference_1x.png' /></figure>
+	<figure><img alt='' src='/img/rule_sets/mikelepage/movement_interference_2.png' /></figure>
+	<figure><img alt='' src='/img/rule_sets/mikelepage/movement_interference_2x.png' /></figure>
+	<figure><img alt='' src='/img/rule_sets/mikelepage/movement_interference_3.png' /></figure>
+	<figure><img alt='' src='/img/rule_sets/mikelepage/movement_interference_3x.png' /></figure>
 </div>
 
 Capturing
