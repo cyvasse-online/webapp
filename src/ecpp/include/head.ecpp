@@ -17,8 +17,11 @@
 <%pre>
 	#include "page-title.hpp"
 </%pre>
+% const auto& ogImage = "//" + request.getVirtualHost() + "/img/icons/black/king.png";
+
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1' />
+<meta property='og:image' content='<$$ ogImage $>' />
 <link rel='stylesheet' href='/css/normalize-3.0.2.css' />
 <link rel='stylesheet' href='/css/font-awesome.min.css' />
 <link rel='stylesheet' href='/css/style.css' />
