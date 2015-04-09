@@ -30,7 +30,7 @@
 		<section class='interactive-content'>
 			<h2>Join a random game</h2>
 			<div id='random-games' class='game-list'>
-				<div class='inactive empty-list-notice'>No random games are waiting for a player currently.</div>
+				<div class='inactive empty-list-notice'>No random games are currently waiting for a player.</div>
 				<div class='inactive'></div>
 				<div class='inactive'></div>
 				<div class='inactive'></div>

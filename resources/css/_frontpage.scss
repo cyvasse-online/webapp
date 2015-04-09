@@ -42,6 +42,13 @@
 }
 
 .match-title {
-	font-size: 125%;
+	font: {
+		size: 125%;
+		weight: 300;
+	}
 	margin-bottom: .4em;
+
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
 }

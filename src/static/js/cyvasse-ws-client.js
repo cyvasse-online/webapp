@@ -175,7 +175,7 @@ CyvasseWSClient.prototype = {
 
 							$(gameGridSelector + " .empty-list-notice").before(
 								"<div class='match' data-id='" + match.matchID + "'>" +
-									"<div class='match-title'>Match against someone</div>" +
+									"<div class='match-title'>" + htmlEncode(match.title) + "</div>" +
 									"<strong>Play as:</strong> " + playerStr +
 								"</div>"
 							);
