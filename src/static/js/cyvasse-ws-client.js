@@ -227,9 +227,14 @@ CyvasseWSClient.prototype = {
 						// assert that we're on the game page
 						$("#canvas").replaceWith("<div class='content-missing-msg'>Game not found</div>");
 						break;
+					// TODO: Show meaningful error messages for other common errors
 					//case "gameEmpty"
 					//case "gameFull":
-					// TODO: Show meaningful error messages for other common errors
+					case "gameInSetup":
+						$("#canvas").replaceWith(
+							"<div class='content-missing-msg'>Pausing / resuming games after the setup isn't supported yet.</div>"
+						);
+						break;
 					default:
 						var requestJson = JSON.stringify(requestData);
 
@@ -258,11 +263,6 @@ CyvasseWSClient.prototype = {
 					loadGame(replyData.matchID);
 					break;
 				case "joinGame":
-					if (replyData.gameStatus.setup === false) {
-						$("#canvas").replaceWith("<div class='content-missing-msg'>Pausing / resuming games after the setup isn't supported yet.</div>");
-						return;
-					}
-
 					gameMetaData.color        = replyData.color;
 					gameMetaData.playerID     = replyData.playerID;
 					gameMetaData.ruleSet      = replyData.ruleSet;
