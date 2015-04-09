@@ -235,6 +235,12 @@ CyvasseWSClient.prototype = {
 							"<div class='content-missing-msg'>Pausing / resuming games after the setup isn't supported yet.</div>"
 						);
 						break;
+					case "maintenanceMode":
+						alert(
+							"The server will be restarted soon, we're\n" +
+							"just waiting for running games to finish.\n\n" +
+							"Please try again in a while.");
+						break;
 					default:
 						var requestJson = JSON.stringify(requestData);
 
