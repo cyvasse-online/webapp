@@ -16,18 +16,16 @@ figure {
 
 	max-width: 100%;
 
-	// IE doesn't support min-content, not even with prefix.
-	// This works too, as long as the images are all 420px wide.
 	width: 420px;
-	// works as expected, breaking text into multiple lines when it's wider than the img
-	width: -moz-min-content;
-	// (currently) reduces the figures below the img's size, which looks awkward
-	//width: -webkit-min-content;
-	width: min-content;
-
 	height: auto;
 
-	margin: .5em .5em 1.5em;
+	margin: .5em 1em 1.5em;
+
+	text-align: center;
+
+	&:empty {
+		margin: 0 1em;
+	}
 }
 
 ul, ol {
@@ -117,16 +115,11 @@ table {
 	}
 }
 
-.picture-grid {
+.picture-grid,
+.movement-interference-grid {
 	@include display-flex;
 	@include flex-wrap(wrap);
 	@include justify-content(space-around);
-
-	text-align: center;
-}
-
-.movement-interference-grid {
-	@extend .picture-grid;
 }
 
 @include respond-to-more-than($break-medium) {

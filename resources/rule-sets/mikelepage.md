@@ -43,6 +43,8 @@ Each player has
 Piece movement
 --------------
 
+### Tier 1 pieces
+
 <div class='picture-grid'>
 	<figure>
 		<figcaption>Rabble move 1 square orthogonally</figcaption>
@@ -53,7 +55,12 @@ Piece movement
 		<figcaption>The king also moves 1 square orthogonally</figcaption>
 		<img src='/img/rule_sets/mikelepage/king.png' alt='King' />
 	</figure>
+	<figure></figure>
+</div>
 
+### Tier 2 pieces
+
+<div class='picture-grid'>
 	<figure>
 		<figcaption>Crossbows move up to 3 squares orthogonally</figcaption>
 		<img src='/img/rule_sets/mikelepage/crossbows.png' alt='Crossbows' />
@@ -68,7 +75,11 @@ Piece movement
 		<figcaption>Light Horses move up to 3 squares hexagonally around either fortress</figcaption>
 		<img src='/img/rule_sets/mikelepage/light_horse.png' alt='Light Horse' />
 	</figure>
+</div>
 
+### Tier 3 pieces
+
+<div class='picture-grid'>
 	<figure>
 		<figcaption>Trebuchets move orthogonally as far as possible</figcaption>
 		<img src='/img/rule_sets/mikelepage/trebuchet.png' alt='Trebuchet' />
@@ -83,12 +94,19 @@ Piece movement
 		<figcaption>Heavy Horses move as far as possible hexagonally around either fortress</figcaption>
 		<img src='/img/rule_sets/mikelepage/heavy_horse.png' alt='Heavy Horse' />
 	</figure>
+</div>
 
+### Dragon (tier 4)
+
+<div class='picture-grid'>
 	<figure>
 		<figcaption>The dragon moves up to a range of 4 spaces (must be contiguous, no "jumping" of other pieces)</figcaption>
 		<img src='/img/rule_sets/mikelepage/dragon.png' alt='Dragon' />
 	</figure>
+	<figure></figure>
+	<figure></figure>
 </div>
+
 
 ### Mountains
 
