@@ -32,6 +32,10 @@ body {
 .page-footer {
 	padding: .2em 0;
 	border-top: 2px solid $borderGrey;
+
+	.container {
+		justify-content: space-between;
+	}
 }
 
 .container {
