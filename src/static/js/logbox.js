@@ -97,25 +97,25 @@ LogBox.prototype = {
 	},
 
 	addGameMessage: function(msgData) {
-		var msgStr = "The opponent ";
+		var msgStr = "<strong>" + htmlEncode(gameMetaData.opponentInfo.username) + "</strong> ";
 
 		switch(msgData.action) {
 			case "setIsReady":
 				msgStr += "finished setting up.";
 				break;
 			case "move":
-				msgStr += "moved his " + capitalizeEachWord(msgData.param.pieceType) +
+				msgStr += "moved their " + capitalizeEachWord(msgData.param.pieceType) +
 					" from " + msgData.param.oldPos +
 					" to " + msgData.param.newPos + ".";
 				break;
 			case "moveCapture":
-				msgStr += "moved his " + capitalizeEachWord(msgData.param.atkPiece.pieceType) +
+				msgStr += "moved their " + capitalizeEachWord(msgData.param.atkPiece.pieceType) +
 					" from " + msgData.param.atkPiece.oldPos +
 					" to " + msgData.param.atkPiece.newPos + ", " +
 					" taking your " + capitalizeEachWord(msgData.param.defPiece.pieceType) + ".";
 				break;
 			case "promote":
-				msgStr += "promoted his " + capitalizeEachWord(msgData.param.origType) +
+				msgStr += "promoted their " + capitalizeEachWord(msgData.param.origType) +
 					" to a " + capitalizeEachWord(msgData.param.newType) + ".";
 				break;
 			case "resign":
