@@ -84,5 +84,9 @@
 		<noscript>
 			<# TODO: Error message or something like that #>
 		</noscript>
+
+		<h2>User survey!</h2>
+		<p>We'd like to hear what you think about our site and which features you'd want to see next!</p>
+		<p>You can participate <a href='https://www.surveymonkey.com/s/GL7DQ98'>here</a>. Thanks!</p>
 	</div>
 </main>

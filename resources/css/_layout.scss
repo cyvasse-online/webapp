@@ -34,7 +34,7 @@ body {
 	border-top: 2px solid $borderGrey;
 
 	.container {
-		justify-content: space-between;
+		@include justify-content(space-between);
 	}
 }
 
