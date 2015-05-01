@@ -233,12 +233,12 @@ be replaced the turn immediately after the king was captured, the game is over a
 Notes on Changes from previous version
 --------------------------------------
 
-1) "Bringing out" the Dragon - a closer reading of the books has revealed that the Dragon has been
-said to be "brought out" even when it was already stated to be on the board. We have revised our
-rules such that a Dragon must be placed on the board during setup, and that "bringing it out" simply
-means bringing it into the fray. Because of our play testing, we think this also makes the game more
-tactically interesting, although we can re-add it as an option in later builds if people request it.
+1. "Bringing out" the Dragon - a closer reading of the books has revealed that the Dragon has been
+   said to be "brought out" even when it was already stated to be on the board. We have revised our
+   rules such that a Dragon must be placed on the board during setup, and that "bringing it out" simply
+   means bringing it into the fray. Because of our play testing, we think this also makes the game more
+   tactically interesting, although we can re-add it as an option in later builds if people request it.
 
-2) Ruining the fortress is now instant to encourage people to mount a better defence of
-their King/Fortress combination. We have also included a "ruined fortress" icon, and
-the horse movement remains unchanged when a fortress is ruined.
+2. Ruining the fortress is now instant to encourage people to mount a better defence of
+   their King/Fortress combination. We have also included a "ruined fortress" icon, and
+   the horse movement remains unchanged when a fortress is ruined.
