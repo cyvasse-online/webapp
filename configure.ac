@@ -24,6 +24,10 @@ PKG_CHECK_MODULES([TNTNET], [tntnet >= 2.3])
 PKG_CHECK_MODULES([JSONCPP], [jsoncpp])
 
 AC_CHECK_HEADER([yaml-cpp/yaml.h], [], AC_MSG_ERROR([yaml-cpp headers not found]))
+
+AC_CHECK_FUNC(sigaction, have_sigaction=yes, have_sigaction=no)
+AS_IF([test x$have_sigaction = xyes], AC_DEFINE(HAVE_SIGACTION))
+
 AC_PROG_SED
 
 # simply a markdown implementation available in the
