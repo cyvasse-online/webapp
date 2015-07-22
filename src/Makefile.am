@@ -45,6 +45,6 @@ ECPPFLAGS = \
 ecpp/%.cpp: ecpp/%.ecpp
 	$(AM_V_GEN)$(ECPPC) $(ECPPFLAGS) -n "$*" -m text/html -o $@ $<
 %.deps: %.ecpp
-	$(AM_V_GEN)$(ECPPC) -M $(ECPPFLAGS) $< | $(SED) '1s/\(.*\).cpp:/\1.cpp \1.deps:/' > $@
+	$(AM_V_GEN)$(ECPPC) -M $(ECPPFLAGS) $< | $(SED) '1s/\.\.\/\(.*\).cpp:/\1.cpp \1.deps:/' > $@
 
 -include $(cyvasse_online_ecpp_sources:.ecpp=.deps)
