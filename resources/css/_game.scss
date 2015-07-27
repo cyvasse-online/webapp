@@ -23,7 +23,7 @@ canvas {
 	@include display-flex;
 	@include flex-direction(column);
 
-	border-left: 2px solid $borderGrey;
+	border-left: 2px solid $borderColor;
 }
 
 .logbox-header-bar {
@@ -33,7 +33,7 @@ canvas {
 	padding-left: .6em;
 	z-index: 2;
 	background-color: #fff;
-	border-bottom: 2px solid $borderGrey;
+	border-bottom: 2px solid $borderColor;
 }
 
 .username-input-wrap {
@@ -53,7 +53,7 @@ canvas {
 .rules-link-box {
 	padding: .4em .8em;
 
-	border-left: 2px solid $borderGrey;
+	border-left: 2px solid $borderColor;
 }
 
 .logbox {
@@ -75,7 +75,7 @@ canvas {
 	text-align: center;
 
 	border: 0 none;
-	border-bottom: 2px solid $borderGrey;
+	border-bottom: 2px solid $borderColor;
 	background-color: #eee;
 	cursor: pointer;
 	transition: background-color .2s, top .4s;
@@ -131,7 +131,7 @@ canvas {
 	border: {
 		style: solid;
 		width: 2px 0 0 0;
-		color: $borderGrey;
+		color: $borderColor;
 	}
 
 	resize: none;

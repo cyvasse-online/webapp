@@ -12,7 +12,7 @@ html {
 	width: 100%;
 
 	background: #fff;
-	color: #000;
+	color: $textColor;
 	font-family: "Encode Sans";
 }
 
@@ -29,11 +29,11 @@ strong, th {
 }
 
 a {
-	color: #000;
+	color: $textColor;
 	transition: color .2s;
 
 	&:hover {
-		color: #666;
+		color: lighten($textColor, 30%);
 	}
 }
 

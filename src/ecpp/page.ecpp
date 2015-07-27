@@ -46,7 +46,7 @@
 			{
 				// call content component
 				ret = callComp(content, request, reply, qparam);
-				assert(ret == HTTP_OK);
+				assert(ret == DEFAULT);
 			}
 			catch(tnt::NotFoundException&)
 			{
