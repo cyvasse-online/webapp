@@ -1,1 +1,1 @@
-SUBDIRS = resources src
+SUBDIRS = resources src game

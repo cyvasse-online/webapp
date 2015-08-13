@@ -47,10 +47,20 @@ AS_IF([test -z "$SASS"], [
 	AC_MSG_ERROR([sass not found])
 ])
 
+## PureScript stuff
+AC_CHECK_PROGS(PULP, [pulp])
+AS_IF([test -z "$PULP"], [
+	AC_MSG_ERROR([pulp not found])
+])
+
+AC_MSG_NOTICE([downloading purescript dependencies])
+(cd $srcdir/game; $PULP dep install)
+
 AC_CONFIG_FILES([
 	Makefile
 	config.yml
 	log.xml
+	game/Makefile
 	resources/Makefile
 	src/Makefile
 ])

@@ -1,17 +1,8 @@
-.canvas-wrap {
-	@extend .vcenter-content;
-
+.board {
 	@include flex(1);
-	@include align-items(center);
 }
 
-/* the canvas *must not* have any border or padding, or mouse coords will be wrong */
-canvas {
-	padding: 0;
-	border: 0 none;
-}
-
-/* will be shown instead of the canvas in case the game can't be loaded / started */
+/* will be shown instead of the board in case the game can't be loaded / started */
 .content-missing-msg {
 	font-size: 5em;
 	text-align: center;

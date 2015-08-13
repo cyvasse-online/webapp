@@ -5,33 +5,6 @@ var wsClient;
 var gameMetaData = {};
 var initGameStatus = {};
 
-var Module = {
-	preRun: [function() {
-		Module.canvas = document.getElementById("canvas");
-	}],
-	postRun: [],
-	print: function(text) {
-		console.log(text);
-	},
-	printErr: function(text) {
-		console.error(text);
-	},
-	setStatus: function(text) {
-		if(!text) {
-			// ugly hack to prevent the status set
-			// in the RenderedMatch constructor to
-			// be removed by some initialization code
-			if(statusElement.html() == "Setup")
-				return;
-		}
-
-		statusElement.html(text);
-	},
-	filePackagePrefixURL: "/",
-	memoryInitializerPrefixURL: "/",
-	doNotCaptureKeyboard: true
-};
-
 // tiny jQuery extension from somewhere off the net
 $.fn.exists = function () {
 	// int-to-bool conversion through twice applying the ! operator
@@ -172,12 +145,4 @@ $(document).ready(function() {
 		// deactive itself through the above click handler
 		ev.stopPropagation();
 	});
-
-	window.onerror = function() {
-		Module.setStatus("Exception thrown, see JavaScript console");
-		Module.setStatus = function(text) {
-			if(text)
-				Module.printErr("[post-exception status] " + text);
-		};
-	};
 });
