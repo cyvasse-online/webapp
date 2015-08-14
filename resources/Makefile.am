@@ -12,8 +12,8 @@ all: \
 	@mkdir -p $(@D)
 	$(AM_V_GEN)$(MARKDOWN) -x tables -f $@ $<
 
-## sourcemaps generate paths to .scss files the browser can't find
-## resulting in no debug possibility at all [tested in FF 35.0]
-%.css: %.scss
+## Copy scss files to the build directory so browsers can load them for debugging
+%.css : %.scss
 	@mkdir -p $(@D)
-	$(AM_V_GEN)$(SASS) --sourcemap=none $< $@
+	cp --update $< $(@D)/$(<F)
+	$(AM_V_GEN)$(SASS) $< $@
