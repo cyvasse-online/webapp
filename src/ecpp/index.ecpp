@@ -26,7 +26,6 @@
 	<div> <# ruleset-specific part #>
 		<# TODO: Has to be rewritten when there are more rule sets #>
 		<p><strong>Looking for the rules?</strong> <a href='/rule_sets/mikelepage'>Click here!</a></p>
-		<p><strong>Take our user survey</strong> <a href='https://www.surveymonkey.com/s/GL7DQ98'>here!</a></p>
 
 		<section class='interactive-content'>
 			<h2>Join a random game</h2>
