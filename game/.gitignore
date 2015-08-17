@@ -4,3 +4,6 @@
 /.psci_modules/
 /.psci
 /cyvasse.js
+
+# override Makefile.in rule from toplevel .gitignore
+!Makefile.in

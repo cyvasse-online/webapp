@@ -4,6 +4,7 @@ module Cyvasse.Piece
 ) where
 
 import Prelude
+import Data.Generic
 
 import Cyvasse.Color
 
@@ -18,18 +19,10 @@ data PieceType = Mountains
                | Dragon
                | King
 
+derive instance genericPieceType :: Generic PieceType
 instance showPieceType :: Show PieceType where
-    show Mountains  = "Mountains"
-    show Rabble     = "Rabble"
-    show Crossbows  = "Crossbows"
-    show Spears     = "Spears"
-    show LightHorse = "LightHorse"
-    show Trebuchet  = "Trebuchet"
-    show Elephant   = "Elephant"
-    show HeavyHorse = "HeavyHorse"
-    show Dragon     = "Dragon"
-    show King       = "King"
+    show = gShow
 
-data Piece = Piece { pcColor :: Color
-                   , pcType  :: PieceType
+data Piece = Piece { color :: Color
+                   , type  :: PieceType
                    }

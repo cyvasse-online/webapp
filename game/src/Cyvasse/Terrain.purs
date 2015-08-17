@@ -1,12 +1,12 @@
 module Cyvasse.Terrain ( TerrainType(..) ) where
 
 import Prelude
+import Data.Generic
 
 data TerrainType = Hill
                  | Forest
                  | Grassland
 
+derive instance genericTerrainType :: Generic TerrainType
 instance showTerrainType :: Show TerrainType where
-    show Hill      = "Hill"
-    show Forest    = "Forest"
-    show Grassland = "Grassland"
+    show = gShow
