@@ -6,7 +6,7 @@ check:
 	(cd @srcdir@; pulp test)
 
 clean:
-	rm cyvasse.js
+	test -z cyvasse.js || rm -f cyvasse.js
 
 cyvasse.js: \
 		src/Cyvasse/Color.purs \
