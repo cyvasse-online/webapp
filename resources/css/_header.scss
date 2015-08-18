@@ -4,13 +4,6 @@
 	margin-top: -5px; // fix this fonts weird height
 }
 
-#status {
-	padding: 0 .5em;
-	font-size: .6em;
-	text-align: center;
-	color: #888;
-}
-
 .external-sites-icons {
 	@include flex(0 0 auto);
 	font-size: 1.2em;

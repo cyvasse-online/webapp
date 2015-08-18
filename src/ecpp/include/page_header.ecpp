@@ -17,7 +17,6 @@
 <header class='page-header'>
 	<div class='container<?? (request.getArg("content") == "game") ? " full-width" ?>'>
 		<a href='/' class='logo'>Cyvasse onlinE</a>
-		<span id='status'></span>
 		<div class='external-sites-icons'>
 
 			<div class='external-sites-icons-h'>
