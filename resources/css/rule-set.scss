@@ -43,7 +43,7 @@ table {
 
 	margin: 0 .35em;
 
-	& > div {
+	> div {
 		margin: .4em;
 		padding: .2em;
 
@@ -54,12 +54,12 @@ table {
 .piece-list {
 	@extend %flow-list;
 
-	& img {
+	img {
 		width: 60px;
 		height: auto;
 	}
 
-	& > div {
+	> div {
 		@include display-flex;
 		@include align-items(center);
 
@@ -67,11 +67,11 @@ table {
 		padding-left: .6em;
 		font-size: 1.05em;
 
-		& > :first-child {
+		> :first-child {
 			padding-right: .5em;
 		}
 
-		& > :nth-child(2) {
+		> :nth-child(2) {
 			@include flex(1);
 		}
 	}
@@ -83,23 +83,23 @@ table {
 	@include justify-content(space-around);
 	text-align: center;
 
-	& img {
+	img {
 		width: 60px;
 		height: auto;
 	}
 
-	& .icon {
+	.icon {
 		// to make the abolute positioning of the pieces works
 		position: relative;
 	}
 
-	& img.piece {
+	img.piece {
 		position: absolute;
 		top: 0;
 		left: 0;
 	}
 
-	& > div {
+	> div {
 		@include display-flex;
 		@include align-items(center);
 		@include justify-content(space-between);
@@ -109,7 +109,7 @@ table {
 		// - 2 * 5px (margin)
 		width: 278px;
 
-		& > :nth-child(2) {
+		> :nth-child(2) {
 			@include flex(1);
 		}
 	}
@@ -124,11 +124,11 @@ table {
 
 @include respond-to-more-than($break-medium) {
 	.movement-interference-grid {
-		& img:nth-child(1) { @include order(1); }
-		& img:nth-child(2) { @include order(4); }
-		& img:nth-child(3) { @include order(2); }
-		& img:nth-child(4) { @include order(5); }
-		& img:nth-child(5) { @include order(3); }
-		& img:nth-child(6) { @include order(6); }
+		img:nth-child(1) { @include order(1); }
+		img:nth-child(2) { @include order(4); }
+		img:nth-child(3) { @include order(2); }
+		img:nth-child(4) { @include order(5); }
+		img:nth-child(5) { @include order(3); }
+		img:nth-child(6) { @include order(6); }
 	}
 }
