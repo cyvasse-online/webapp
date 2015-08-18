@@ -1,4 +1,4 @@
-@import "font-face";
+@import "flexbox", "font-face", "variables";
 
 /* border-box fix */
 *, *:before, *:after {
@@ -45,24 +45,9 @@ th, td {
 	padding: .25em .75em;
 }
 
-/* CSS classes to be applied to various elements */
+/* general purpose CSS class */
 .indented {
 	margin-left: .75em;
-}
-
-.first-last-child-without-margin {
-	& > :first-child {
-		margin-top: 0;
-	}
-	& > :last-child {
-		margin-bottom: 0;
-	}
-}
-
-.vcenter-content {
-	@include display-flex;
-	@include flex-direction(column);
-	@include justify-content(center);
 }
 
 /* animations */
