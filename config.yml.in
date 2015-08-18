@@ -1,2 +1,2 @@
 listenPort: 2517
-staticDir: "@top_srcdir@/src/static"
+staticDir: "@top_srcdir@/static"
