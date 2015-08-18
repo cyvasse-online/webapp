@@ -45,9 +45,18 @@ th, td {
 	padding: .25em .75em;
 }
 
-/* general purpose CSS class */
+/* general purpose CSS classes */
 .indented {
 	margin-left: .75em;
+}
+
+.first-last-child-without-margin {
+	& > :first-child {
+		margin-top: 0;
+	}
+	& > :last-child {
+		margin-bottom: 0;
+	}
 }
 
 /* animations */
