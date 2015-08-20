@@ -24,6 +24,9 @@
 <link rel='stylesheet' href='/css/font-awesome.min.css' />
 <link rel='stylesheet' href='/css/style.css' />
 <?? (request.getArg("content") == "rule-set") ? "<link rel='stylesheet' href='/css/rule-set.css' />" ?>
+
+<%include>favicon.html</%include>
+
 <noscript>
 	<style>
 		.interactive-content {
