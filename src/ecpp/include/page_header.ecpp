@@ -25,8 +25,7 @@
 				<a target='_blank' href='https://www.youtube.com/channel/UC9SC-5c6-2-Q8AEpdsTnnpg'><i class='fa fa-youtube-square'></i></a>
 
 				<# Some extra spacing #>
-				&nbsp;<a target='_blank' href='https://trello.com/cyvasseonline'><i class='fa fa-trello'></i></a>
-				<a target='_blank' href='https://github.com/cyvasse-online'><i class='fa fa-github'></i></a>
+				&nbsp;<a target='_blank' href='https://github.com/cyvasse-online'><i class='fa fa-github'></i></a>
 			</div>
 
 			<div class='external-sites-icons-v'>
@@ -38,7 +37,6 @@
 						<a target='_blank' href='https://www.facebook.com/CyvasseOnline'><i class='fa fa-fw fa-facebook-square'></i></a>
 						<a target='_blank' href='https://plus.google.com/+Cyvasse-Online/posts'><i class='fa fa-fw fa-google-plus-square'></i></a>
 						<a target='_blank' href='https://www.youtube.com/channel/UC9SC-5c6-2-Q8AEpdsTnnpg'><i class='fa fa-fw fa-youtube-square'></i></a>
-						<a target='_blank' href='https://trello.com/cyvasseonline'><i class='fa fa-fw fa-trello'></i></a>
 						<a target='_blank' href='https://github.com/cyvasse-online'><i class='fa fa-fw fa-github'></i></a>
 					</div>
 				</div>
