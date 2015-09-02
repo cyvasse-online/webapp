@@ -20,6 +20,7 @@
 		<div class='external-sites-icons'>
 
 			<div class='external-sites-icons-h'>
+				<a target="_blank" href="https://reddit.com/r/CyvasseOnline"><i class="fa fa-reddit-square"></i></a>
 				<a target='_blank' href='https://www.facebook.com/CyvasseOnline'><i class='fa fa-facebook-square'></i></a>
 				<a target='_blank' href='https://plus.google.com/+Cyvasse-Online/posts'><i class='fa fa-google-plus-square'></i></a>
 				<a target='_blank' href='https://www.youtube.com/channel/UC9SC-5c6-2-Q8AEpdsTnnpg'><i class='fa fa-youtube-square'></i></a>
@@ -34,6 +35,7 @@
 
 				<div class='external-sites-dd-items-wrap'>
 					<div class='external-sites-dd-items'>
+						<a target="_blank" href="https://reddit.com/r/CyvasseOnline"><i class="fa fa-fw fa-reddit-square"></i></a>
 						<a target='_blank' href='https://www.facebook.com/CyvasseOnline'><i class='fa fa-fw fa-facebook-square'></i></a>
 						<a target='_blank' href='https://plus.google.com/+Cyvasse-Online/posts'><i class='fa fa-fw fa-google-plus-square'></i></a>
 						<a target='_blank' href='https://www.youtube.com/channel/UC9SC-5c6-2-Q8AEpdsTnnpg'><i class='fa fa-fw fa-youtube-square'></i></a>
