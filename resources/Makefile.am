@@ -7,7 +7,8 @@ htmlFiles = \
 	\
 	static-text/legal-notice-de.html \
 	static-text/legal-notice-en.html \
-	static-text/what-is-cyvasse.html
+	static-text/what-is-cyvasse.html \
+	static-text/wip.html
 
 generatedFiles = \
 	$(cssFiles) \
