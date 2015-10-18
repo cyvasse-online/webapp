@@ -9,9 +9,13 @@ clean:
 	test -z cyvasse.js || rm -f cyvasse.js
 
 cyvasse.js: \
+		src/Cyvasse/Board.purs \
 		src/Cyvasse/Color.purs \
+		src/Cyvasse/Moves.purs \
 		src/Cyvasse/Piece.purs \
+		src/Cyvasse/Square.purs \
 		src/Cyvasse/Terrain.purs \
 		src/Cyvasse/Utils.purs \
+		src/Cyvasse/Svg/Board.purs \
 		src/Main.purs
 	(cd @srcdir@; pulp build --to @abs_builddir@/cyvasse.js)

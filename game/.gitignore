@@ -5,5 +5,7 @@
 /.psci
 /cyvasse.js
 
+*.tix
+
 # override Makefile.in rule from toplevel .gitignore
 !Makefile.in

@@ -1,5 +1,6 @@
 module Cyvasse.Utils
-( stringify
+( const2
+, stringify
 ) where
 
 import           Prelude
@@ -9,6 +10,9 @@ import qualified Data.Char as C
 import           Data.Foldable (elem, foldl)
 import           Data.Maybe
 import           Data.String (joinWith, toLower, fromChar, toCharArray)
+
+const2 :: forall a b c. a -> b -> c -> a
+const2 = const >>> const
 
 stringify :: forall a. (Show a) => a -> String
 stringify = show >>> splitWhen isUpper >>> joinWith " "
